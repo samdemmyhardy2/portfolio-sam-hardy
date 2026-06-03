@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Squiggle playground — scroll paint</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/squiggle-playground.css?v=14">
+</head>
+<body class="playground-page">
+
+  <header class="playground-intro">
+    <h1>Squiggle playground</h1>
+    <p>Scroll — paint head tracks screen centre. Text labels are reference points only.</p>
+    <p class="playground-hint">v15 — real squiggle path (loop + S-curve) · Cmd+Shift+R</p>
+  </header>
+
+  <section
+    class="timeline timeline--squiggle"
+    data-squiggle-timeline
+    data-squiggle-loop-speed="2.6"
+  >
+
+    <div class="timeline-squiggle-host" aria-hidden="true">
+      <svg
+        class="timeline-squiggle-svg"
+        viewBox="0 0 52 1024"
+        preserveAspectRatio="xMidYMin slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          class="squiggle-track"
+          data-squiggle-track
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          class="squiggle-paint"
+          data-squiggle-path
+          data-squiggle-path-src="../img/squiggle-v3-path.txt?v=15"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+    <div class="timeline-header">
+      <h3>START — scroll down</h3>
+      <div class="timeline-start-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content left">
+        <h3>1. Top of path</h3>
+        <p>Line begins drawing as you scroll.</p>
+      </div>
+      <div class="timeline-center"><span class="timeline-dot"></span></div>
+      <div class="timeline-content right"></div>
+    </div>
+
+    <div class="timeline-item timeline-item--tall reverse">
+      <div class="timeline-content left"></div>
+      <div class="timeline-center"><span class="timeline-dot" data-squiggle-loop-anchor></span></div>
+      <div class="timeline-content right">
+        <h3>2. Loop</h3>
+        <p>Small loop — should speed up while near screen centre.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item timeline-item--tall">
+      <div class="timeline-content left">
+        <h3>3. Down the spine</h3>
+        <p>Centre lock between loops.</p>
+      </div>
+      <div class="timeline-center"><span class="timeline-dot"></span></div>
+      <div class="timeline-content right"></div>
+    </div>
+
+    <div class="timeline-item timeline-item--tall reverse">
+      <div class="timeline-content left"></div>
+      <div class="timeline-center"><span class="timeline-dot"></span></div>
+      <div class="timeline-content right">
+        <h3>4. S-curve</h3>
+        <p>Wide bend — paint head should stay centred.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item timeline-item--tall">
+      <div class="timeline-content left">
+        <h3>5. Lower spine</h3>
+      </div>
+      <div class="timeline-center"><span class="timeline-dot"></span></div>
+      <div class="timeline-content right"></div>
+    </div>
+
+    <div class="timeline-item reverse">
+      <div class="timeline-content left"></div>
+      <div class="timeline-center"><span class="timeline-dot"></span></div>
+      <div class="timeline-content right">
+        <h3>6. End</h3>
+        <p>Full line when the path passes centre near the bottom.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="playground-intro" style="padding-bottom: 80px;">
+    <p class="playground-hint"><a href="pageone.html" style="color: inherit;">← Back to Christie’s</a> · <a href="../js/timeline-squiggle-v10-stable.js" style="color: inherit;">v10 stable logic</a></p>
+  </footer>
+
+  <script src="../js/timeline-squiggle.js?v=14"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+/* Squiggle playground — does not affect production case-study pages */
+
+.playground-page {
+  margin: 0;
+  min-height: 100vh;
+  background: #6b21d4 !important;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  --page-bg: #6b21d4;
+  --page-text: #ffffff;
+}
+
+/* style.css paints timeline rows/columns with --page-bg — hide on playground */
+.timeline--squiggle .timeline-item,
+.timeline--squiggle .timeline-content,
+.timeline--squiggle .timeline-content.left,
+.timeline--squiggle .timeline-content.right,
+.timeline--squiggle .timeline-header,
+.timeline--squiggle .timeline-header h3 {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.timeline--squiggle .timeline-item {
+  max-height: none;
+}
+
+.timeline--squiggle .timeline-content h3,
+.timeline--squiggle .timeline-content p,
+.timeline--squiggle .timeline-header h3 {
+  color: #ffffff;
+}
+
+.playground-intro {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 20px 24px;
+}
+
+.playground-intro h1 {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
+.playground-intro p {
+  font-size: 16px;
+  line-height: 1.4;
+  max-width: 520px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.playground-hint {
+  margin-top: 16px;
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.timeline--squiggle::before,
+.timeline--squiggle::after {
+  display: none;
+}
+
+.timeline--squiggle {
+  overflow: visible;
+}
+
+.timeline--squiggle .timeline-item--tall {
+  min-height: 55vh;
+}
+
+.timeline--squiggle .timeline-content.left:empty,
+.timeline--squiggle .timeline-content.right:empty {
+  min-height: 0;
+}
+
+.timeline-squiggle-host {
+  position: absolute;
+  left: 50%;
+  top: 120px;
+  bottom: 48px;
+  /* Wide enough for slice scale so S-curve isn’t cropped (see viewBox 52×1024) */
+  width: 200px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+
+.timeline--squiggle .timeline-content,
+.timeline--squiggle .timeline-center {
+  position: relative;
+  z-index: 6;
+}
+
+.timeline-squiggle-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  overflow: visible;
+}
+
+.squiggle-track {
+  opacity: 0.2;
+}
+
+.squiggle-paint {
+  opacity: 1;
+}
+
+.timeline--squiggle .timeline-dot {
+  background: #ffffff;
+  position: relative;
+  z-index: 3;
+}
+
+@media (max-width: 700px) {
+  .timeline--squiggle .timeline-item {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    background-color: transparent !important;
+  }
+
+  .timeline--squiggle .timeline-content {
+    background-color: transparent !important;
+  }
+}
