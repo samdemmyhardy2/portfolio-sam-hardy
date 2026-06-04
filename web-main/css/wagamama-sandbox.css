@@ -143,6 +143,17 @@
   transform: translateX(calc(-50% - 10px));
 }
 
+/* Figma spine segment 11 — final downward detail; 50px overlap with seg 10 (4268 + 500 − 50) */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-11 {
+  top: 4766px;
+  bottom: auto;
+  width: 36px;
+  height: 500px;
+  z-index: 16;
+  overflow: visible;
+  transform: translateX(calc(-50% - 10px));
+}
+
 .timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma .timeline-squiggle-svg {
   overflow: visible;
 }
