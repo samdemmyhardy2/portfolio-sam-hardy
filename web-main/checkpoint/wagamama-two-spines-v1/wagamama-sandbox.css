@@ -1,0 +1,93 @@
+/* Wagamama sandbox — Christie’s copy for squiggle experiments (pageone untouched) */
+
+.timeline--wagamama-sandbox {
+  overflow: visible;
+}
+
+.timeline--wagamama-sandbox::before,
+.timeline--wagamama-sandbox::after {
+  display: none;
+}
+
+.timeline--wagamama-sandbox .timeline-dot,
+.timeline--wagamama-sandbox .timeline-start-dot {
+  display: none;
+}
+
+/* Playground squiggle on Wagamama — transparent panels, page text colour */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-item,
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-content,
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-content.left,
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-content.right,
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-header,
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-header h3 {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-content h3,
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-content p,
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-header h3 {
+  color: inherit;
+}
+
+/* Figma spine segment 1 (70×322) */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-1,
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma:not(.timeline-squiggle-host--figma-2) {
+  top: 259px;
+  bottom: auto;
+  width: 70px;
+  height: 322px;
+  z-index: 7;
+  overflow: visible;
+}
+
+/* Figma spine segment 2 (61×545) — continues below segment 1 */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-2 {
+  top: 581px;
+  bottom: auto;
+  width: 61px;
+  height: 545px;
+  z-index: 7;
+  overflow: visible;
+}
+
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma .timeline-squiggle-svg {
+  overflow: visible;
+}
+
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #463448;
+  overflow: visible;
+}
+
+.timeline--wagamama-sandbox.timeline--squiggle .squiggle-track {
+  opacity: 0.2;
+}
+
+.timeline-squiggle-static {
+  pointer-events: none;
+  color: #463448;
+}
+
+.timeline-header .timeline-squiggle-static--first {
+  position: relative;
+  left: auto;
+  transform: none;
+  width: 68px;
+  margin-top: 10px;
+  z-index: 2;
+}
+
+.timeline-header .timeline-squiggle-static--first svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.timeline-squiggle-static path {
+  fill: none;
+}

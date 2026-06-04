@@ -1,0 +1,16 @@
+Wagamama three-spine squiggle checkpoint v1 (stage 3)
+=====================================================
+
+Static knot + Figma spine segments 1–3:
+  seg 1: 259px (70×322)
+  seg 2: 561px (61×545)
+  seg 3: 506px (56×488)
+
+Restore from repo root:
+
+  cp web-main/checkpoint/wagamama-three-spines-v1/wagamama-page.html web-main/projects/
+  cp web-main/checkpoint/wagamama-three-spines-v1/wagamama-sandbox.css web-main/css/
+  cp web-main/checkpoint/wagamama-three-spines-v1/timeline-squiggle.js web-main/js/
+  cp web-main/checkpoint/wagamama-three-spines-v1/wagamama-spine-*.svg web-main/img/squiggles/
+
+Hard refresh: http://localhost:3001/projects/wagamama-page.html (?v=22 on script)

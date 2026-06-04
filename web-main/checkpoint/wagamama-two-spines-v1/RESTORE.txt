@@ -1,0 +1,23 @@
+Wagamama two-spine squiggle checkpoint v1 (working)
+====================================================
+
+Static knot under chevrons + Figma spine segment 1 (70×322, top 259px)
++ segment 2 (61×545) with multi-path timeline-squiggle.js.
+
+After restore, Part 2 join may need top: 561px (20px up from naive 581px) — see
+.cursor/rules/squiggle-segments-joined.mdc and live wagamama-sandbox.css.
+
+Saved: 2026-06-04
+
+Restore from repo root:
+
+  cp web-main/checkpoint/wagamama-two-spines-v1/wagamama-page.html web-main/projects/
+  cp web-main/checkpoint/wagamama-two-spines-v1/wagamama-sandbox.css web-main/css/
+  cp web-main/checkpoint/wagamama-two-spines-v1/timeline-squiggle.js web-main/js/
+  cp web-main/checkpoint/wagamama-two-spines-v1/wagamama-spine-01.svg web-main/img/squiggles/
+  cp web-main/checkpoint/wagamama-two-spines-v1/wagamama-spine-02.svg web-main/img/squiggles/
+
+Then hard refresh:
+  npm run fallback → http://localhost:3001/projects/wagamama-page.html
+
+Note: wagamama-page.html may reference timeline-squiggle.js?v=19 — bump cache query if needed after restore.

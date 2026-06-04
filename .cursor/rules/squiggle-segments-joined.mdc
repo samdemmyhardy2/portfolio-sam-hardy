@@ -1,0 +1,48 @@
+---
+description: Squiggle segments must join visually — static knot + chained scroll-painted Figma spines (Wagamama pattern)
+alwaysApply: true
+---
+
+# Joined squiggle segments (portfolio standard)
+
+Sam wants **all timeline squiggles joined like Wagamama** — each segment visually continues from the previous, with scroll paint revealing later segments only after earlier ones.
+
+## Reference implementation
+
+- **Page:** `web-main/projects/wagamama-page.html`
+- **Layout/CSS:** `web-main/css/wagamama-sandbox.css`
+- **JS:** `web-main/js/timeline-squiggle.js` (multiple `[data-squiggle-path]` per timeline)
+- **Assets:** `web-main/img/squiggles/wagamama-spine-01.svg` … `wagamama-spine-04.svg`
+- **Checkpoint:** `web-main/checkpoint/wagamama-two-spines-v1/` (restore via `RESTORE.txt`; Part 2 tuned top is **561px** in live CSS, not 581px in the saved snapshot)
+
+## Pattern (repeat for every case study)
+
+1. **Static knot** — first squiggle only, in `.timeline-header` under chevrons (`.timeline-squiggle-static--first`). No animation. `fill="none"`, stroke `currentColor` / `#463448`.
+
+2. **Animated segments** — one `.timeline-squiggle-host` per Figma spine, each with:
+   - Natural Figma `viewBox` and size (e.g. 70×322, 61×545) — **not** playground 50×1024 slice stretch
+   - `preserveAspectRatio="xMidYMin meet"`
+   - Matching `squiggle-track` + `data-squiggle-path` (same `d`)
+   - `data-squiggle-path-src` pointing at `../img/squiggles/<case>-spine-NN.svg`
+
+3. **Stacking / position (Sam’s default — avoid big manual tweaks)**
+   - First animated host: tuned under static knot (Wagamama seg 1: **259px**).
+   - **Each next host — start here, do not use full box stack without offset:**
+     ```css
+     top: calc(<prev-top> + <prev-height> - 50px);
+     ```
+     Figma paths don’t fill the viewBox height; stacking `prev top + prev height` alone leaves a visible gap. **−50px** places the new spine flush continuing from the previous (Sam: “directly behind” the prior squiggle).
+   - **Only nudge the newest segment** (±px) if the join still looks off — **never move approved earlier segments**.
+   - Wagamama approved tops: seg 1 **259px** … seg 7 **2316px** (ends at part 7).
+
+4. **Scroll behaviour** — same centre-lock paint as playground/Givenchy; segment 2 stays hidden until its path enters the viewport (independent painters per path).
+
+## Do not
+
+- Stretch Figma paths with playground host width (200px) or `preserveAspectRatio="slice"`.
+- Remove the static knot when adding spine segment 1 (top scribble in Figma is separate from header knot).
+- Refactor `timeline-squiggle.js` loop/branch logic unless required for a new segment count.
+
+## When adding segment N+1
+
+Copy segment N host block, new SVG asset, CSS block `--figma-N`, register path in same `[data-squiggle-timeline]` section. Set `top` with **prev top + prev height − 50px** first; fine-tune **only** that host if needed.
