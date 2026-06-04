@@ -32,7 +32,8 @@
 }
 
 /* Figma spine segment 1 (70×322) */
-.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-1 {
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-1,
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma:not(.timeline-squiggle-host--figma-2) {
   top: 259px;
   bottom: auto;
   width: 70px;
@@ -41,33 +42,12 @@
   overflow: visible;
 }
 
-/* Shared Figma host positioning (overrides playground.css slice layout) */
-.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  bottom: auto;
-  width: auto;
-  height: auto;
-}
-
 /* Figma spine segment 2 (61×545) — continues below segment 1 */
 .timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-2 {
   top: 561px;
   bottom: auto;
   width: 61px;
   height: 545px;
-  z-index: 7;
-  overflow: visible;
-}
-
-/* Figma spine segment 3 (56×488) — below segment 2 (561 + 545 − 50) */
-.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-3 {
-  top: 1056px;
-  bottom: auto;
-  width: 56px;
-  height: 488px;
   z-index: 7;
   overflow: visible;
 }
