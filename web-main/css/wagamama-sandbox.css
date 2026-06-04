@@ -100,6 +100,38 @@
   overflow: visible;
 }
 
+/* Figma spine segment 7 (39×433) — ONLY --figma-7; 50px overlap with seg 6 (2413 + 489 − 50) */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-7 {
+  top: 2867px;
+  bottom: auto;
+  width: 39px;
+  height: 433px;
+  z-index: 12;
+  overflow: visible;
+}
+
+/* Figma spine segment 8 (29×461) — ONLY --figma-8 */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-8 {
+  top: 3295px;
+  bottom: auto;
+  width: 29px;
+  height: 461px;
+  z-index: 13;
+  overflow: visible;
+  transform: translateX(calc(-50% - 10px));
+}
+
+/* Figma spine segment 9 (36×515) — ONLY --figma-9; 50px overlap with seg 8 (3285 + 485 − 50) */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-9 {
+  top: 3755px;
+  bottom: auto;
+  width: 36px;
+  height: 515px;
+  z-index: 14;
+  overflow: visible;
+  transform: translateX(calc(-50% - 10px));
+}
+
 .timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma .timeline-squiggle-svg {
   overflow: visible;
 }
