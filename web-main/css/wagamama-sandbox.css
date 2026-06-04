@@ -31,9 +31,17 @@
   color: inherit;
 }
 
-/* Figma spine segment 1 (70×322) */
-.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-1,
-.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma:not(.timeline-squiggle-host--figma-2) {
+/* Figma hosts: centre only (no width/height here — set per segment below) */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  bottom: auto;
+}
+
+/* Figma spine segment 1 (70×322) — ONLY --figma-1 */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-1 {
   top: 259px;
   bottom: auto;
   width: 70px;
@@ -42,13 +50,23 @@
   overflow: visible;
 }
 
-/* Figma spine segment 2 (61×545) — continues below segment 1 */
+/* Figma spine segment 2 (61×545) — unchanged */
 .timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-2 {
   top: 561px;
   bottom: auto;
   width: 61px;
   height: 545px;
   z-index: 7;
+  overflow: visible;
+}
+
+/* Figma spine segment 3 (53×484 frame, viewBox 56×488) — ONLY --figma-3; 50px overlap with seg 2 */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-3 {
+  top: 1056px;
+  bottom: auto;
+  width: 53px;
+  height: 484px;
+  z-index: 8;
   overflow: visible;
 }
 

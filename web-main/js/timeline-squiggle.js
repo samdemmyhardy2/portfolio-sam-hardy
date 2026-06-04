@@ -50,6 +50,9 @@
     const track = host ? host.querySelector('[data-squiggle-track]') : null;
     const pathSrc = path.getAttribute('data-squiggle-path-src');
     const svg = path.ownerSVGElement;
+    const paintLinear =
+      (host && host.classList.contains('timeline-squiggle-host--figma')) ||
+      path.hasAttribute('data-squiggle-paint-linear');
 
     const BRANCH_SWITCH_PX = 16;
 
@@ -81,7 +84,7 @@
     function detectLoopBounds() {
       loopLenStart = 0;
       loopLenEnd = 0;
-      if (!pathLength) return;
+      if (!pathLength || paintLinear) return;
 
       const steps = 400;
       let prev = path.getPointAtLength(0);
