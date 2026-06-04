@@ -132,6 +132,17 @@
   transform: translateX(calc(-50% - 10px));
 }
 
+/* Figma spine segment 10 (36×500) — circle cap; 50px overlap with seg 9 (3755 + 515 − 50) */
+.timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma-10 {
+  top: 4268px;
+  bottom: auto;
+  width: 36px;
+  height: 500px;
+  z-index: 15;
+  overflow: visible;
+  transform: translateX(calc(-50% - 10px));
+}
+
 .timeline--wagamama-sandbox.timeline--squiggle .timeline-squiggle-host--figma .timeline-squiggle-svg {
   overflow: visible;
 }
