@@ -1,0 +1,61 @@
+/* Givenchy sandbox — Christie’s copy for squiggle experiments (pageone untouched) */
+
+.timeline--givenchy-sandbox {
+  overflow: visible;
+}
+
+.timeline--givenchy-sandbox::before,
+.timeline--givenchy-sandbox::after {
+  display: none;
+}
+
+.timeline--givenchy-sandbox .timeline-dot,
+.timeline--givenchy-sandbox .timeline-start-dot {
+  display: none;
+}
+
+/* Playground squiggle on Givenchy — transparent panels, page text colour */
+.timeline--givenchy-sandbox.timeline--squiggle .timeline-item,
+.timeline--givenchy-sandbox.timeline--squiggle .timeline-content,
+.timeline--givenchy-sandbox.timeline--squiggle .timeline-content.left,
+.timeline--givenchy-sandbox.timeline--squiggle .timeline-content.right,
+.timeline--givenchy-sandbox.timeline--squiggle .timeline-header,
+.timeline--givenchy-sandbox.timeline--squiggle .timeline-header h3 {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.timeline--givenchy-sandbox.timeline--squiggle .timeline-content h3,
+.timeline--givenchy-sandbox.timeline--squiggle .timeline-content p,
+.timeline--givenchy-sandbox.timeline--squiggle .timeline-header h3 {
+  color: inherit;
+}
+
+.timeline--givenchy-sandbox.timeline--squiggle .timeline-squiggle-svg {
+  color: var(--page-text);
+}
+
+.timeline-squiggle-static {
+  pointer-events: none;
+  color: var(--page-text);
+}
+
+/* First squiggle: in header column, directly under chevrons */
+.timeline-header .timeline-squiggle-static--first {
+  position: relative;
+  left: auto;
+  transform: none;
+  width: 68px;
+  margin-top: 10px;
+  z-index: 2;
+}
+
+.timeline-header .timeline-squiggle-static--first svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.timeline-squiggle-static path {
+  fill: none;
+}

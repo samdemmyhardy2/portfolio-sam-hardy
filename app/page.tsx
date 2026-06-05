@@ -1,6 +1,10 @@
 "use client";
 
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+
+type ScreenId = "home" | "christies";
+type Phase = "idle" | "hiding" | "blank" | "revealing";
 
 type FitLineProps = {
   text: string;
@@ -325,7 +329,7 @@ function makeRanksForLines(lines: Array<{ text: string }>, seed: number) {
   return { ranksByLine: ranks, totalUnits: slots.length };
 }
 
-export default function Home() {
+export function HeroScreen({ initialScreen }: { initialScreen: ScreenId }) {
   const GAP_PX = 10;
   const TOPLINE_TARGET = 0.991;
   const BOTTOMLINE_TARGET = 1.005;
@@ -334,9 +338,6 @@ export default function Home() {
   const FRAMES_BETWEEN_REVEALS = 1;
 
   // ---- "screens" (same URL) ----
-  type ScreenId = "home" | "christies";
-  type Phase = "idle" | "hiding" | "blank" | "revealing";
-
   // Home lines (your current)
   const homeLines = useMemo(
     () => [
@@ -432,10 +433,11 @@ export default function Home() {
     []
   );
 
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
   // Which screen is currently displayed
-  const [screen, setScreen] = useState<ScreenId>("home");
+  const [screen, setScreen] = useState<ScreenId>(initialScreen);
   // Which screen we are transitioning to
   const [nextScreen, setNextScreen] = useState<ScreenId | null>(null);
   const [phase, setPhase] = useState<Phase>("idle");
@@ -466,6 +468,35 @@ export default function Home() {
   const [revealCount, setRevealCount] = useState(0);
   const revealRef = useRef(0);
   const frameRef = useRef(0);
+  const pendingRouteRef = useRef<string | null>(null);
+
+  const slideshowImages = useMemo(
+    () =>
+      [
+        "Group 7961.png",
+        "Group 7971.png",
+        "Group 7981.png",
+        "Group 7991.png",
+        "Group 8001.png",
+        "Group 8011.png",
+        "Group 8021.png",
+        "Mask group1.png",
+        "Mask group1-1.png",
+        "Mask group1-2.png",
+        "Mask group1-3.png",
+        "Mask group1-4.png",
+        "Mask group1-5.png",
+        "Mask group1-6.png",
+        "Mask group1-7.png",
+        "Mask group1-8.png",
+        "Mask group1-9.png",
+        "Mask group1-10.png",
+        "Mask group1-11.png",
+        "Union1.png",
+      ],
+    []
+  );
+  const [slideIndex, setSlideIndex] = useState(0);
 
   useEffect(() => {
     let raf = 0;
@@ -473,10 +504,49 @@ export default function Home() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
+  useEffect(() => {
+    if (screen !== "home") return;
+    if (slideshowImages.length === 0) return;
+    return () => undefined;
+  }, [screen, slideshowImages.length]);
+
   // reset measurement counter whenever screen changes
   useEffect(() => {
     setMeasuredCount(0);
   }, [screen]);
+
+  // finish reveal => idle
+  useEffect(() => {
+    if (!mounted) return;
+    if (!allMeasured) return;
+    if (phase === "revealing" && revealCount >= totalUnits) {
+      setPhase("idle");
+    }
+  }, [mounted, allMeasured, phase, revealCount, totalUnits]);
+
+  // when blank after hiding, navigate to pending route or switch screen
+  useEffect(() => {
+    if (!mounted) return;
+    if (phase !== "blank") return;
+
+    if (pendingRouteRef.current) {
+      const route = pendingRouteRef.current;
+      pendingRouteRef.current = null;
+      router.push(route);
+      return;
+    }
+
+    if (nextScreen) {
+      const newSeed =
+        typeof crypto !== "undefined" && "getRandomValues" in crypto
+          ? crypto.getRandomValues(new Uint32Array(1))[0]
+          : Math.floor(Math.random() * 2 ** 32);
+      setTransitionSeed(newSeed);
+      setScreen(nextScreen);
+      setNextScreen(null);
+      setPhase("revealing");
+    }
+  }, [mounted, phase, nextScreen, router]);
 
   // main animation loop depending on phase
   useEffect(() => {
@@ -507,24 +577,6 @@ export default function Home() {
       if (phase === "hiding" && revealRef.current === 0) {
         // 1-frame blank (yellow)
         setPhase("blank");
-        // next frame: switch screen + start reveal
-        raf = requestAnimationFrame(() => {
-          if (nextScreen) {
-            // fresh randomness for destination
-            const newSeed =
-              typeof crypto !== "undefined" && "getRandomValues" in crypto
-                ? crypto.getRandomValues(new Uint32Array(1))[0]
-                : Math.floor(Math.random() * 2 ** 32);
-
-            setTransitionSeed(newSeed);
-            setScreen(nextScreen);
-            setNextScreen(null);
-
-            // NOTE: reveal will start once destination measured
-            setPhase("revealing");
-            // reveal count reset handled by the effect below that re-triggers after measure
-          }
-        });
         return;
       }
 
@@ -565,26 +617,38 @@ export default function Home() {
     // during transitions, ignore clicks
     if (phase !== "idle") return;
 
-    // Only respond to "CHRISTIES AUCTION HOUSE/" on the HOME screen:
-    // Home line 2 (0-based) is: "NESPRESSO/ CHRISTIES AUCTION HOUSE/"
-    // Group 0 = NESPRESSO/, Group 1 = CHRISTIES AUCTION HOUSE/
-    if (screen === "home" && lineIndex === 2 && groupId === 1) {
-      // Your spec: disappear first (reverse), then blank, then new header reveal
-      setNextScreen("christies");
-      setPhase("hiding");
-      return;
+    if (screen === "home") {
+      const normalized = label.replace(/\//g, "").trim().toUpperCase();
+      const routeMap: Record<string, string> = {
+        NESPRESSO: "/nespresso",
+        "CHRISTIES AUCTION HOUSE": "/christies",
+        GIVENCHY: "/givenchy",
+        FARFETCH: "/farfetch",
+        OBODO: "/obodo",
+        "NET-A-PORTER": "/net-a-porter",
+        WAGAMAMA: "/wagamama",
+      };
+      const route = routeMap[normalized];
+      if (route) {
+        pendingRouteRef.current = route;
+        setPhase("hiding");
+        return;
+      }
     }
 
     // OPTIONAL: add a way back (placeholder)
     if (screen === "christies" && label.toUpperCase().includes("BACK/")) {
-      setNextScreen("home");
+      pendingRouteRef.current = "/";
       setPhase("hiding");
       return;
     }
   };
 
   return (
-    <main className="h-screen overflow-hidden" style={{ backgroundColor: "#F5FF00" }}>
+    <main
+      className="h-screen overflow-hidden"
+      style={{ backgroundColor: "#F5FF00", position: "relative" }}
+    >
       <style jsx global>{`
         .hero-chunk {
           color: inherit;
@@ -596,7 +660,10 @@ export default function Home() {
         }
       `}</style>
 
-      <div className="mx-auto w-full max-w-[1280px] px-6 py-10">
+      <div
+        className="mx-auto w-full max-w-[1280px] px-6 py-10"
+        style={{ position: "relative", minHeight: "100%" }}
+      >
         <div className="hero-title uppercase tracking-[-0.02em]" style={{ color: "#2E2E2E" }}>
           {!mounted ? null : phase === "blank" ? null : (
             <div style={{ display: "flex", flexDirection: "column", gap: `${GAP_PX}px` }}>
@@ -620,7 +687,13 @@ export default function Home() {
             </div>
           )}
         </div>
+
+        {null}
       </div>
     </main>
   );
+}
+
+export default function Home() {
+  return <HeroScreen initialScreen="home" />;
 }

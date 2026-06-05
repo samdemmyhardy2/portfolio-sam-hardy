@@ -1,0 +1,29 @@
+---
+description: Preserve web-main as the static fallback portfolio; use when Next breaks or user needs a safety net
+alwaysApply: true
+---
+
+# Fallback safety net (`web-main/`)
+
+## What it is
+
+`web-main/` is the **known-good static fallback** (HTML/CSS/JS). It runs with `npm run fallback` on **http://localhost:3001** — no Next.js, no build step.
+
+## Do not break the safety net
+
+- **Do not** edit, refactor, rename, or delete files under `web-main/` unless the user **explicitly** asks to update the fallback.
+- **Do not** move experimental Next.js work into `web-main/`.
+- Active development belongs in `app/` (Next.js) at the repo root.
+
+## When things go wrong
+
+If the portfolio won’t load, the user mentions a crash, or they ask for a safety net:
+
+1. Run `npm run fallback` from the repo root.
+2. Open http://localhost:3001 (Christie’s: `/projects/pageone.html`).
+3. Fix or rebuild the Next app separately; do not overwrite `web-main/` while debugging unless asked.
+
+## Sync direction
+
+- **Stable design wins** → port from `web-main/` into Next (`app/`).
+- **Reset fallback** → only when the user explicitly wants to replace the baseline from newer static work.

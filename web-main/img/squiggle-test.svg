@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 1024" width="96" height="1024">
+  <g id="squiggle-art">
+    <path
+      id="squiggle-path"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      vector-effect="non-scaling-stroke"
+      d="M 76 2 C 80 18 82 32 78 48 C 72 72 60 104 52 136 C 46 168 42 204 42 248 C 44 288 48 312 50 328 C 52 342 92 358 90 388 C 88 418 28 408 32 372 C 36 342 48 322 48 300 C 44 380 36 500 30 620 C 24 740 18 860 16 960 C 15 1000 15 1020"
+    />
+  </g>
+</svg>

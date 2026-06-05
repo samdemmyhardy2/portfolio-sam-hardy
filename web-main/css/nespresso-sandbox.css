@@ -139,6 +139,27 @@
   color: inherit;
 }
 
+/* Tighter gap to squiggle spine (+50px for images) */
+.timeline--nespresso-sandbox .timeline-content.left {
+  padding-right: min(98px, 30%);
+}
+
+.timeline--nespresso-sandbox .timeline-content.right {
+  padding-left: min(98px, 30%);
+}
+
+.timeline--nespresso-sandbox .timeline-content.left.img-block::after {
+  width: min(calc(98px + ((100% - 98px) / 2)), 80%);
+}
+
+.timeline--nespresso-sandbox .timeline-content.right.img-block::before {
+  width: min(calc(98px + ((100% - 98px) / 2)), 80%);
+}
+
+.timeline--nespresso-sandbox .timeline-content img {
+  max-width: 470px;
+}
+
 /* Figma hosts: centre only (no width/height here — set per segment below) */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma {
   position: absolute;

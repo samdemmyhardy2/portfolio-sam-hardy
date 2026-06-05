@@ -29,6 +29,7 @@ type FitLineProps = {
 
   lineIndex?: number;
   onGroupClick?: (lineIndex: number, groupId: number, label: string) => void;
+  activeKey?: string | null;
 };
 
 type Phase = "idle" | "hiding" | "blank" | "revealing";
@@ -130,6 +131,7 @@ function FitLine({
   onMeasured,
   lineIndex = 0,
   onGroupClick,
+  activeKey = null,
 }: FitLineProps) {
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
@@ -268,6 +270,8 @@ function FitLine({
       .trim();
     return s.endsWith("/") ? s : `${s}/`;
   };
+  const normalizeLabel = (value: string) =>
+    value.replace(/\//g, "").replace(/\s+/g, " ").trim().toUpperCase();
 
   return (
     <div ref={wrapRef} className="w-full">
@@ -305,6 +309,8 @@ function FitLine({
 
             const label = groupLabel(unitIdxs);
 
+            const isActive = activeKey ? normalizeLabel(label) === activeKey : false;
+
             return (
               <a
                 key={`g-${groupId}`}
@@ -313,7 +319,7 @@ function FitLine({
                   e.preventDefault();
                   onGroupClick?.(lineIndex, groupId, label);
                 }}
-                className="hero-chunk"
+                className={`hero-chunk${isActive ? " hero-active" : ""}`}
                 aria-label={`item-${groupId}`}
               >
                 {inner}
@@ -339,17 +345,24 @@ function randomSeedU32() {
 export function AnimatedHeader({
   lines,
   gapPx,
+  framesBetweenReveals = 1,
+  activeLabel,
   onResolveRoute,
   renderFooter,
 }: {
   lines: HeaderLine[];
   gapPx: number;
+  framesBetweenReveals?: number;
+  activeLabel?: string;
   onResolveRoute: (lineIndex: number, groupId: number, label: string) => string | null;
   renderFooter?: (phase: Phase) => React.ReactNode;
 }) {
   const router = useRouter();
+  const activeKey = activeLabel
+    ? activeLabel.replace(/\//g, "").replace(/\s+/g, " ").trim().toUpperCase()
+    : null;
 
-  const FRAMES_BETWEEN_REVEALS = 1;
+  const FRAMES_BETWEEN_REVEALS = framesBetweenReveals;
 
   const [mounted, setMounted] = useState(false);
 
@@ -402,9 +415,22 @@ export function AnimatedHeader({
   useEffect(() => {
     if (!mounted) return;
     if (phase !== "blank") return;
-    const raf = requestAnimationFrame(() => setPhase("revealing"));
+    const raf = requestAnimationFrame(() => {
+      const route = pendingRouteRef.current;
+      if (route) {
+        pendingRouteRef.current = null;
+        // tell next page to start blank + which seed to use
+        sessionStorage.setItem(
+          TRANSITION_KEY,
+          JSON.stringify({ seed: randomSeedU32(), startBlank: true })
+        );
+        router.push(route);
+        return;
+      }
+      setPhase("revealing");
+    });
     return () => cancelAnimationFrame(raf);
-  }, [mounted, phase]);
+  }, [mounted, phase, router]);
 
   // ensure initial reveal if we started idle
   useEffect(() => {
@@ -447,20 +473,8 @@ export function AnimatedHeader({
         }
       }
 
-      if (phase === "hiding" && revealRef.current === 0) {        setPhase("blank");
-
-        raf = requestAnimationFrame(() => {
-          const route = pendingRouteRef.current;
-          if (!route) return;
-
-          // tell next page to start blank + which seed to use
-          sessionStorage.setItem(
-            TRANSITION_KEY,
-            JSON.stringify({ seed: randomSeedU32(), startBlank: true })
-          );
-
-          router.push(route);
-        });
+      if (phase === "hiding" && revealRef.current === 0) {
+        setPhase("blank");
         return;
       }
 
@@ -484,7 +498,8 @@ export function AnimatedHeader({
   }, [mounted, allMeasured, totalUnits, FRAMES_BETWEEN_REVEALS, phase, router]);
 
   const handleGroupClick = (lineIndex: number, groupId: number, label: string) => {
-    if (phase !== "idle") return;
+    // Allow clicks during reveal; only block while transitioning away
+    if (phase === "hiding" || phase === "blank") return;
 
     const route = onResolveRoute(lineIndex, groupId, label);
     if (!route) return;
@@ -512,9 +527,31 @@ export function AnimatedHeader({
         .hero-chunk:hover {
           color: #f5ff00;
         }
+        .hero-active {
+          animation: heroFlash 1s steps(2, end) infinite;
+        }
+        @keyframes heroFlash {
+          0%,
+          49% {
+            opacity: 1;
+          }
+          50%,
+          100% {
+            opacity: 0;
+          }
+        }
       `}</style>
 
-      <div className="mx-auto w-full max-w-[1280px] px-6 py-10">
+      <div
+        className="mx-auto w-full max-w-[1280px] px-6"
+        style={{
+          position: "relative",
+          zIndex: 1,
+          overflow: "visible",
+          paddingTop: "55px",
+          paddingBottom: "40px",
+        }}
+      >
         <div className="hero-title uppercase tracking-[-0.02em]" style={{ color: "#2E2E2E" }}>
           {!mounted ? null : phase === "blank" ? null : (
             <div style={{ display: "flex", flexDirection: "column", gap: `${gapPx}px` }}>
@@ -533,6 +570,7 @@ export function AnimatedHeader({
                   onMeasured={() => setMeasuredCount((c) => c + 1)}
                   lineIndex={i}
                   onGroupClick={handleGroupClick}
+                  activeKey={activeKey}
                 />
               ))}
             </div>

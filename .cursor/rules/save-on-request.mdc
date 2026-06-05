@@ -1,0 +1,38 @@
+---
+description: Git commit whenever the user says "save" — Wagamama/squiggle work and related web-main files
+alwaysApply: true
+---
+
+# Save on request
+
+When the user says **save** (e.g. "save", "save this", "save checkpoint", "commit this"), **immediately** create a git commit. Do not wait for them to ask again.
+
+## What to commit
+
+Include all relevant work from the current session, especially:
+
+- `web-main/projects/wagamama-page.html`
+- `web-main/css/wagamama-sandbox.css`
+- `web-main/js/timeline-squiggle.js`
+- `web-main/img/squiggles/wagamama-spine-*.svg`
+- Related checkpoint copies under `web-main/checkpoint/` if just created or updated
+- Other `web-main/` or `app/` files touched in the same task if part of the same milestone
+
+Do **not** commit secrets (`.env`, credentials).
+
+## Commit message
+
+- One short sentence: what stage/milestone and why (e.g. "Wagamama two spines joined — Part 2 at 561px").
+- Optional **git tag** for major milestones: `wagamama-two-spines-v2`, `wagamama-three-spines-v2`, etc.
+
+## After saving
+
+Tell the user:
+
+- Commit hash (short)
+- Tag name if any
+- One-line revert command, e.g. `git checkout <hash> -- web-main/projects/wagamama-page.html`
+
+## Default
+
+If they have **not** said save, do **not** commit (unless they explicitly asked for commits after each stage in an earlier message).
