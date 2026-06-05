@@ -45,6 +45,31 @@
       window.addEventListener('resize', measureAll);
     });
 
+  function figmaSegmentIndex(hostEl) {
+    if (!hostEl) return 0;
+    for (const cls of hostEl.classList) {
+      const match = cls.match(/^timeline-squiggle-host--figma-(\d+)$/);
+      if (match) return parseInt(match[1], 10);
+    }
+    return 0;
+  }
+
+  function paintAfterSegmentNum(timelineEl) {
+    const raw = timelineEl.getAttribute('data-squiggle-paint-after');
+    if (!raw) return 0;
+    const n = parseInt(raw, 10);
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  function scrollPaintPastFixedSegments(timelineEl, afterSegment) {
+    if (!afterSegment) return true;
+    const anchor = timelineEl.querySelector(
+      `.timeline-squiggle-host--figma-${afterSegment}`
+    );
+    if (!anchor) return true;
+    return window.innerHeight * 0.5 >= anchor.getBoundingClientRect().bottom - 8;
+  }
+
   function createPainter(path, timelineEl) {
     const host = path.closest('.timeline-squiggle-host');
     const track = host ? host.querySelector('[data-squiggle-track]') : null;
@@ -53,6 +78,12 @@
     const paintLinear =
       (host && host.classList.contains('timeline-squiggle-host--figma')) ||
       path.hasAttribute('data-squiggle-paint-linear');
+
+    const paintAfter = paintAfterSegmentNum(timelineEl);
+    const segmentIndex = figmaSegmentIndex(host);
+    const alwaysVisible =
+      paintAfter > 0 && segmentIndex > 0 && segmentIndex <= paintAfter;
+    const deferredPaint = paintAfter > 0 && segmentIndex > paintAfter;
 
     const BRANCH_SWITCH_PX = 16;
 
@@ -196,6 +227,14 @@
 
     function getDrawnLength() {
       if (!pathLength) return 0;
+      if (alwaysVisible) {
+        prevDrawn = pathLength;
+        return pathLength;
+      }
+      if (deferredPaint && !scrollPaintPastFixedSegments(timelineEl, paintAfter)) {
+        prevDrawn = 0;
+        return 0;
+      }
 
       const target = viewportCenterY();
       const { minY, maxY } = pathScreenYRange();
@@ -247,7 +286,10 @@
     }
 
     function updatePaint() {
-      const drawn = reducedMotion ? pathLength : getDrawnLength();
+      const drawn =
+        reducedMotion || alwaysVisible
+          ? pathLength
+          : getDrawnLength();
       path.style.strokeDashoffset = String(pathLength - drawn);
     }
 
