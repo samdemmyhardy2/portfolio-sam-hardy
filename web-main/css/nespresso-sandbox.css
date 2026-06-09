@@ -322,3 +322,37 @@
 .timeline-squiggle-static path {
   fill: none;
 }
+
+/* Desktop: pin each timeline row to the centre of its squiggle knot (spine untouched) */
+@media (min-width: 701px) {
+  .timeline--nespresso-sandbox.timeline--squiggle {
+    min-height: 5600px;
+    padding-bottom: 160px;
+  }
+
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-bottom: 0;
+    transform: translateY(-50%);
+  }
+
+  /* Row 1 — tuned manually (spine untouched) */
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(13) {
+    top: 558px;
+  }
+
+  /* Row N → knot centre of spine segment N (px from timeline top) */
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(14) { top: 1066px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(15) { top: 1382px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(16) { top: 1868px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(17) { top: 2310px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(18) { top: 2728px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(19) { top: 2977px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(20) { top: 3333px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(21) { top: 3949px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(22) { top: 4695px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(23) { top: 5241px; }
+}
