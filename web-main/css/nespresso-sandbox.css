@@ -1,5 +1,19 @@
 /* Nespresso case study — forked from Wagamama sandbox layout */
 
+/* 2px shape-following stroke — hugs transparent PNG silhouettes (--color-secondary tracks palette) */
+.project--nespresso-dual-hero img,
+.timeline--nespresso-sandbox .timeline-content img {
+  filter:
+    drop-shadow(1px 0 0 var(--color-secondary))
+    drop-shadow(-1px 0 0 var(--color-secondary))
+    drop-shadow(0 1px 0 var(--color-secondary))
+    drop-shadow(0 -1px 0 var(--color-secondary))
+    drop-shadow(2px 0 0 var(--color-secondary))
+    drop-shadow(-2px 0 0 var(--color-secondary))
+    drop-shadow(0 2px 0 var(--color-secondary))
+    drop-shadow(0 -2px 0 var(--color-secondary));
+}
+
 /* Hero: desktop top-left, copy top-right, mobile bottom-right (see mockup) */
 .project--nespresso-dual-hero {
   display: grid;
@@ -74,16 +88,6 @@
   max-width: 420px;
   max-height: 55vh;
   object-fit: contain;
-  /* drop-shadow has no spread — stack offsets for 2px shape-following stroke */
-  filter:
-    drop-shadow(1px 0 0 var(--color-secondary))
-    drop-shadow(-1px 0 0 var(--color-secondary))
-    drop-shadow(0 1px 0 var(--color-secondary))
-    drop-shadow(0 -1px 0 var(--color-secondary))
-    drop-shadow(2px 0 0 var(--color-secondary))
-    drop-shadow(-2px 0 0 var(--color-secondary))
-    drop-shadow(0 2px 0 var(--color-secondary))
-    drop-shadow(0 -2px 0 var(--color-secondary));
 }
 
 @media (max-width: 700px) {
@@ -336,7 +340,7 @@
 /* Desktop: pin each timeline row to the centre of its squiggle knot (spine untouched) */
 @media (min-width: 701px) {
   .timeline--nespresso-sandbox.timeline--squiggle {
-    min-height: 5600px;
+    min-height: 6600px;
     padding-bottom: 160px;
   }
 
@@ -357,12 +361,14 @@
   /* Row N → knot centre of spine segment N (px from timeline top) */
   .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(14) { top: 1066px; }
   .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(15) { top: 1497px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(16) { top: 1868px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(17) { top: 2310px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(18) { top: 2728px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(19) { top: 2977px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(20) { top: 3333px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(21) { top: 3949px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(22) { top: 4695px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(23) { top: 5241px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(16) { top: 1973px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(17) { top: 2449px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(18) { top: 2880px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(19) { top: 3308px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(20) { top: 3773px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(21) { top: 4257px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(22) { top: 4750px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(23) { top: 5250px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(24) { top: 5695px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(25) { top: 6241px; }
 }
