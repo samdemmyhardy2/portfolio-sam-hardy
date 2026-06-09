@@ -74,6 +74,16 @@
   max-width: 420px;
   max-height: 55vh;
   object-fit: contain;
+  /* drop-shadow has no spread — stack offsets for 2px shape-following stroke */
+  filter:
+    drop-shadow(1px 0 0 var(--color-secondary))
+    drop-shadow(-1px 0 0 var(--color-secondary))
+    drop-shadow(0 1px 0 var(--color-secondary))
+    drop-shadow(0 -1px 0 var(--color-secondary))
+    drop-shadow(2px 0 0 var(--color-secondary))
+    drop-shadow(-2px 0 0 var(--color-secondary))
+    drop-shadow(0 2px 0 var(--color-secondary))
+    drop-shadow(0 -2px 0 var(--color-secondary));
 }
 
 @media (max-width: 700px) {
@@ -346,7 +356,7 @@
 
   /* Row N → knot centre of spine segment N (px from timeline top) */
   .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(14) { top: 1066px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(15) { top: 1382px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(15) { top: 1497px; }
   .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(16) { top: 1868px; }
   .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(17) { top: 2310px; }
   .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(18) { top: 2728px; }
