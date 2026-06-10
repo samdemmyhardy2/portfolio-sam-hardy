@@ -1,0 +1,58 @@
+/* Snapshot: paste/replace the block after @font-face rules in web-main/css/style.css */
+
+@property --page-bg-start {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #e5f000;
+}
+
+@property --page-bg-end {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #d4f0e8;
+}
+
+@property --page-text {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #2e2e2e;
+}
+
+:root {
+  --page-bg-start: #e5f000;
+  --page-bg-end: #d4f0e8;
+  --page-bg: color-mix(in srgb, var(--page-bg-start) 50%, var(--page-bg-end));
+  --page-text: #2e2e2e;
+  --color-secondary: var(--page-text);
+  --timeline-dash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='14' viewBox='0 0 4 18'%3E%3Crect x='0' y='0' width='4' height='15' rx='2' fill='%232e2e2e'/%3E%3C/svg%3E");
+}
+
+/* Browser-native colour interpolation (no per-frame JS) */
+html.palette-animate {
+  transition:
+    --page-bg-start 10s linear,
+    --page-bg-end 10s linear,
+    --page-text 10s linear;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: transparent;
+  color: var(--page-text);
+}
+
+/* Gradient on its own layer — repaints don't touch page content */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    var(--page-bg-start) 0%,
+    var(--page-bg-end) 100%
+  );
+}

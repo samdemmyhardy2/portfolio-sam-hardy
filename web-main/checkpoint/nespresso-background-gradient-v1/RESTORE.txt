@@ -1,0 +1,73 @@
+Nespresso L→R background gradient + stable image borders v1
+===========================================================
+
+Saved: 2026-06-10
+
+What this checkpoint captures
+-----------------------------
+
+1. Full-viewport left→right gradient that crossfades every 10s (no click).
+2. Image PNG outline borders that do NOT flicker during palette transitions.
+
+How the background gradient works
+---------------------------------
+
+CSS (web-main/css/style.css, top of file after @font-face):
+
+  • Register animatable custom properties with @property:
+      --page-bg-start, --page-bg-end, --page-text
+
+  • :root holds start/end colours; --page-bg is a flat 50/50 mix for surfaces
+    that still need a single colour (timeline fade, buttons, legacy panels).
+
+  • body { background: transparent } — content sits above the gradient layer.
+
+  • body::before { position: fixed; z-index: -1 } paints:
+      linear-gradient(90deg, var(--page-bg-start), var(--page-bg-end))
+
+  • html.palette-animate transitions the three @property colours over 10s linear.
+    JS does NOT run requestAnimationFrame for colours (that caused severe lag).
+
+JS (web-main/js/colorable-palette.js):
+
+  • generateAccessiblePair() returns { bg, bgEnd, text } — two gradient stops
+    plus accessible text (WCAG 4.5:1 on BOTH stops).
+
+  • applyPalette() sets --page-bg-start, --page-bg-end, --page-text on <html>.
+    On instant apply (load / mode switch): syncPaintColors() then add
+    .palette-animate on next frame.
+
+  • startPaletteCycle(): every TRANSITION_MS (10000) pick a new pair; CSS handles
+    the 10s crossfade between targets.
+
+  • transitionend on <html> when --page-text finishes: syncPaintColors() updates
+    dashes, chevron strokes, and --image-border (see below).
+
+  • Modes: data-palette="pastel" on Nespresso; console setPortfolioPaletteMode().
+
+Image border flicker fix
+------------------------
+
+Problem: Nespresso timeline/hero images use filter: drop-shadow() for a 2px
+outline. Feeding drop-shadow a colour that interpolates via --page-text makes
+browsers drop/repaint the filter every frame → borders vanish and return.
+
+Fix:
+  • syncPaintColors() sets --image-border only on transitionend (+ instant load).
+  • nespresso-sandbox.css drop-shadows use var(--image-border, var(--page-text)).
+  • Border colour snaps at end of each 10s cycle; text/background still smooth.
+
+Do NOT use background-attachment: fixed on timeline overlays — it repaints
+filtered images. Do NOT drive drop-shadow from transitioning --page-text.
+
+Restore from repo root
+----------------------
+
+  cp web-main/checkpoint/nespresso-background-gradient-v1/colorable-palette.js web-main/js/
+  # Merge style-gradient-head.css into web-main/css/style.css (replace :root/body block)
+  # Image border block is in nespresso-sandbox-image-border.css — copy the img filter
+  # rules at the top into web-main/css/nespresso-sandbox.css if reverted.
+
+Preview:
+
+  npm run fallback → http://localhost:3001/projects/nespresso-page.html
