@@ -162,12 +162,9 @@
   padding-left: min(98px, 30%);
 }
 
-.timeline--nespresso-sandbox .timeline-content.left.img-block::after {
-  width: min(calc(98px + ((100% - 98px) / 2)), 80%);
-}
-
+.timeline--nespresso-sandbox .timeline-content.left.img-block::after,
 .timeline--nespresso-sandbox .timeline-content.right.img-block::before {
-  width: min(calc(98px + ((100% - 98px) / 2)), 80%);
+  display: none;
 }
 
 .timeline--nespresso-sandbox .timeline-content img {
@@ -340,8 +337,14 @@
 /* Desktop: pin each timeline row to the centre of its squiggle knot (spine untouched) */
 @media (min-width: 701px) {
   .timeline--nespresso-sandbox.timeline--squiggle {
-    min-height: 6600px;
-    padding-bottom: 160px;
+    min-height: 5600px;
+    padding-bottom: 48px;
+    /* Reveal target — keep in sync with min-height + padding-bottom */
+    --timeline-full-height: 5648px;
+  }
+
+  .lastpart .hero-big-last {
+    margin-top: 0;
   }
 
   .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item {
@@ -368,7 +371,88 @@
   .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(20) { top: 3773px; }
   .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(21) { top: 4257px; }
   .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(22) { top: 4750px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(23) { top: 5250px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(24) { top: 5695px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(25) { top: 6241px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(23) { top: 5246px; }
+}
+
+/* ---- Process reveal: collapsed timeline + fade-to-bg + button ---- */
+
+/* Collapsed: explicit height (max-height can't size a box whose children
+   are absolutely positioned). JS animates height to --timeline-full-height. */
+.timeline.timeline--nespresso-sandbox.timeline--collapsed {
+  min-height: 0 !important;
+  height: 700px;
+  overflow: hidden;
+}
+
+/* rAF height animation (see process-reveal.js) — duration 1100ms */
+.timeline.timeline--nespresso-sandbox.timeline--revealing {
+  will-change: height;
+  contain: layout style;
+}
+
+/* Drop-shadow filters are expensive during height reflow — pause while revealing */
+html.timeline-revealing .project--nespresso-dual-hero img,
+html.timeline-revealing .timeline--nespresso-sandbox .timeline-content img {
+  filter: none;
+}
+
+/* Bottom nav: no staggered word reveal on this page (always visible) */
+.js-anim .lastpart .hero a,
+.js-anim .lastpart .hero .ru {
+  opacity: 1;
+}
+
+/* Gap between the reveal button and the bottom nav text */
+.lastpart {
+  margin-top: 310px;
+}
+
+/* Gradient from transparent to page colour, button pinned at the bottom.
+   Full opacity only at the very bottom so row imagery/text stay visible. */
+.timeline-process-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 680px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--page-bg) 6%, transparent) 28%,
+    color-mix(in srgb, var(--page-bg) 14%, transparent) 48%,
+    color-mix(in srgb, var(--page-bg) 28%, transparent) 65%,
+    color-mix(in srgb, var(--page-bg) 48%, transparent) 80%,
+    color-mix(in srgb, var(--page-bg) 72%, transparent) 92%,
+    var(--page-bg) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 103px;
+  z-index: 60;
+  pointer-events: none;
+  /* Fade-out duration: 450ms */
+  transition: opacity 0.45s ease;
+}
+
+.timeline-process-fade.is-hidden {
+  opacity: 0;
+}
+
+.timeline-process-reveal-btn {
+  pointer-events: auto;
+  background: var(--page-text);
+  color: var(--page-bg);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.timeline-process-fade.is-hidden .timeline-process-reveal-btn {
+  pointer-events: none;
 }
