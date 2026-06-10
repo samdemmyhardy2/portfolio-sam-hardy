@@ -192,11 +192,6 @@ function timelineDashDataUrl(hex) {
 function syncPaintColors(text) {
   const root = document.documentElement;
   root.style.setProperty('--timeline-dash', timelineDashDataUrl(text));
-  /* drop-shadow filters flicker when fed an interpolating --page-text */
-  root.style.setProperty('--image-border', text);
-  document.querySelectorAll('.timeline-header svg path').forEach((path) => {
-    path.setAttribute('stroke', text);
-  });
 }
 
 function applyPalette({ bg, bgEnd, text }, { instant = false } = {}) {

@@ -1,18 +1,22 @@
 /* Nespresso case study — forked from Wagamama sandbox layout */
 
-/* 2px shape-following stroke — hugs transparent PNG silhouettes.
-   --image-border updates on palette transitionend (not mid-lerp) to avoid filter flicker. */
-.project--nespresso-dual-hero img,
-.timeline--nespresso-sandbox .timeline-content img {
+/* Bottom hero: shape-following drop-shadow stroke */
+.project--nespresso-dual-hero .project-image--mobile img {
   filter:
-    drop-shadow(1px 0 0 var(--image-border, var(--page-text)))
-    drop-shadow(-1px 0 0 var(--image-border, var(--page-text)))
-    drop-shadow(0 1px 0 var(--image-border, var(--page-text)))
-    drop-shadow(0 -1px 0 var(--image-border, var(--page-text)))
-    drop-shadow(2px 0 0 var(--image-border, var(--page-text)))
-    drop-shadow(-2px 0 0 var(--image-border, var(--page-text)))
-    drop-shadow(0 2px 0 var(--image-border, var(--page-text)))
-    drop-shadow(0 -2px 0 var(--image-border, var(--page-text)));
+    drop-shadow(1px 0 0 var(--page-text))
+    drop-shadow(-1px 0 0 var(--page-text))
+    drop-shadow(0 1px 0 var(--page-text))
+    drop-shadow(0 -1px 0 var(--page-text))
+    drop-shadow(2px 0 0 var(--page-text))
+    drop-shadow(-2px 0 0 var(--page-text))
+    drop-shadow(0 2px 0 var(--page-text))
+    drop-shadow(0 -2px 0 var(--page-text));
+}
+
+/* Other images: 3px rectangular ring — tracks palette crossfade like body text */
+.project--nespresso-dual-hero .project-image--desktop img,
+.timeline--nespresso-sandbox .timeline-content img {
+  box-shadow: 0 0 0 3px var(--page-text);
 }
 
 /* Hero: desktop top-left, copy top-right, mobile bottom-right (see mockup) */
@@ -51,6 +55,10 @@
   flex: none;
   align-self: center;
   justify-content: center;
+}
+
+.project--nespresso-dual-hero .project-info--primary p {
+  max-width: 350px;
 }
 
 .project--nespresso-dual-hero .project-info--secondary {
@@ -125,6 +133,7 @@
 
 .timeline--nespresso-sandbox {
   overflow: visible;
+  background: transparent;
 }
 
 .timeline--nespresso-sandbox::before,
@@ -137,13 +146,13 @@
   display: none;
 }
 
-/* Squiggle timeline — transparent panels, page text colour */
-.timeline--nespresso-sandbox.timeline--squiggle .timeline-item,
-.timeline--nespresso-sandbox.timeline--squiggle .timeline-content,
-.timeline--nespresso-sandbox.timeline--squiggle .timeline-content.left,
-.timeline--nespresso-sandbox.timeline--squiggle .timeline-content.right,
-.timeline--nespresso-sandbox.timeline--squiggle .timeline-header,
-.timeline--nespresso-sandbox.timeline--squiggle .timeline-header h3 {
+/* Flat --page-bg panels never match L→R body gradient — stay transparent */
+.timeline--nespresso-sandbox .timeline-item,
+.timeline--nespresso-sandbox .timeline-content,
+.timeline--nespresso-sandbox .timeline-content.left,
+.timeline--nespresso-sandbox .timeline-content.right,
+.timeline--nespresso-sandbox .timeline-header,
+.timeline--nespresso-sandbox .timeline-header h3 {
   background: transparent !important;
   background-color: transparent !important;
 }
@@ -316,6 +325,11 @@
   color: var(--page-text);
 }
 
+/* Chevrons + knot: currentColor follows the same @property transition as text */
+.timeline--nespresso-sandbox .timeline-header-chevron {
+  color: var(--page-text);
+}
+
 .timeline-header .timeline-squiggle-static--first {
   position: relative;
   left: auto;
@@ -391,12 +405,6 @@
   contain: layout style;
 }
 
-/* Drop-shadow filters are expensive during height reflow — pause while revealing */
-html.timeline-revealing .project--nespresso-dual-hero img,
-html.timeline-revealing .timeline--nespresso-sandbox .timeline-content img {
-  filter: none;
-}
-
 /* Bottom nav: no staggered word reveal on this page (always visible) */
 .js-anim .lastpart .hero a,
 .js-anim .lastpart .hero .ru {
@@ -405,11 +413,11 @@ html.timeline-revealing .timeline--nespresso-sandbox .timeline-content img {
 
 /* Gap between the reveal button and the bottom nav text */
 .lastpart {
-  margin-top: 310px;
+  margin-top: 210px;
 }
 
-/* Gradient from transparent to page colour, button pinned at the bottom.
-   Full opacity only at the very bottom so row imagery/text stay visible. */
+/* Same L→R gradient as body::before (fixed) — mask controls vertical fade.
+   Flat --page-bg never matches the animated background at any x position. */
 .timeline-process-fade {
   position: absolute;
   left: 0;
@@ -417,27 +425,50 @@ html.timeline-revealing .timeline--nespresso-sandbox .timeline-content img {
   top: 0;
   bottom: 0;
   height: auto;
-  background-size: 100% calc(100% + 600px);
-  background-position: 0 -600px;
-  background-repeat: no-repeat;
   background-image: linear-gradient(
+    90deg,
+    var(--page-bg-start) 0%,
+    var(--page-bg-end) 100%
+  );
+  background-attachment: fixed;
+  -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
     transparent 14%,
-    color-mix(in srgb, var(--page-bg) 4%, transparent) 28%,
-    color-mix(in srgb, var(--page-bg) 9%, transparent) 42%,
-    color-mix(in srgb, var(--page-bg) 16%, transparent) 55%,
-    color-mix(in srgb, var(--page-bg) 26%, transparent) 67%,
-    color-mix(in srgb, var(--page-bg) 38%, transparent) 78%,
-    color-mix(in srgb, var(--page-bg) 52%, transparent) 87%,
-    color-mix(in srgb, var(--page-bg) 68%, transparent) 94%,
-    color-mix(in srgb, var(--page-bg) 85%, transparent) 98%,
-    var(--page-bg) 100%
+    rgba(0, 0, 0, 0.04) 28%,
+    rgba(0, 0, 0, 0.09) 42%,
+    rgba(0, 0, 0, 0.16) 55%,
+    rgba(0, 0, 0, 0.26) 67%,
+    rgba(0, 0, 0, 0.38) 78%,
+    rgba(0, 0, 0, 0.52) 87%,
+    rgba(0, 0, 0, 0.68) 94%,
+    rgba(0, 0, 0, 0.85) 98%,
+    #000 100%
   );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 14%,
+    rgba(0, 0, 0, 0.04) 28%,
+    rgba(0, 0, 0, 0.09) 42%,
+    rgba(0, 0, 0, 0.16) 55%,
+    rgba(0, 0, 0, 0.26) 67%,
+    rgba(0, 0, 0, 0.38) 78%,
+    rgba(0, 0, 0, 0.52) 87%,
+    rgba(0, 0, 0, 0.68) 94%,
+    rgba(0, 0, 0, 0.85) 98%,
+    #000 100%
+  );
+  -webkit-mask-size: 100% calc(100% + 600px);
+  mask-size: 100% calc(100% + 600px);
+  -webkit-mask-position: 0 -600px;
+  mask-position: 0 -600px;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 103px;
+  padding-bottom: 53px;
   z-index: 60;
   pointer-events: none;
   /* Fade-out duration: 450ms */
