@@ -413,16 +413,24 @@ html.timeline-revealing .timeline--nespresso-sandbox .timeline-content img {
   position: absolute;
   left: 0;
   right: 0;
+  top: 0;
   bottom: 0;
-  height: 680px;
-  background: linear-gradient(
+  height: auto;
+  background-size: 100% calc(100% + 600px);
+  background-position: 0 -600px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(
     to bottom,
     transparent 0%,
-    color-mix(in srgb, var(--page-bg) 6%, transparent) 28%,
-    color-mix(in srgb, var(--page-bg) 14%, transparent) 48%,
-    color-mix(in srgb, var(--page-bg) 28%, transparent) 65%,
-    color-mix(in srgb, var(--page-bg) 48%, transparent) 80%,
-    color-mix(in srgb, var(--page-bg) 72%, transparent) 92%,
+    transparent 14%,
+    color-mix(in srgb, var(--page-bg) 4%, transparent) 28%,
+    color-mix(in srgb, var(--page-bg) 9%, transparent) 42%,
+    color-mix(in srgb, var(--page-bg) 16%, transparent) 55%,
+    color-mix(in srgb, var(--page-bg) 26%, transparent) 67%,
+    color-mix(in srgb, var(--page-bg) 38%, transparent) 78%,
+    color-mix(in srgb, var(--page-bg) 52%, transparent) 87%,
+    color-mix(in srgb, var(--page-bg) 68%, transparent) 94%,
+    color-mix(in srgb, var(--page-bg) 85%, transparent) 98%,
     var(--page-bg) 100%
   );
   display: flex;
