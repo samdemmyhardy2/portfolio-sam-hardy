@@ -3,8 +3,20 @@
 
 const DEFAULT_BG = '#e5f000';
 const DEFAULT_TEXT = '#2e2e2e';
+const DEFAULT_PASTEL_BG = '#e8d4f8';
+const DEFAULT_PASTEL_TEXT = '#2a2438';
 const MIN_CONTRAST = 4.5;
 const MAX_ATTEMPTS = 64;
+const STORAGE_KEY_MODE = 'portfolio-palette-mode';
+
+/** @returns {'default' | 'pastel'} */
+function getPaletteMode() {
+  const fromHtml = document.documentElement.getAttribute('data-palette');
+  if (fromHtml === 'pastel' || fromHtml === 'default') return fromHtml;
+  const stored = localStorage.getItem(STORAGE_KEY_MODE);
+  if (stored === 'pastel' || stored === 'default') return stored;
+  return 'default';
+}
 
 function hexToRgb(hex) {
   const h = hex.replace('#', '');
@@ -63,7 +75,29 @@ function randomHslComponent() {
   };
 }
 
+/** Light, muted backgrounds for pastel mode */
+function randomPastelBg() {
+  return {
+    h: Math.random() * 360,
+    s: Math.random() * 0.32 + 0.18,
+    l: Math.random() * 0.16 + 0.74,
+  };
+}
+
+/** Dark text that contrasts on pastel backgrounds */
+function randomPastelText() {
+  return {
+    h: Math.random() * 360,
+    s: Math.random() * 0.45 + 0.15,
+    l: Math.random() * 0.22 + 0.1,
+  };
+}
+
 function generateAccessiblePair() {
+  if (getPaletteMode() === 'pastel') {
+    return generateAccessiblePastelPair();
+  }
+
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
     const a = randomHslComponent();
     const b = randomHslComponent();
@@ -79,6 +113,21 @@ function generateAccessiblePair() {
   }
 
   return { bg: DEFAULT_BG, text: DEFAULT_TEXT };
+}
+
+function generateAccessiblePastelPair() {
+  for (let i = 0; i < MAX_ATTEMPTS; i++) {
+    const bg = randomPastelBg();
+    const text = randomPastelText();
+    const hexBg = hslToHex(bg.h, bg.s, bg.l);
+    const hexText = hslToHex(text.h, text.s, text.l);
+
+    if (contrastRatio(hexBg, hexText) < MIN_CONTRAST) continue;
+
+    return { bg: hexBg, text: hexText };
+  }
+
+  return { bg: DEFAULT_PASTEL_BG, text: DEFAULT_PASTEL_TEXT };
 }
 
 function timelineDashDataUrl(hex) {
@@ -102,7 +151,17 @@ function randomizePalette() {
   applyPalette(generateAccessiblePair());
 }
 
+/** @param {'default' | 'pastel'} mode */
+function setPaletteMode(mode) {
+  if (mode !== 'default' && mode !== 'pastel') return;
+  localStorage.setItem(STORAGE_KEY_MODE, mode);
+  document.documentElement.setAttribute('data-palette', mode);
+  randomizePalette();
+}
+
 function initPalette() {
+  const mode = getPaletteMode();
+  document.documentElement.setAttribute('data-palette', mode);
   randomizePalette();
 
   document.addEventListener(
@@ -113,6 +172,9 @@ function initPalette() {
     true
   );
 }
+
+window.setPortfolioPaletteMode = setPaletteMode;
+window.getPortfolioPaletteMode = getPaletteMode;
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initPalette);
