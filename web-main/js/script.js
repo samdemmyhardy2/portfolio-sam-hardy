@@ -15,25 +15,34 @@ const HIDE_FRAMES = 1;   // speed of words disappearing on click
    intro animation. If this script never runs, the header stays visible. */
 document.documentElement.classList.add('js-anim');
 
-/* ---- Fit each hero row so it fills its container width ----
-   Binary search (~12 measurements per row) instead of shrinking one
-   pixel at a time, which is dramatically faster. */
+/* ---- Fit each hero row so type fills the nav frame left → right ----
+   Matches Next.js FitLine: targetFill + slight overshoot before rounding. */
 function fitHeroRows() {
   const rows = document.querySelectorAll('.hero-row');
 
   rows.forEach((row) => {
-    const availableWidth = row.parentElement.offsetWidth;
+    const section = row.parentElement;
+    if (!section) return;
+
+    const rowStyle = getComputedStyle(row);
+    const padX =
+      parseFloat(rowStyle.paddingLeft) + parseFloat(rowStyle.paddingRight);
+    const availableWidth = row.clientWidth - padX;
     if (!availableWidth) return;
 
+    const targetFill = 1.005;
+    const targetWidth = availableWidth * targetFill;
+    const maxPx = row.classList.contains('hero-row-contact') ? 70 : 400;
+
     let lo = 10;
-    let hi = 400;
+    let hi = maxPx;
     let best = 10;
 
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 14; i++) {
       const mid = (lo + hi) / 2;
       row.style.fontSize = mid + 'px';
 
-      if (row.scrollWidth <= availableWidth) {
+      if (row.scrollWidth <= targetWidth) {
         best = mid;
         lo = mid;
       } else {
@@ -41,7 +50,20 @@ function fitHeroRows() {
       }
     }
 
-    row.style.fontSize = best + 'px';
+    let px = Math.min(best * 1.01, maxPx);
+    row.style.fontSize = px + 'px';
+
+    if (row.scrollWidth > availableWidth) {
+      row.style.fontSize = best + 'px';
+    }
+
+    const isSamHardyRow =
+      (section.id === 'hero-home' || section.id === 'hero-last') &&
+      row.matches(':first-child');
+    if (isSamHardyRow) {
+      const fitted = parseFloat(row.style.fontSize) || best;
+      row.style.fontSize = Math.max(10, fitted - 0.5) + 'px';
+    }
   });
 }
 

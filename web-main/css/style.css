@@ -46,6 +46,9 @@
   --page-text: #2e2e2e;
   --color-secondary: var(--page-text);
   --timeline-dash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='14' viewBox='0 0 4 18'%3E%3Crect x='0' y='0' width='4' height='15' rx='2' fill='%232e2e2e'/%3E%3C/svg%3E");
+  /* Hero nav rows (home, case-study header + footer): one spacing everywhere */
+  --hero-nav-row-gap: 12px;
+  --hero-nav-line-height: 1;
 }
 
 /* Browser-native colour interpolation (no per-frame JS) */
@@ -211,6 +214,66 @@ h1 {
   margin-right: 20px;
 }
 
+/* Hero nav: same row gap on home, case-study header, case-study footer */
+#hero-home,
+#hero-principal,
+#hero-principal-small,
+#hero-last,
+#hero-last-small {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hero-nav-row-gap);
+  width: 100%;
+  box-sizing: border-box;
+  outline: 1px solid red;
+}
+
+#hero-home .hero-row,
+#hero-principal .hero-row,
+#hero-principal-small .hero-row,
+#hero-last .hero-row,
+#hero-last-small .hero-row {
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: var(--hero-nav-line-height);
+}
+
+#hero-home .hero-link-big,
+#hero-home .hero-link-small,
+#hero-principal .hero-link-big,
+#hero-principal .hero-link-small,
+#hero-last .hero-link-big,
+#hero-last .hero-link-small,
+#hero-last-small .hero-link-big,
+#hero-last-small .hero-link-small {
+  line-height: var(--hero-nav-line-height);
+}
+
+/* Row 1 — SAM HARDY LEAD PRODUCT: 5px left (−0.5px size in fitHeroRows) */
+#hero-home .hero-row:first-child,
+#hero-last .hero-row:first-child {
+  margin-left: -5px;
+}
+
+/* Row 2 (DESIGNER / …): 20px tighter than default gap below row 1 */
+#hero-home .hero-row:nth-child(2),
+#hero-principal .hero-row:nth-child(2),
+#hero-principal-small .hero-row:nth-child(2),
+#hero-last .hero-row:nth-child(2),
+#hero-last-small .hero-row:nth-child(2) {
+  margin-top: -20px;
+}
+
+/* Contact row — smaller type, tight to row above (Figma reference) */
+#hero-home .hero-row-contact,
+#hero-principal .hero-row-contact,
+#hero-principal-small .hero-row-contact,
+#hero-last .hero-row-contact,
+#hero-last-small .hero-row-contact {
+  margin-top: -8px;
+}
+
 .hero-small-last{
   display: none;
   margin-top: 100px;
@@ -223,18 +286,42 @@ h1 {
 /* ROWS */
 .hero-row {
   white-space: nowrap;
-  line-height: 0.8;
+  line-height: 1;
   display: flex;
   width: 100%;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
 }
 
 
 /* LINKS */
 
-/* Hover: text turns the background yellow (invisible but still clickable).
+/* Hover: text turns the background colour (invisible but still clickable).
    Uses color (not opacity) so the reveal/.show rules don't override it. */
 .hero-link-big:hover,
-.hero-link-small:hover {
+.hero-link-small:hover,
+.hero-link-big:hover .titlefont,
+.hero-link-big:hover .titleslashfont,
+.hero-link-small:hover .titlefont,
+.hero-link-small:hover .titleslashfont,
+.hero-link-big:hover .ru,
+.hero-link-small:hover .ru {
+  color: var(--page-bg);
+}
+
+/* Bottom nav: no active-page flash — hover stays readable */
+#hero-last a.hero-active.lit,
+#hero-last-small a.hero-active.lit {
+  animation: none;
+}
+
+/* Top hero: pause flash on hover */
+.hero a.hero-active.lit:hover,
+.hero a.hero-active.lit:hover .ru,
+.hero a.hero-active.lit:hover .titlefont,
+.hero a.hero-active.lit:hover .titleslashfont {
+  animation: none;
+  opacity: 1;
   color: var(--page-bg);
 }
 
@@ -246,7 +333,7 @@ h1 {
 
   color: var(--page-text);
 
-  line-height: 0.82;
+  line-height: 1;
 }
 .titlefont {
   font-family: 'HelveticaCondensed', sans-serif;

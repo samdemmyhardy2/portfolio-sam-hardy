@@ -1,0 +1,528 @@
+/* Christies case study — forked from Wagamama sandbox layout */
+
+/* Hero row 1: no slashes — gap between items */
+#hero-principal .hero-row-big .hero-link-big + .hero-link-big,
+#hero-principal-small .hero-row-big .hero-link-big + .hero-link-big {
+  margin-left: 0.3em;
+}
+
+/* Hero row 2: GIVENCHY/ FARFETCH/ … — space after each slash (Figma reference) */
+#hero-principal .hero-row-small .titleslashfont,
+#hero-principal-small .hero-row-small .titleslashfont {
+  margin-right: 0.3em;
+}
+
+/* Bottom hero: shape-following drop-shadow stroke (when image present) */
+.project--christies-dual-hero .project-image--mobile:not(.project-image--mobile-placeholder) img {
+  filter:
+    drop-shadow(1px 0 0 var(--page-text))
+    drop-shadow(-1px 0 0 var(--page-text))
+    drop-shadow(0 1px 0 var(--page-text))
+    drop-shadow(0 -1px 0 var(--page-text))
+    drop-shadow(2px 0 0 var(--page-text))
+    drop-shadow(-2px 0 0 var(--page-text))
+    drop-shadow(0 2px 0 var(--page-text))
+    drop-shadow(0 -2px 0 var(--page-text));
+}
+
+/* Second hero placeholder — no asset yet */
+.project--christies-dual-hero .project-image--mobile-placeholder {
+  width: 100%;
+  max-width: 420px;
+  min-height: 280px;
+  max-height: 55vh;
+  box-sizing: border-box;
+  border: 3px dashed var(--page-text);
+  background: transparent;
+}
+
+/* Other images: 3px rectangular ring — tracks palette crossfade like body text */
+.project--christies-dual-hero .project-image--desktop img,
+.timeline--christies-sandbox .timeline-content img {
+  box-shadow: 0 0 0 3px var(--page-text);
+}
+
+/* Hero: desktop top-left, copy top-right, mobile bottom-right (see mockup) */
+.project--christies-dual-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 100px 100px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.project--christies-dual-hero .project-image--desktop {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: center;
+}
+
+.project--christies-dual-hero .project-image--desktop img {
+  width: 50%;
+  max-width: 50%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.project--christies-dual-hero .project-info--primary {
+  grid-column: 2;
+  grid-row: 1;
+  width: auto;
+  flex: none;
+  align-self: center;
+  justify-content: center;
+}
+
+.project--christies-dual-hero .project-info--primary p {
+  max-width: 350px;
+}
+
+.project--christies-dual-hero .project-info--secondary {
+  grid-column: 1;
+  grid-row: 2;
+  width: auto;
+  flex: none;
+  align-self: center;
+  justify-self: start;
+  justify-content: center;
+  margin-left: 150px;
+}
+
+.project--christies-dual-hero .project-info--secondary p {
+  max-width: 500px;
+  margin-right: 0;
+}
+
+.project--christies-dual-hero .project-info-link {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.project--christies-dual-hero .project-image--mobile {
+  grid-column: 2;
+  grid-row: 2;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: center;
+}
+
+.project--christies-dual-hero .project-image--mobile img {
+  width: 100%;
+  max-width: 420px;
+  max-height: 55vh;
+  object-fit: contain;
+}
+
+@media (max-width: 700px) {
+  .project--christies-dual-hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 32px;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  .project--christies-dual-hero .project-image--desktop,
+  .project--christies-dual-hero .project-info--primary,
+  .project--christies-dual-hero .project-info--secondary,
+  .project--christies-dual-hero .project-image--mobile {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    align-self: auto;
+  }
+
+  .project--christies-dual-hero .project-info--secondary {
+    margin-left: 0;
+  }
+
+  .project--christies-dual-hero .project-image--desktop img {
+    width: 100%;
+    max-width: 100%;
+    object-position: center center;
+  }
+
+  .project--christies-dual-hero .project-image--mobile {
+    justify-content: center;
+  }
+
+  .project--christies-dual-hero .project-image--mobile img {
+    max-width: 100%;
+  }
+}
+
+.timeline--christies-sandbox {
+  overflow: visible;
+  background: transparent;
+}
+
+.timeline--christies-sandbox::before,
+.timeline--christies-sandbox::after {
+  display: none;
+}
+
+.timeline--christies-sandbox .timeline-dot,
+.timeline--christies-sandbox .timeline-start-dot {
+  display: none;
+}
+
+/* Flat --page-bg panels never match L→R body gradient — stay transparent */
+.timeline--christies-sandbox .timeline-item,
+.timeline--christies-sandbox .timeline-content,
+.timeline--christies-sandbox .timeline-content.left,
+.timeline--christies-sandbox .timeline-content.right,
+.timeline--christies-sandbox .timeline-header,
+.timeline--christies-sandbox .timeline-header h3 {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.timeline--christies-sandbox.timeline--squiggle .timeline-content h3,
+.timeline--christies-sandbox.timeline--squiggle .timeline-content p,
+.timeline--christies-sandbox.timeline--squiggle .timeline-header h3 {
+  color: inherit;
+}
+
+/* Tighter gap to squiggle spine (+50px for images) */
+.timeline--christies-sandbox .timeline-content.left {
+  padding-right: min(98px, 30%);
+}
+
+.timeline--christies-sandbox .timeline-content.right {
+  padding-left: min(98px, 30%);
+}
+
+.timeline--christies-sandbox .timeline-content.left.img-block::after,
+.timeline--christies-sandbox .timeline-content.right.img-block::before {
+  display: none;
+}
+
+.timeline--christies-sandbox .timeline-content img {
+  max-width: 470px;
+}
+
+/* Figma hosts: centre only (no width/height here — set per segment below) */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  bottom: auto;
+}
+
+/* Figma spine segment 1 (70×322) — ONLY --figma-1 */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-1 {
+  top: 259px;
+  bottom: auto;
+  width: 70px;
+  height: 322px;
+  z-index: 7;
+  overflow: visible;
+}
+
+/* Figma spine segment 2 (61×545) — unchanged */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-2 {
+  top: 561px;
+  bottom: auto;
+  width: 61px;
+  height: 545px;
+  z-index: 7;
+  overflow: visible;
+}
+
+/* Figma spine segment 3 (53×484 frame, viewBox 56×488) — ONLY --figma-3; 50px overlap with seg 2 */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-3 {
+  top: 1056px;
+  bottom: auto;
+  width: 53px;
+  height: 484px;
+  z-index: 8;
+  overflow: visible;
+}
+
+/* Figma spine segment 4 (52×507) — ONLY --figma-4; 50px overlap with seg 3 (1056 + 484 − 50) */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-4 {
+  top: 1490px;
+  bottom: auto;
+  width: 52px;
+  height: 507px;
+  z-index: 9;
+  overflow: visible;
+}
+
+/* Figma spine segment 5 (62×526) — ONLY --figma-5; 50px overlap with seg 4 (1490 + 507 − 50) */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-5 {
+  top: 1947px;
+  bottom: auto;
+  width: 62px;
+  height: 526px;
+  z-index: 10;
+  overflow: visible;
+}
+
+/* Figma spine segment 6 (43×489) — ONLY --figma-6; 50px overlap with seg 5 (1947 + 526 − 50) */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-6 {
+  top: 2413px;
+  bottom: auto;
+  width: 43px;
+  height: 489px;
+  z-index: 11;
+  overflow: visible;
+}
+
+/* Figma spine segment 7 (39×433) — ONLY --figma-7; 50px overlap with seg 6 (2413 + 489 − 50) */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-7 {
+  top: 2867px;
+  bottom: auto;
+  width: 39px;
+  height: 433px;
+  z-index: 12;
+  overflow: visible;
+}
+
+/* Figma spine segment 8 (29×461) — ONLY --figma-8 */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-8 {
+  top: 3295px;
+  bottom: auto;
+  width: 29px;
+  height: 461px;
+  z-index: 13;
+  overflow: visible;
+  transform: translateX(calc(-50% - 10px));
+}
+
+/* Figma spine segment 9 (36×515) — ONLY --figma-9; 50px overlap with seg 8 (3285 + 485 − 50) */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-9 {
+  top: 3755px;
+  bottom: auto;
+  width: 36px;
+  height: 515px;
+  z-index: 14;
+  overflow: visible;
+  transform: translateX(calc(-50% - 10px));
+}
+
+/* Figma spine segment 10 (36×500) — circle cap; 50px overlap with seg 9 (3755 + 515 − 50) */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-10 {
+  top: 4268px;
+  bottom: auto;
+  width: 36px;
+  height: 500px;
+  z-index: 15;
+  overflow: visible;
+  transform: translateX(calc(-50% - 10px));
+}
+
+/* Figma spine segment 11 — final downward detail; 50px overlap with seg 10 (4268 + 500 − 50) */
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-11 {
+  top: 4766px;
+  bottom: auto;
+  width: 36px;
+  height: 500px;
+  z-index: 16;
+  overflow: visible;
+  transform: translateX(calc(-50% - 10px));
+}
+
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma .timeline-squiggle-svg {
+  overflow: visible;
+}
+
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: var(--page-text);
+  overflow: visible;
+}
+
+.timeline--christies-sandbox.timeline--squiggle .squiggle-track {
+  display: none;
+}
+
+.timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-static {
+  pointer-events: none;
+  color: var(--page-text);
+}
+
+/* Chevrons + knot: currentColor follows the same @property transition as text */
+.timeline--christies-sandbox .timeline-header-chevron {
+  color: var(--page-text);
+}
+
+.timeline-header .timeline-squiggle-static--first {
+  position: relative;
+  left: auto;
+  transform: none;
+  width: 68px;
+  margin-top: 10px;
+  z-index: 2;
+}
+
+.timeline-header .timeline-squiggle-static--first svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.timeline-squiggle-static path {
+  fill: none;
+}
+
+/* Desktop: pin each timeline row to the centre of its squiggle knot (spine untouched) */
+@media (min-width: 701px) {
+  .timeline--christies-sandbox.timeline--squiggle {
+    min-height: 5600px;
+    padding-bottom: 48px;
+    /* Reveal target — keep in sync with min-height + padding-bottom */
+    --timeline-full-height: 5648px;
+  }
+
+  .lastpart .hero-big-last {
+    margin-top: 0;
+  }
+
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-bottom: 0;
+    transform: translateY(-50%);
+  }
+
+  /* Row 1 — tuned manually (spine untouched) */
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(13) {
+    top: 558px;
+  }
+
+  /* Row N → knot centre of spine segment N (px from timeline top) */
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(14) { top: 1066px; }
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(15) { top: 1497px; }
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(16) { top: 1973px; }
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(17) { top: 2449px; }
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(18) { top: 2880px; }
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(19) { top: 3308px; }
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(20) { top: 3773px; }
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(21) { top: 4257px; }
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(22) { top: 4750px; }
+  .timeline--christies-sandbox.timeline--squiggle > .timeline-item:nth-child(23) { top: 5246px; }
+}
+
+/* ---- Process reveal: collapsed timeline + fade-to-bg + button ---- */
+
+/* Collapsed: explicit height (max-height can't size a box whose children
+   are absolutely positioned). JS animates height to --timeline-full-height. */
+.timeline.timeline--christies-sandbox.timeline--collapsed {
+  min-height: 0 !important;
+  height: 700px;
+  overflow: hidden;
+}
+
+/* rAF height animation (see process-reveal.js) — duration 1100ms */
+.timeline.timeline--christies-sandbox.timeline--revealing {
+  will-change: height;
+  contain: layout style;
+}
+
+/* Bottom nav: no staggered word reveal on this page (always visible) */
+.js-anim .lastpart .hero a,
+.js-anim .lastpart .hero .ru {
+  opacity: 1;
+}
+
+/* Gap between the reveal button and the bottom nav text */
+.lastpart {
+  margin-top: 210px;
+}
+
+/* Same L→R gradient as body::before (fixed) — mask controls vertical fade.
+   Flat --page-bg never matches the animated background at any x position. */
+.timeline-process-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  background-image: linear-gradient(
+    90deg,
+    var(--page-bg-start) 0%,
+    var(--page-bg-end) 100%
+  );
+  background-attachment: fixed;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 14%,
+    rgba(0, 0, 0, 0.04) 28%,
+    rgba(0, 0, 0, 0.09) 42%,
+    rgba(0, 0, 0, 0.16) 55%,
+    rgba(0, 0, 0, 0.26) 67%,
+    rgba(0, 0, 0, 0.38) 78%,
+    rgba(0, 0, 0, 0.52) 87%,
+    rgba(0, 0, 0, 0.68) 94%,
+    rgba(0, 0, 0, 0.85) 98%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 14%,
+    rgba(0, 0, 0, 0.04) 28%,
+    rgba(0, 0, 0, 0.09) 42%,
+    rgba(0, 0, 0, 0.16) 55%,
+    rgba(0, 0, 0, 0.26) 67%,
+    rgba(0, 0, 0, 0.38) 78%,
+    rgba(0, 0, 0, 0.52) 87%,
+    rgba(0, 0, 0, 0.68) 94%,
+    rgba(0, 0, 0, 0.85) 98%,
+    #000 100%
+  );
+  -webkit-mask-size: 100% calc(100% + 600px);
+  mask-size: 100% calc(100% + 600px);
+  -webkit-mask-position: 0 -600px;
+  mask-position: 0 -600px;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 53px;
+  z-index: 60;
+  pointer-events: none;
+  /* Fade-out duration: 450ms */
+  transition: opacity 0.45s ease;
+}
+
+.timeline-process-fade.is-hidden {
+  opacity: 0;
+}
+
+.timeline-process-reveal-btn {
+  pointer-events: auto;
+  background: var(--page-text);
+  color: var(--page-bg);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.timeline-process-fade.is-hidden .timeline-process-reveal-btn {
+  pointer-events: none;
+}

@@ -374,7 +374,7 @@ export function HeroScreen({ initialScreen }: { initialScreen: ScreenId }) {
         nonLinkGroupIds: [] as number[],
       },
       {
-        text: "M&S/ M&S BANK/ SIID/ NESTFUEL/ OCTO/ ATTEST/ RWD MAGAZINE/ BAREFOOT PROJECT/",
+        text: "DOWNLOAD MY CV/ READ TESTIMONIALS/ EMAIL ME: SAMDEMMYHARDY@GMAIL.COM",
         minPx: 18,
         maxPx: 70,
         targetFill: BOTTOMLINE_TARGET,
