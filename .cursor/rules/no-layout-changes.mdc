@@ -1,0 +1,29 @@
+---
+description: Do not change hero/layout unless Sam explicitly asks
+alwaysApply: true
+---
+
+# No layout changes without explicit approval
+
+Sam's hero nav and case-study layouts are fragile (flex sizing, gaps, vector rows, squiggles, reveal timing).
+
+## Rule
+
+**Do not change layout, spacing, sizing, flex, gaps, margins, or HTML structure** in `web-main/` (or `app/`) **unless Sam explicitly asks** for that change.
+
+## What counts as a layout change
+
+- Restructuring links (e.g. merging 8 word-links into 3 grouped links)
+- CSS changes to `width`, `flex`, `column-gap`, `margin`, `top`, positioning
+- JS that alters flex shares or row fitting (`fitHeroRows`, `hydrateSvgUnit` flex logic)
+- Swapping row patterns (e.g. `hero-link-vector-words` vs one-link-per-word)
+
+## Allowed without asking
+
+- **Interaction-only** changes that preserve the exact DOM and computed layout (e.g. grouped hover via JS `mouseenter` on a wrapper, without moving or resizing elements)
+- Bug fixes Sam reported, scoped to the broken behaviour only
+- Changes Sam explicitly requested (e.g. "half the gap on contact row")
+
+## When adding grouped hover
+
+Keep the **working 8-link (one SVG per link) markup**. Add hover grouping in JS/CSS only — e.g. `data-hover-group` + sibling highlight — never merge links into `hero-link-vector-words` on the contact row unless Sam approves a layout change first.

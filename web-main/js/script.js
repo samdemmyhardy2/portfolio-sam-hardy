@@ -245,6 +245,45 @@ function isNavigable(a) {
   return !!href && href !== '#' && !href.startsWith('#');
 }
 
+/* Contact row — grouped hover without changing link/layout structure. */
+function wireContactHoverGroups() {
+  document.querySelectorAll('.hero-row-contact').forEach((row) => {
+    row.addEventListener('mouseover', (e) => {
+      const link = e.target.closest('a[data-hover-group]');
+      if (!link || !row.contains(link)) return;
+
+      const group = link.dataset.hoverGroup;
+      row.querySelectorAll(`a[data-hover-group="${group}"]`).forEach((a) => {
+        a.classList.add('hero-hover-group-lit');
+      });
+    });
+
+    row.addEventListener('mouseout', (e) => {
+      const link = e.target.closest('a[data-hover-group]');
+      if (!link || !row.contains(link)) return;
+
+      const group = link.dataset.hoverGroup;
+      const to = e.relatedTarget;
+      if (to && row.contains(to)) {
+        if (to.closest && to.closest(`a[data-hover-group="${group}"]`)) return;
+        if (to.closest && !to.closest('a[data-hover-group]')) return;
+      }
+
+      row.querySelectorAll(`a[data-hover-group="${group}"]`).forEach((a) => {
+        a.classList.remove('hero-hover-group-lit');
+      });
+    });
+
+    row.addEventListener('mouseleave', () => {
+      row.querySelectorAll('a.hero-hover-group-lit').forEach((a) => {
+        a.classList.remove('hero-hover-group-lit');
+      });
+    });
+  });
+}
+
+wireContactHoverGroups();
+
 /* ---- On load: fit, build word units, then stagger them in ---- */
 let introStarted = false;
 async function startIntro() {

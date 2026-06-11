@@ -366,6 +366,15 @@ h1 {
   color: var(--page-bg);
 }
 
+/* Contact row — phrase hover (JS .hero-hover-group-lit); solo-word :hover off */
+.hero-row-contact a[data-hover-group]:hover:not(.hero-hover-group-lit) .ru {
+  color: inherit;
+}
+
+.hero-row-contact a.hero-hover-group-lit .ru {
+  color: var(--page-bg);
+}
+
 /* Bottom nav: no active-page flash — hover stays readable */
 #hero-last a.hero-active.lit,
 #hero-last-small a.hero-active.lit {
