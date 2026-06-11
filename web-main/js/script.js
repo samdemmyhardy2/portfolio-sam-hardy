@@ -64,6 +64,14 @@ function fitHeroRows() {
       const fitted = parseFloat(row.style.fontSize) || best;
       row.style.fontSize = Math.max(10, fitted - 0.5) + 'px';
     }
+
+    const isDesignerRow =
+      (section.id === 'hero-home' || section.id === 'hero-last') &&
+      row.matches(':nth-child(2)');
+    if (isDesignerRow) {
+      const fitted = parseFloat(row.style.fontSize) || best;
+      row.style.fontSize = Math.max(10, fitted - 6) + 'px';
+    }
   });
 }
 

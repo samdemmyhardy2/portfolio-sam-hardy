@@ -256,13 +256,27 @@ h1 {
   margin-left: -5px;
 }
 
-/* Row 2 (DESIGNER / …): 20px tighter than default gap below row 1 */
+/* Row 2 (DESIGNER / …): 30px tighter, 5px left (−6px size in fitHeroRows) */
+#hero-home .hero-row:nth-child(2),
+#hero-last .hero-row:nth-child(2) {
+  margin-left: -5px;
+  --designer-word-gap: 5px;
+  gap: max(0px, calc(var(--designer-word-gap) + 1ch - 10px));
+}
+
+/* Slash stays on the word; gap handles all inter-word spacing */
+#hero-home .hero-row:nth-child(2) .titleslashfont,
+#hero-last .hero-row:nth-child(2) .titleslashfont {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 #hero-home .hero-row:nth-child(2),
 #hero-principal .hero-row:nth-child(2),
 #hero-principal-small .hero-row:nth-child(2),
 #hero-last .hero-row:nth-child(2),
 #hero-last-small .hero-row:nth-child(2) {
-  margin-top: -20px;
+  margin-top: -30px;
 }
 
 /* Contact row — smaller type, tight to row above (Figma reference) */
