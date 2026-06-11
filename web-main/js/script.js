@@ -17,10 +17,70 @@ document.documentElement.classList.add('js-anim');
 
 /* ---- Fit each hero row so type fills the nav frame left → right ----
    Matches Next.js FitLine: targetFill + slight overshoot before rounding. */
+/* Load Figma SVG exports into vector hero rows before fit/reveal. */
+async function hydrateSvgUnit(el, svgClass) {
+  if (el.dataset.hydrated === '1' || el.querySelector('svg')) return;
+
+  const url = el.getAttribute('data-hero-svg');
+  if (!url) return;
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return;
+
+    el.innerHTML = await res.text();
+    const svg = el.querySelector('svg');
+    if (svg) svg.classList.add(svgClass);
+
+    if (el.dataset.vbWidth) {
+      const flex = `${el.dataset.vbWidth} 1 0`;
+      el.style.flex = flex;
+      const link = el.closest('a');
+      if (link?.parentElement?.classList.contains('hero-row-vector-links')) {
+        link.style.flex = flex;
+      }
+    }
+
+    el.dataset.hydrated = '1';
+  } catch (_) {
+    /* leave empty if fetch fails */
+  }
+}
+
+async function hydrateHeroVectors() {
+  const jobs = [];
+
+  document
+    .querySelectorAll('.hero-vector-reveal[data-hero-svg]')
+    .forEach((el) => jobs.push(hydrateSvgUnit(el, 'hero-word-svg')));
+
+  document.querySelectorAll('.hero-row-vector[data-hero-svg]').forEach((row) => {
+    if (row.classList.contains('hero-row-vector-words')) return;
+
+    const link = row.querySelector('a');
+    if (!link || link.querySelector('.hero-vector-reveal')) return;
+
+    jobs.push(
+      (async () => {
+        const wrap = document.createElement('span');
+        wrap.className = 'ru hero-vector-reveal';
+        wrap.setAttribute('data-hero-svg', row.getAttribute('data-hero-svg'));
+        link.appendChild(wrap);
+        await hydrateSvgUnit(wrap, 'hero-line-svg');
+        row.dataset.hydrated = '1';
+      })()
+    );
+  });
+
+  await Promise.all(jobs);
+}
+
 function fitHeroRows() {
   const rows = document.querySelectorAll('.hero-row');
 
   rows.forEach((row) => {
+    if (row.classList.contains('hero-row-vector')) return;
+
     const section = row.parentElement;
     if (!section) return;
 
@@ -57,21 +117,6 @@ function fitHeroRows() {
       row.style.fontSize = best + 'px';
     }
 
-    const isSamHardyRow =
-      (section.id === 'hero-home' || section.id === 'hero-last') &&
-      row.matches(':first-child');
-    if (isSamHardyRow) {
-      const fitted = parseFloat(row.style.fontSize) || best;
-      row.style.fontSize = Math.max(10, fitted - 0.5) + 'px';
-    }
-
-    const isDesignerRow =
-      (section.id === 'hero-home' || section.id === 'hero-last') &&
-      row.matches(':nth-child(2)');
-    if (isDesignerRow) {
-      const fitted = parseFloat(row.style.fontSize) || best;
-      row.style.fontSize = Math.max(10, fitted - 6) + 'px';
-    }
   });
 }
 
@@ -95,6 +140,18 @@ function buildWordUnits(section) {
   const units = [];
 
   section.querySelectorAll('.hero-link-big, .hero-link-small').forEach((link) => {
+    const vectorUnits = link.querySelectorAll(':scope > .hero-vector-reveal');
+    if (vectorUnits.length) {
+      vectorUnits.forEach((u) => units.push(u));
+      return;
+    }
+
+    const vectorUnit = link.querySelector('.hero-vector-reveal');
+    if (vectorUnit) {
+      units.push(vectorUnit);
+      return;
+    }
+
     link.querySelectorAll('.titlefont, .titleslashfont').forEach((span) => {
       if (span.dataset.split === '1') {
         span.querySelectorAll('.ru').forEach((u) => units.push(u));
@@ -190,10 +247,11 @@ function isNavigable(a) {
 
 /* ---- On load: fit, build word units, then stagger them in ---- */
 let introStarted = false;
-function startIntro() {
+async function startIntro() {
   if (introStarted) return;
   introStarted = true;
 
+  await hydrateHeroVectors();
   fitHeroRows();
 
   // Each visible hero block reveals as its own tight group (header,

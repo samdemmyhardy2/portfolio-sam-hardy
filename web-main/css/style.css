@@ -250,25 +250,62 @@ h1 {
   line-height: var(--hero-nav-line-height);
 }
 
-/* Row 1 — SAM HARDY LEAD PRODUCT: 5px left (−0.5px size in fitHeroRows) */
+/* Row 1 — SAM HARDY LEAD PRODUCT (vector): 5px left */
 #hero-home .hero-row:first-child,
 #hero-last .hero-row:first-child {
   margin-left: -5px;
 }
 
-/* Row 2 (DESIGNER / …): 30px tighter, 5px left (−6px size in fitHeroRows) */
+.hero-row-vector .hero-link-big,
+.hero-row-vector .hero-link-small {
+  color: var(--page-text);
+}
+
+.hero-row-vector:not(.hero-row-vector-words) .hero-link-big,
+.hero-row-vector:not(.hero-row-vector-words) .hero-link-small {
+  display: block;
+  width: 100%;
+}
+
+.hero-link-vector-words {
+  display: flex;
+  width: 100%;
+  align-items: flex-end;
+  column-gap: 2.246%;
+}
+
+.hero-row-vector-words .hero-vector-reveal {
+  display: block;
+  min-width: 0;
+}
+
+.hero-row-vector:not(.hero-row-vector-words) .hero-vector-reveal {
+  display: block;
+  width: 100%;
+}
+
+.hero-word-svg,
+.hero-line-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Row 2 (DESIGNER / …): vector words, 30px tighter, 5px left */
 #hero-home .hero-row:nth-child(2),
 #hero-last .hero-row:nth-child(2) {
   margin-left: -5px;
-  --designer-word-gap: 5px;
-  gap: max(0px, calc(var(--designer-word-gap) + 1ch - 10px));
 }
 
-/* Slash stays on the word; gap handles all inter-word spacing */
-#hero-home .hero-row:nth-child(2) .titleslashfont,
-#hero-last .hero-row:nth-child(2) .titleslashfont {
-  margin-left: 0;
-  margin-right: 0;
+.hero-row-vector-links {
+  align-items: flex-end;
+  column-gap: 2.246%;
+}
+
+.hero-row-vector-links > .hero-link-big,
+.hero-row-vector-links > .hero-link-small {
+  display: block;
+  min-width: 0;
 }
 
 #hero-home .hero-row:nth-child(2),
