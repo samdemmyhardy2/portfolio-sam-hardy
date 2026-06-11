@@ -325,6 +325,12 @@ h1 {
   margin-top: -8px;
 }
 
+/* Row 4 + contact row — half the vector word gap (2.246% → 1.123%) */
+.hero-row-vector-links:has(+ .hero-row-contact),
+.hero-row-contact.hero-row-vector-links {
+  column-gap: 1.123%;
+}
+
 .hero-small-last{
   display: none;
   margin-top: 100px;
