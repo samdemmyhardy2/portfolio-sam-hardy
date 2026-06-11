@@ -1,0 +1,47 @@
+---
+description: PNG image borders — rectangular box-shadow vs shape-following drop-shadow
+globs: web-main/**/*.css,web-main/**/*.html
+alwaysApply: false
+---
+
+# PNG image borders (portfolio / web-main)
+
+Match stroke colour to palette via `--image-border` (set on `transitionend` in `colorable-palette.js` — do not drive borders from interpolating `--page-text` inside `filter`).
+
+## Rectangular PNG (UI mockups, screenshots, cards)
+
+Use a **flat 3px ring** — cheap, smooth scroll, no `filter`:
+
+```css
+img {
+  box-shadow: 0 0 0 3px var(--image-border, var(--page-text));
+}
+```
+
+**Reference:** `web-main/css/nespresso-sandbox.css` — `.timeline-content img`, `.project-image--desktop img`.
+
+## Peculiar / non-rectangular PNG (organic silhouettes, cut-out shapes)
+
+Use **stacked `drop-shadow`** so the stroke hugs transparent alpha — apply to **few images only** (perf):
+
+```css
+img {
+  filter:
+    drop-shadow(1px 0 0 var(--image-border, var(--page-text)))
+    drop-shadow(-1px 0 0 var(--image-border, var(--page-text)))
+    drop-shadow(0 1px 0 var(--image-border, var(--page-text)))
+    drop-shadow(0 -1px 0 var(--image-border, var(--page-text)))
+    drop-shadow(2px 0 0 var(--image-border, var(--page-text)))
+    drop-shadow(-2px 0 0 var(--image-border, var(--page-text)))
+    drop-shadow(0 2px 0 var(--image-border, var(--page-text)))
+    drop-shadow(0 -2px 0 var(--image-border, var(--page-text)));
+}
+```
+
+**Reference:** `web-main/css/nespresso-sandbox.css` — `.project-image--mobile img` (bottom hero).
+
+## Do not
+
+- Put drop-shadow on every timeline image (scroll/reveal jank).
+- Use viewport IO or per-frame filter toggling unless explicitly asked.
+- Use `background-attachment: fixed` on timeline overlays over filtered images.

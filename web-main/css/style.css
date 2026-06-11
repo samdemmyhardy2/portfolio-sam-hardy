@@ -64,6 +64,20 @@ body {
   color: var(--page-text);
 }
 
+/* Centre layout ruler — add class `layout-ruler` to <body> to show (any page) */
+body.layout-ruler::after {
+  content: '';
+  position: fixed;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: red;
+  transform: translateX(-50%);
+  z-index: 9999;
+  pointer-events: none;
+}
+
 /* Gradient on its own layer — repaints don't touch page content */
 body::before {
   content: '';
