@@ -325,6 +325,20 @@ h1 {
   margin-top: -8px;
 }
 
+/* Principal row (NESPRESSO / CHRISTIES …) — half word gap; flex still fills width */
+.hero-row-principal.hero-row-vector-links {
+  column-gap: 1.123%;
+}
+
+/* Vertical gap principal → brands: row-gap 12px, pull up 9px (→ ~3px). Needs #id to beat .hero-row { margin: 0 } */
+#hero-home .hero-row-principal + .hero-row,
+#hero-principal .hero-row-principal + .hero-row,
+#hero-principal-small .hero-row-principal + .hero-row,
+#hero-last .hero-row-principal + .hero-row,
+#hero-last-small .hero-row-principal + .hero-row {
+  margin-top: -9px;
+}
+
 /* Row 4 + contact row — half the vector word gap (2.246% → 1.123%) */
 .hero-row-vector-links:has(+ .hero-row-contact),
 .hero-row-contact.hero-row-vector-links {
