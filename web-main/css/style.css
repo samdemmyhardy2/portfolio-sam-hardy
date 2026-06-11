@@ -385,12 +385,12 @@ h1 {
   color: var(--page-bg);
 }
 
-/* Contact row — phrase hover (JS .hero-hover-group-lit); solo-word :hover off */
-.hero-row-contact a[data-hover-group]:hover:not(.hero-hover-group-lit) .ru {
+/* Phrase hover groups (JS .hero-hover-group-lit); solo-word :hover off */
+.hero-row-vector-links a[data-hover-group]:hover:not(.hero-hover-group-lit) .ru {
   color: inherit;
 }
 
-.hero-row-contact a.hero-hover-group-lit .ru {
+.hero-row-vector-links a.hero-hover-group-lit .ru {
   color: var(--page-bg);
 }
 

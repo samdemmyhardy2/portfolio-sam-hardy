@@ -245,9 +245,9 @@ function isNavigable(a) {
   return !!href && href !== '#' && !href.startsWith('#');
 }
 
-/* Contact row — grouped hover without changing link/layout structure. */
-function wireContactHoverGroups() {
-  document.querySelectorAll('.hero-row-contact').forEach((row) => {
+/* Grouped phrase hover — data-hover-group on links, layout unchanged. */
+function wireHeroHoverGroups() {
+  document.querySelectorAll('.hero-row-vector-links').forEach((row) => {
     row.addEventListener('mouseover', (e) => {
       const link = e.target.closest('a[data-hover-group]');
       if (!link || !row.contains(link)) return;
@@ -282,7 +282,7 @@ function wireContactHoverGroups() {
   });
 }
 
-wireContactHoverGroups();
+wireHeroHoverGroups();
 
 /* ---- On load: fit, build word units, then stagger them in ---- */
 let introStarted = false;
