@@ -250,10 +250,10 @@ h1 {
   line-height: var(--hero-nav-line-height);
 }
 
-/* Row 1 — SAM HARDY LEAD PRODUCT (vector): 5px left */
+/* Row 1 — SAM HARDY LEAD PRODUCT (vector): 2px left */
 #hero-home .hero-row:first-child,
 #hero-last .hero-row:first-child {
-  margin-left: -5px;
+  margin-left: -2px;
 }
 
 .hero-row-vector .hero-link-big,
