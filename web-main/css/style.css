@@ -291,10 +291,17 @@ h1 {
   display: block;
 }
 
-/* Row 2 (DESIGNER / …): vector words, 30px tighter, 5px left */
+/* Row 2 (DESIGNER / …): home + footer — shifts bottom 4 rows down 20px as a block */
 #hero-home .hero-row:nth-child(2),
 #hero-last .hero-row:nth-child(2) {
-  margin-left: -5px;
+  margin-left: -1px;
+  margin-top: -7px;
+}
+
+/* Tighter vertical gap DESIGNER row → NESPRESSO row below (home + footer only) */
+#hero-home .hero-row:nth-child(2) + .hero-row,
+#hero-last .hero-row:nth-child(2) + .hero-row {
+  margin-top: -8px;
 }
 
 .hero-row-vector-links {
@@ -308,10 +315,8 @@ h1 {
   min-width: 0;
 }
 
-#hero-home .hero-row:nth-child(2),
 #hero-principal .hero-row:nth-child(2),
 #hero-principal-small .hero-row:nth-child(2),
-#hero-last .hero-row:nth-child(2),
 #hero-last-small .hero-row:nth-child(2) {
   margin-top: -30px;
 }
