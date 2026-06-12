@@ -250,10 +250,16 @@ h1 {
   line-height: var(--hero-nav-line-height);
 }
 
-/* Row 1 — SAM HARDY LEAD PRODUCT (vector): 2px left */
+/* Row 1 — SAM HARDY LEAD PRODUCT (vector): 4px left, slight scale-up */
 #hero-home .hero-row:first-child,
 #hero-last .hero-row:first-child {
-  margin-left: -2px;
+  margin-left: -4px;
+}
+
+#hero-home .hero-row-vector-words,
+#hero-last .hero-row-vector-words {
+  transform: scale(1.007);
+  transform-origin: left bottom;
 }
 
 .hero-row-vector .hero-link-big,
@@ -298,10 +304,16 @@ h1 {
   margin-top: -7px;
 }
 
+/* HIRE svg sits 1px low vs DESIGNER / ABOUT ME words */
+#hero-home .hero-row:nth-child(2) a[aria-label="HIRE"],
+#hero-last .hero-row:nth-child(2) a[aria-label="HIRE"] {
+  transform: translateY(-1px);
+}
+
 /* Tighter vertical gap DESIGNER row → NESPRESSO row below (home + footer only) */
 #hero-home .hero-row:nth-child(2) + .hero-row,
 #hero-last .hero-row:nth-child(2) + .hero-row {
-  margin-top: -8px;
+  margin-top: -4px;
 }
 
 .hero-row-vector-links {
