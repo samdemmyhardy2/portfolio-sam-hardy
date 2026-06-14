@@ -304,12 +304,6 @@ h1 {
   margin-top: -7px;
 }
 
-/* HIRE svg sits 1px low vs DESIGNER / ABOUT ME words */
-#hero-home .hero-row:nth-child(2) a[aria-label="HIRE"],
-#hero-last .hero-row:nth-child(2) a[aria-label="HIRE"] {
-  transform: translateY(-1px);
-}
-
 /* Tighter vertical gap DESIGNER row → NESPRESSO row below (home + footer only) */
 #hero-home .hero-row:nth-child(2) + .hero-row,
 #hero-last .hero-row:nth-child(2) + .hero-row {
@@ -325,6 +319,41 @@ h1 {
 .hero-row-vector-links > .hero-link-small {
   display: block;
   min-width: 0;
+}
+
+/* Hero vector baseline — ±1px viewBox padding fixes (layout unchanged) */
+.hero-row-vector-words [data-hero-svg$="hardy.svg"],
+.hero-row-vector-words [data-hero-svg$="lead.svg"],
+.hero-row-vector-links a:has([data-hero-svg$="farfetch.svg"]),
+.hero-row-vector-links a:has([data-hero-svg$="obodo.svg"]),
+.hero-row-vector-links a:has([data-hero-svg$="net-a-porter.svg"]),
+.hero-row-vector-links a:has([data-hero-svg$="wagamama-word.svg"]),
+.hero-row-vector-links a:has([data-hero-svg$="givenchy-slash.svg"]) {
+  transform: translateY(-1px);
+}
+
+/* Row 2 (DESIGNER / …) — align loose viewBox bottoms to ABOUT baseline */
+#hero-home .hero-row:nth-child(2) a:has([data-hero-svg$="designer.svg"]),
+#hero-home .hero-row:nth-child(2) a:has([data-hero-svg$="me-slash.svg"]),
+#hero-last .hero-row:nth-child(2) a:has([data-hero-svg$="designer.svg"]),
+#hero-last .hero-row:nth-child(2) a:has([data-hero-svg$="me-slash.svg"]) {
+  transform: translateY(1px);
+}
+
+#hero-home .hero-row:nth-child(2) a:has([data-hero-svg$="hire.svg"]),
+#hero-home .hero-row:nth-child(2) a:has([data-hero-svg$="me.svg"]),
+#hero-last .hero-row:nth-child(2) a:has([data-hero-svg$="hire.svg"]),
+#hero-last .hero-row:nth-child(2) a:has([data-hero-svg$="me.svg"]) {
+  transform: none;
+}
+
+/* Tighter viewBox bottom — sit high until nudged down to row baseline */
+.hero-row-vector-links a:has([data-hero-svg$="nespresso.svg"]),
+.hero-row-vector-links a:has([data-hero-svg$="download.svg"]),
+.hero-row-vector-links a:has([data-hero-svg$="samdemmyhardy-gmail.svg"]),
+.hero-row-vector-links a:has([data-hero-svg$="cv-slash.svg"]),
+.hero-row-vector-links a:has([data-hero-svg$="testimonials.svg"]) {
+  transform: translateY(1px);
 }
 
 #hero-principal .hero-row:nth-child(2),
@@ -353,7 +382,7 @@ h1 {
 #hero-principal-small .hero-row-principal + .hero-row,
 #hero-last .hero-row-principal + .hero-row,
 #hero-last-small .hero-row-principal + .hero-row {
-  margin-top: -9px;
+  margin-top: -4px;
 }
 
 /* Row 4 + contact row — half the vector word gap (2.246% → 1.123%) */
