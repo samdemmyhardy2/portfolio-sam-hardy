@@ -118,13 +118,53 @@
 }
 
 @media (max-width: 700px) {
-  .timeline--squiggle .timeline-item {
+  /* Playground only — purple page keeps transparent panels */
+  .playground-page .timeline--squiggle .timeline-item {
     margin-left: 0 !important;
     margin-right: 0 !important;
     background-color: transparent !important;
   }
 
-  .timeline--squiggle .timeline-content {
+  .playground-page .timeline--squiggle .timeline-content {
     background-color: transparent !important;
+  }
+
+  /* Case-study mobile (<701px): spine behind rows; text blocks mask spine */
+  body:not(.playground-page) .timeline--squiggle .timeline-squiggle-host,
+  body:not(.playground-page) .timeline--squiggle .timeline-squiggle-host--figma,
+  body:not(.playground-page) .timeline--squiggle .timeline-squiggle-static {
+    z-index: 0 !important;
+  }
+
+  body:not(.playground-page) .timeline--squiggle .timeline-item,
+  body:not(.playground-page) .timeline--squiggle .timeline-header {
+    position: relative;
+    z-index: 2;
+  }
+
+  body:not(.playground-page) .timeline--squiggle .timeline-item {
+    background-color: transparent !important;
+  }
+
+  body:not(.playground-page) .timeline--squiggle .timeline-header {
+    background-color: var(--page-bg) !important;
+  }
+
+  body:not(.playground-page) .timeline--squiggle .timeline-content,
+  body:not(.playground-page) .timeline--squiggle .timeline-center {
+    z-index: auto;
+  }
+
+  body:not(.playground-page) .timeline--squiggle .timeline-content.img-block {
+    background-color: transparent !important;
+  }
+
+  body:not(.playground-page) .timeline--squiggle .timeline-content.img-block img {
+    position: relative;
+    z-index: 1;
+  }
+
+  body:not(.playground-page) .timeline--squiggle .timeline-content:not(.img-block) {
+    background-color: var(--page-bg) !important;
   }
 }

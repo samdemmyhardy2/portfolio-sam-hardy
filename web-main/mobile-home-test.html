@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Home test — Sam Hardy</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile-home-test.css?v=5">
+</head>
+<body class="mobile-home-test-page">
+
+  <main class="mht-main">
+
+    <p class="mht-desktop-note">
+      Mobile Home test — layout from
+      <a href="https://www.figma.com/design/OduRdlq5m8kessIyqwzskp/Portfolio-2023?node-id=2774-27566">Figma Mobile Home</a>.
+      Resize below <strong>680px</strong> to preview.
+      <a href="index.html">Back to home</a>
+    </p>
+
+    <!-- Figma 2774:27566 — single composite vector (364×202) -->
+    <section class="mht-hero" id="mht-hero" aria-label="Mobile home navigation">
+      <div class="mht-nav-art" id="mht-nav-art" role="img" aria-label="SAM HARDY LEAD — product designer navigation"></div>
+    </section>
+
+  </main>
+
+  <script src="js/colorable-palette.js"></script>
+  <script>
+    fetch('img/mobile-home-test/mobile-home-nav.svg')
+      .then(function (r) { return r.text(); })
+      .then(function (svg) {
+        var host = document.getElementById('mht-nav-art');
+        host.innerHTML = svg;
+        var el = host.querySelector('svg');
+        if (el) {
+          el.classList.add('mht-nav-svg');
+          el.removeAttribute('aria-hidden');
+        }
+      });
+  </script>
+</body>
+</html>
