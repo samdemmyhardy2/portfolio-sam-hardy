@@ -45,15 +45,38 @@
   }
 
   .mobile-home-test-page .mht-nav-art {
+    position: relative;
     width: 100%;
     margin: 0;
     line-height: 0;
     color: var(--page-text);
   }
 
-  .mobile-home-test-page .mht-nav-art .mht-nav-svg {
+  .mobile-home-test-page .mht-nav-svg-host .mht-nav-svg {
     display: block;
     width: 100%;
     height: auto;
+    pointer-events: none;
+  }
+
+  .mobile-home-test-page .mht-nav-links {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .mobile-home-test-page .mht-nav-hit {
+    position: absolute;
+    box-sizing: border-box;
+    /* debug: background: rgba(255, 0, 0, 0.08); */
+  }
+
+  .mobile-home-test-page .mht-nav-hit:focus-visible {
+    outline: 2px solid var(--page-text);
+    outline-offset: 1px;
+  }
+
+  .mobile-home-test-page .mht-nav-hit--lit {
+    background: color-mix(in srgb, var(--page-text) 8%, transparent);
   }
 }

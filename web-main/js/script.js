@@ -15,6 +15,26 @@ const HIDE_FRAMES = 1;   // speed of words disappearing on click
    intro animation. If this script never runs, the header stays visible. */
 document.documentElement.classList.add('js-anim');
 
+function isHomeMobileNavActive() {
+  return (
+    window.matchMedia('(max-width: 679px)').matches &&
+    !!document.getElementById('hero-mobile-nav-art')
+  );
+}
+
+function isCaseMobileNavActive() {
+  return (
+    window.matchMedia('(max-width: 679px)').matches &&
+    !!document.querySelector('#hero-principal .hero-mobile-case-nav')
+  );
+}
+
+function isMobilePrincipalHeroSkipped(section) {
+  if (section.id === 'hero-home' && isHomeMobileNavActive()) return true;
+  if (section.id === 'hero-principal' && isCaseMobileNavActive()) return true;
+  return false;
+}
+
 /* ---- Fit each hero row so type fills the nav frame left → right ----
    Matches Next.js FitLine: targetFill + slight overshoot before rounding. */
 /* Load Figma SVG exports into vector hero rows before fit/reveal. */
@@ -48,13 +68,21 @@ async function hydrateSvgUnit(el, svgClass) {
 }
 
 async function hydrateHeroVectors() {
+  const skipHome = isHomeMobileNavActive();
+  const skipCasePrincipal = isCaseMobileNavActive();
   const jobs = [];
 
   document
     .querySelectorAll('.hero-vector-reveal[data-hero-svg]')
-    .forEach((el) => jobs.push(hydrateSvgUnit(el, 'hero-word-svg')));
+    .forEach((el) => {
+      if (skipHome && el.closest('#hero-home') && !el.closest('.hero-mobile-nav')) return;
+      if (skipCasePrincipal && el.closest('#hero-principal > .hero-row')) return;
+      jobs.push(hydrateSvgUnit(el, 'hero-word-svg'));
+    });
 
   document.querySelectorAll('.hero-row-vector[data-hero-svg]').forEach((row) => {
+    if (skipHome && row.closest('#hero-home') && !row.classList.contains('hero-mobile-nav')) return;
+    if (skipCasePrincipal && row.closest('#hero-principal > .hero-row')) return;
     if (row.classList.contains('hero-row-vector-words')) return;
 
     const link = row.querySelector('a');
@@ -79,6 +107,8 @@ function fitHeroRows() {
   const rows = document.querySelectorAll('.hero-row');
 
   rows.forEach((row) => {
+    if (isHomeMobileNavActive() && row.closest('#hero-home')) return;
+    if (isCaseMobileNavActive() && row.closest('#hero-principal > .hero-row')) return;
     if (row.classList.contains('hero-row-vector')) return;
 
     const section = row.parentElement;
@@ -293,10 +323,21 @@ async function startIntro() {
   await hydrateHeroVectors();
   fitHeroRows();
 
+  if (isCaseMobileNavActive()) {
+    const principal = document.getElementById('hero-principal');
+    if (principal) {
+      principal
+        .querySelectorAll('.hero-mobile-case-nav .hero-link-big, .hero-mobile-case-nav .hero-link-small')
+        .forEach((link) => link.classList.add('lit'));
+      principal.querySelectorAll('.hero-mobile-case-nav .ru').forEach((u) => u.classList.add('show'));
+    }
+  }
+
   // Each visible hero block reveals as its own tight group (header,
   // footer nav, etc. don't dilute each other).
   document.querySelectorAll('.hero').forEach((section) => {
     if (!isVisibleSection(section)) return;
+    if (isMobilePrincipalHeroSkipped(section)) return;
     const units = buildWordUnits(section);
     section
       .querySelectorAll('.hero-link-big, .hero-link-small')
@@ -313,7 +354,43 @@ if (document.fonts && document.fonts.ready) {
 window.addEventListener('load', startIntro);
 setTimeout(startIntro, 1500);
 
-window.addEventListener('resize', fitHeroRows);
+window.addEventListener('resize', () => {
+  fitHeroRows();
+  if (!isHomeMobileNavActive()) ensureHomeDesktopHero();
+  if (!isCaseMobileNavActive()) ensureCaseDesktopPrincipal();
+});
+
+async function ensureHomeDesktopHero() {
+  const section = document.getElementById('hero-home');
+  if (!section) return;
+
+  const pending = section.querySelector(
+    '.hero-vector-reveal[data-hero-svg]:not([data-hydrated="1"]), .hero-row-vector[data-hero-svg]:not([data-hydrated="1"])'
+  );
+  if (pending) await hydrateHeroVectors();
+
+  fitHeroRows();
+  section.querySelectorAll('.hero-link-big, .hero-link-small').forEach((link) => {
+    link.classList.add('lit');
+  });
+  buildWordUnits(section).forEach((u) => u.classList.add('show'));
+}
+
+async function ensureCaseDesktopPrincipal() {
+  const section = document.getElementById('hero-principal');
+  if (!section) return;
+
+  const pending = section.querySelector(
+    '.hero-row .hero-vector-reveal[data-hero-svg]:not([data-hydrated="1"])'
+  );
+  if (pending) await hydrateHeroVectors();
+
+  fitHeroRows();
+  section.querySelectorAll('.hero-link-big, .hero-link-small').forEach((link) => {
+    link.classList.add('lit');
+  });
+  buildWordUnits(section).forEach((u) => u.classList.add('show'));
+}
 
 /* Returning via the browser Back/Forward cache: show the header fully. */
 window.addEventListener('pageshow', (e) => {

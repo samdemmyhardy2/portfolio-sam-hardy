@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mobile Home test — Sam Hardy</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/mobile-home-test.css?v=5">
+  <link rel="stylesheet" href="css/mobile-home.css">
 </head>
 <body class="mobile-home-test-page">
 
@@ -20,24 +20,15 @@
 
     <!-- Figma 2774:27566 — single composite vector (364×202) -->
     <section class="mht-hero" id="mht-hero" aria-label="Mobile home navigation">
-      <div class="mht-nav-art" id="mht-nav-art" role="img" aria-label="SAM HARDY LEAD — product designer navigation"></div>
+      <div class="mht-nav-art" id="mht-nav-art">
+        <div class="mht-nav-svg-host" id="mht-nav-svg-host" aria-hidden="true"></div>
+      </div>
     </section>
 
   </main>
 
   <script src="js/colorable-palette.js"></script>
-  <script>
-    fetch('img/mobile-home-test/mobile-home-nav.svg')
-      .then(function (r) { return r.text(); })
-      .then(function (svg) {
-        var host = document.getElementById('mht-nav-art');
-        host.innerHTML = svg;
-        var el = host.querySelector('svg');
-        if (el) {
-          el.classList.add('mht-nav-svg');
-          el.removeAttribute('aria-hidden');
-        }
-      });
-  </script>
+  <script src="js/mobile-home-test-links.js?v=2"></script>
+  <script src="js/mobile-home-nav.js"></script>
 </body>
 </html>

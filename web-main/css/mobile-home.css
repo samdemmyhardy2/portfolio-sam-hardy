@@ -1,0 +1,110 @@
+/* Mobile home nav — Figma 2774:27566 composite SVG (364×202), below 680px only */
+
+@media (max-width: 679px) {
+  .mht-nav-art {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    line-height: 0;
+    color: var(--page-text);
+  }
+
+  .mht-nav-svg-host .mht-nav-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+  }
+
+  .mht-nav-links {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .mht-nav-hit {
+    position: absolute;
+    box-sizing: border-box;
+  }
+
+  .mht-nav-hit:focus-visible {
+    outline: 2px solid var(--page-text);
+    outline-offset: 1px;
+  }
+
+  .mht-nav-hit--lit {
+    background: color-mix(in srgb, var(--page-text) 8%, transparent);
+  }
+
+  .js-anim #hero-home .mht-nav-hit {
+    opacity: 1;
+  }
+
+  /* Production home — swap desktop vector rows for composite mobile nav */
+  #hero-home {
+    outline: none;
+    gap: 0;
+    width: 100%;
+    margin: 0;
+    padding: 33px 16px 0;
+  }
+
+  #hero-home .hero-row,
+  #hero-home .hero-mobile-nav {
+    display: none !important;
+  }
+
+  #hero-home .hero-mobile-nav {
+    display: block !important;
+  }
+}
+
+@media (min-width: 680px) {
+  #hero-home .hero-mobile-nav {
+    display: none !important;
+  }
+}
+
+/* Mobile Home test page — sandbox only */
+.mobile-home-test-page .mht-desktop-note {
+  display: none;
+  max-width: 40rem;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+  font-family: 'GelionMedium', sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--page-text);
+}
+
+.mobile-home-test-page .mht-desktop-note a {
+  color: inherit;
+}
+
+@media (min-width: 680px) {
+  .mobile-home-test-page .mht-desktop-note {
+    display: block;
+  }
+
+  .mobile-home-test-page .mht-hero {
+    display: none;
+  }
+}
+
+@media (max-width: 679px) {
+  .mobile-home-test-page {
+    min-height: 100vh;
+  }
+
+  .mobile-home-test-page .mht-main {
+    margin: 0;
+    padding: 0;
+  }
+
+  .mobile-home-test-page .mht-hero {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 33px 16px 0;
+  }
+}
