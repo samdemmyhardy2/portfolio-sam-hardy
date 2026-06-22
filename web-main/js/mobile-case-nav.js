@@ -1,81 +1,96 @@
 /**
- * Case-study mobile header — 3 rows at #hero-principal (below 680px).
- * Row 1: NESPRESSO / OBODO.IO
- * Row 2: CHRISTIES AUCTION HOUSE
- * Row 3: WAGAMAMA / NET-A-PORTER / FARFETCH
+ * Case-study mobile header — composite Figma SVG (364×169), below 680px.
+ * Same pattern as mobile-home-nav.js.
  */
 (function () {
-  var ROWS = [
-    {
-      className: 'hero-mobile-case-row--principal',
-      linkClass: 'hero-link-big',
-      items: [
-        { href: 'nespresso-page.html', svg: '../img/hero/nespresso.svg', vb: 558, label: 'NESPRESSO', group: 'nespresso', active: 'nespresso' },
-        { slash: true },
-        { href: '#', svg: '../img/hero/obodo.svg', vb: 228, label: 'OBODO.IO', active: 'obodo' }
-      ]
-    },
-    {
-      className: 'hero-mobile-case-row--principal',
-      linkClass: 'hero-link-big',
-      items: [
-        { href: 'pageone.html', svg: '../img/hero/christies.svg', vb: 453, label: 'CHRISTIES', group: 'christies', active: 'christies' },
-        { href: 'pageone.html', svg: '../img/hero/auction.svg', vb: 382, label: 'AUCTION', group: 'christies', active: 'christies' },
-        { href: 'pageone.html', svg: '../img/hero/house.svg', vb: 287, label: 'HOUSE', group: 'christies', active: 'christies' }
-      ]
-    },
-    {
-      className: 'hero-mobile-case-row--brands',
-      linkClass: 'hero-link-small',
-      items: [
-        { href: 'wagamama-page.html', svg: '../img/hero/wagamama-word.svg', vb: 380, label: 'WAGAMAMA', active: 'wagamama' },
-        { slash: true },
-        { href: '#', svg: '../img/hero/net-a-porter.svg', vb: 462, label: 'NET-A-PORTER' },
-        { slash: true },
-        { href: '#', svg: '../img/hero/farfetch.svg', vb: 328, label: 'FARFETCH' }
-      ]
-    }
+  var SVG_URL = '../img/mobile-case-nav/mobile-case-nav.svg';
+
+  /* Hit regions (% of viewBox 364×169) — tune against Figma composite */
+  var LINKS = [
+    { top: 0, left: 0, width: 58, height: 24, href: 'nespresso-page.html', label: 'NESPRESSO', active: 'nespresso' },
+    { top: 0, left: 58, width: 42, height: 24, href: '#', label: 'OBODO' },
+
+    { top: 25.5, left: 0, width: 38, height: 22, href: 'pageone.html', label: 'CHRISTIES', group: 'christies', active: 'christies' },
+    { top: 25.5, left: 38, width: 30, height: 22, href: 'pageone.html', label: 'AUCTION', group: 'christies', active: 'christies' },
+    { top: 25.5, left: 68, width: 32, height: 22, href: 'pageone.html', label: 'HOUSE', group: 'christies', active: 'christies' },
+
+    { top: 49, left: 0, width: 28, height: 20, href: 'wagamama-page.html', label: 'WAGAMAMA', active: 'wagamama' },
+    { top: 49, left: 28, width: 16, height: 20, href: '#', label: 'OBODO' },
+    { top: 49, left: 44, width: 22, height: 20, href: '#', label: 'FARFETCH' },
+    { top: 49, left: 66, width: 34, height: 20, href: '#', label: 'NET-A-PORTER' },
+
+    { top: 70, left: 0, width: 55, height: 18, href: '#', label: 'NET-A-PORTER' },
+    { top: 70, left: 55, width: 45, height: 18, href: '#', label: 'FARFETCH' },
+
+    { top: 88, left: 0, width: 100, height: 12, href: 'givenchy-page.html', label: 'GIVENCHY', active: 'givenchy' }
   ];
 
-  function buildCaseNav(activeKey) {
-    var nav = document.createElement('div');
-    nav.className = 'hero-mobile-case-nav';
-    nav.id = 'hero-mobile-case-nav';
+  function buildLinkOverlay(host, activeKey) {
+    var nav = document.createElement('nav');
+    nav.className = 'mcn-nav-links';
+    nav.setAttribute('aria-label', 'Case study navigation links');
 
-    ROWS.forEach(function (row) {
-      var rowEl = document.createElement('div');
-      rowEl.className = 'hero-mobile-case-row ' + row.className;
-
-      row.items.forEach(function (item) {
-        if (item.slash) {
-          var slash = document.createElement('span');
-          slash.className = 'hero-mobile-case-slash';
-          slash.setAttribute('aria-hidden', 'true');
-          slash.textContent = '/';
-          rowEl.appendChild(slash);
-          return;
-        }
-
-        var a = document.createElement('a');
-        a.href = item.href;
-        a.className = row.linkClass;
-        a.setAttribute('aria-label', item.label);
-        if (item.group) a.setAttribute('data-hover-group', item.group);
-        if (item.active && item.active === activeKey) a.classList.add('hero-active');
-
-        var span = document.createElement('span');
-        span.className = 'ru hero-vector-reveal';
-        span.setAttribute('data-hero-svg', item.svg);
-        span.setAttribute('data-vb-width', String(item.vb));
-        a.style.flex = item.vb + ' 1 0';
-        a.appendChild(span);
-        rowEl.appendChild(a);
-      });
-
-      nav.appendChild(rowEl);
+    LINKS.forEach(function (item) {
+      var a = document.createElement('a');
+      a.className = 'mcn-nav-hit';
+      a.href = item.href;
+      a.setAttribute('aria-label', item.label);
+      a.style.top = item.top + '%';
+      a.style.left = item.left + '%';
+      a.style.width = item.width + '%';
+      a.style.height = item.height + '%';
+      if (item.group) a.setAttribute('data-hover-group', item.group);
+      if (item.active && item.active === activeKey) a.classList.add('mcn-nav-hit--active');
+      nav.appendChild(a);
     });
 
-    return nav;
+    host.appendChild(nav);
+    wireHoverGroups(host);
+  }
+
+  function wireHoverGroups(host) {
+    host.querySelectorAll('.mcn-nav-hit[data-hover-group]').forEach(function (link) {
+      link.addEventListener('mouseenter', function () {
+        var g = link.getAttribute('data-hover-group');
+        host.querySelectorAll('.mcn-nav-hit[data-hover-group="' + g + '"]').forEach(function (el) {
+          el.classList.add('mcn-nav-hit--lit');
+        });
+      });
+      link.addEventListener('mouseleave', function () {
+        var g = link.getAttribute('data-hover-group');
+        host.querySelectorAll('.mcn-nav-hit[data-hover-group="' + g + '"]').forEach(function (el) {
+          el.classList.remove('mcn-nav-hit--lit');
+        });
+      });
+    });
+  }
+
+  function mountNav(principal, activeKey) {
+    var wrap = document.createElement('div');
+    wrap.className = 'hero-mobile-case-nav';
+    wrap.id = 'hero-mobile-case-nav';
+
+    var art = document.createElement('div');
+    art.className = 'mcn-nav-art';
+
+    var svgHost = document.createElement('div');
+    svgHost.className = 'mcn-nav-svg-host';
+    art.appendChild(svgHost);
+
+    wrap.appendChild(art);
+    principal.appendChild(wrap);
+
+    fetch(SVG_URL)
+      .then(function (r) { return r.text(); })
+      .then(function (svg) {
+        svgHost.innerHTML = svg;
+        var el = svgHost.querySelector('svg');
+        if (el) {
+          el.classList.add('mcn-nav-svg');
+          el.setAttribute('aria-hidden', 'true');
+        }
+        buildLinkOverlay(art, activeKey);
+      });
   }
 
   function init() {
@@ -83,7 +98,7 @@
     if (!principal || principal.querySelector('.hero-mobile-case-nav')) return;
 
     var activeKey = principal.getAttribute('data-mobile-case-active') || '';
-    principal.appendChild(buildCaseNav(activeKey));
+    mountNav(principal, activeKey);
   }
 
   init();

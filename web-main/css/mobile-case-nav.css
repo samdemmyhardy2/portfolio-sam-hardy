@@ -1,4 +1,4 @@
-/* Case-study mobile — 3-row header nav + page/timeline layout, below 701px */
+/* Case-study mobile — Figma composite nav (364×169) + page/timeline layout, below 701px */
 
 @media (max-width: 700px) {
   #hero-principal.hero-big {
@@ -14,7 +14,7 @@
     gap: 0;
     width: 100%;
     margin: 0;
-    padding: 33px 16px 0;
+    padding: 33px 0 0;
   }
 
   #hero-principal > .hero-row {
@@ -22,55 +22,50 @@
   }
 
   #hero-principal .hero-mobile-case-nav {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    row-gap: 3px;
-  }
-
-  #hero-principal .hero-mobile-case-row {
-    display: flex;
-    align-items: flex-end;
-    flex-wrap: nowrap;
-    width: 100%;
-    column-gap: 1.123%;
-  }
-
-  #hero-principal .hero-mobile-case-row .hero-link-big,
-  #hero-principal .hero-mobile-case-row .hero-link-small {
     display: block;
-    min-width: 0;
+    width: 100%;
+    margin: 0;
+  }
+
+  #hero-principal .mcn-nav-art {
+    position: relative;
+    width: 100%;
+    line-height: 0;
     color: var(--page-text);
   }
 
-  #hero-principal .hero-mobile-case-row .hero-vector-reveal {
+  #hero-principal .mcn-nav-svg-host .mcn-nav-svg {
     display: block;
     width: 100%;
-  }
-
-  #hero-principal .hero-mobile-case-slash {
-    flex: 0 0 auto;
-    align-self: flex-end;
-    line-height: 1;
-    color: var(--page-text);
-    font-family: 'GelionMedium', sans-serif;
-    font-weight: 500;
-    user-select: none;
+    height: auto;
     pointer-events: none;
   }
 
-  #hero-principal .hero-mobile-case-row--principal .hero-mobile-case-slash {
-    font-size: clamp(18px, 5.6vw, 28px);
-    margin: 0 0.15em;
+  #hero-principal .mcn-nav-links {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
 
-  #hero-principal .hero-mobile-case-row--brands .hero-mobile-case-slash {
-    font-size: clamp(12px, 3.8vw, 18px);
-    margin: 0 0.12em;
+  #hero-principal .mcn-nav-hit {
+    position: absolute;
+    box-sizing: border-box;
   }
 
-  .js-anim #hero-principal .hero-mobile-case-nav a,
-  .js-anim #hero-principal .hero-mobile-case-nav .hero-vector-reveal {
+  #hero-principal .mcn-nav-hit:focus-visible {
+    outline: 2px solid var(--page-text);
+    outline-offset: 1px;
+  }
+
+  #hero-principal .mcn-nav-hit--lit {
+    background: color-mix(in srgb, var(--page-text) 8%, transparent);
+  }
+
+  #hero-principal .mcn-nav-hit--active {
+    animation: heroFlash 1s steps(2, end) infinite;
+  }
+
+  .js-anim #hero-principal .mcn-nav-hit {
     opacity: 1;
   }
 

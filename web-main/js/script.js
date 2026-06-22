@@ -326,10 +326,7 @@ async function startIntro() {
   if (isCaseMobileNavActive()) {
     const principal = document.getElementById('hero-principal');
     if (principal) {
-      principal
-        .querySelectorAll('.hero-mobile-case-nav .hero-link-big, .hero-mobile-case-nav .hero-link-small')
-        .forEach((link) => link.classList.add('lit'));
-      principal.querySelectorAll('.hero-mobile-case-nav .ru').forEach((u) => u.classList.add('show'));
+      principal.querySelectorAll('.mcn-nav-hit').forEach((link) => link.classList.add('lit'));
     }
   }
 
