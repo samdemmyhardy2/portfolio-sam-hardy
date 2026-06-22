@@ -240,19 +240,19 @@
   overflow: visible;
 }
 
-/* Figma spine segment 3 (53×484 frame, viewBox 56×488) — ONLY --figma-3; 50px overlap with seg 2 */
+/* Figma spine segment 3 (61×545 frame, viewBox 0 0 61 545) — ONLY --figma-3; 50px overlap with seg 2 */
 .timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-3 {
   top: 1056px;
   bottom: auto;
-  width: 53px;
-  height: 484px;
+  width: 61px;
+  height: 545px;
   z-index: 8;
   overflow: visible;
 }
 
-/* Figma spine segment 4 (52×507) — ONLY --figma-4; 50px overlap with seg 3 (1056 + 484 − 50) */
+/* Figma spine segment 4 (52×507) — ONLY --figma-4; 50px overlap with seg 3 (1056 + 545 − 50) */
 .timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-4 {
-  top: 1490px;
+  top: 1551px;
   bottom: auto;
   width: 52px;
   height: 507px;
@@ -260,9 +260,9 @@
   overflow: visible;
 }
 
-/* Figma spine segment 5 (62×526) — ONLY --figma-5; 50px overlap with seg 4 (1490 + 507 − 50) */
+/* Figma spine segment 5 (62×526) — ONLY --figma-5; 50px overlap with seg 4 (1551 + 507 − 50) */
 .timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-5 {
-  top: 1947px;
+  top: 2008px;
   bottom: auto;
   width: 62px;
   height: 526px;
@@ -272,7 +272,7 @@
 
 /* Figma spine segment 6 (43×489) — ONLY --figma-6; 50px overlap with seg 5 (1947 + 526 − 50) */
 .timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-6 {
-  top: 2413px;
+  top: 2474px;
   bottom: auto;
   width: 43px;
   height: 489px;
@@ -282,7 +282,7 @@
 
 /* Figma spine segment 7 (39×433) — ONLY --figma-7; 50px overlap with seg 6 (2413 + 489 − 50) */
 .timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-7 {
-  top: 2867px;
+  top: 2928px;
   bottom: auto;
   width: 39px;
   height: 433px;
@@ -292,7 +292,7 @@
 
 /* Figma spine segment 8 (29×461) — ONLY --figma-8 */
 .timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-8 {
-  top: 3295px;
+  top: 3356px;
   bottom: auto;
   width: 29px;
   height: 461px;
@@ -303,7 +303,7 @@
 
 /* Figma spine segment 9 (36×515) — ONLY --figma-9; 50px overlap with seg 8 (3285 + 485 − 50) */
 .timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-9 {
-  top: 3755px;
+  top: 3816px;
   bottom: auto;
   width: 36px;
   height: 515px;
@@ -314,7 +314,7 @@
 
 /* Figma spine segment 10 (36×500) — circle cap; 50px overlap with seg 9 (3755 + 515 − 50) */
 .timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-10 {
-  top: 4268px;
+  top: 4329px;
   bottom: auto;
   width: 36px;
   height: 500px;
@@ -325,7 +325,7 @@
 
 /* Figma spine segment 11 — final downward detail; 50px overlap with seg 10 (4268 + 500 − 50) */
 .timeline--christies-sandbox.timeline--squiggle .timeline-squiggle-host--figma-11 {
-  top: 4766px;
+  top: 4827px;
   bottom: auto;
   width: 36px;
   height: 500px;

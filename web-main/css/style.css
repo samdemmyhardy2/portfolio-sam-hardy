@@ -328,7 +328,9 @@ h1 {
 .hero-row-vector-links a:has([data-hero-svg$="obodo.svg"]),
 .hero-row-vector-links a:has([data-hero-svg$="net-a-porter.svg"]),
 .hero-row-vector-links a:has([data-hero-svg$="wagamama-word.svg"]),
-.hero-row-vector-links a:has([data-hero-svg$="givenchy-slash.svg"]) {
+.hero-row-vector-links a:has([data-hero-svg$="wagamama.svg"]),
+.hero-row-vector-links a:has([data-hero-svg$="givenchy-slash.svg"]),
+.hero-row-vector-links a:has([data-hero-svg$="givenchy.svg"]) {
   transform: translateY(-1px);
 }
 
@@ -373,6 +375,11 @@ h1 {
 
 /* Principal row (NESPRESSO / CHRISTIES …) — half word gap; flex still fills width */
 .hero-row-principal.hero-row-vector-links {
+  column-gap: 1.123%;
+}
+
+/* Case-study header brands row — tighter gaps, slightly larger vectors (full width unchanged) */
+#hero-principal > .hero-row-small.hero-row-vector-links {
   column-gap: 1.123%;
 }
 
@@ -832,7 +839,7 @@ h1 {
 
   }
 
-  .hero-big {
+  .hero-big:not(#hero-principal) {
 
     display: none;
   }

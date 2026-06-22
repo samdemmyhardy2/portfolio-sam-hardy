@@ -254,6 +254,77 @@
       return clamp(drawn, 0, pathLength);
     }
 
+    function wantsStrokeTipFade() {
+      return (
+        window.matchMedia('(max-width: 700px)').matches &&
+        !!document.getElementById('hero-principal') &&
+        segmentIndex === 3 &&
+        deferredPaint
+      );
+    }
+
+    function applyStrokeTipFade() {
+      if (!svg || !pathLength) return;
+
+      const gradId = 'squiggle-tip-fade-figma-3';
+      const svgNs = 'http://www.w3.org/2000/svg';
+      const figmaFadeW = 61;
+      const figmaFadeH = 545;
+
+      if (!wantsStrokeTipFade()) {
+        path.setAttribute('stroke', 'currentColor');
+        path.style.opacity = '';
+        const stale = svg.querySelector('#' + gradId);
+        if (stale) stale.remove();
+        return;
+      }
+
+      const lineColor =
+        getComputedStyle(svg).color ||
+        getComputedStyle(path).color ||
+        '#EDEDED';
+
+      let defs = svg.querySelector('defs');
+      if (!defs) {
+        defs = document.createElementNS(svgNs, 'defs');
+        svg.insertBefore(defs, svg.firstChild);
+      }
+
+      const stale = defs.querySelector('#' + gradId);
+      if (stale) stale.remove();
+
+      const vb = svg.viewBox.baseVal;
+      const vx = vb.x || 0;
+      const vy = vb.y || 0;
+      const vw = vb.width || figmaFadeW;
+      const vh = vb.height || figmaFadeH;
+      const sx = vw / figmaFadeW;
+      const sy = vh / figmaFadeH;
+
+      const grad = document.createElementNS(svgNs, 'linearGradient');
+      grad.setAttribute('id', gradId);
+      grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+      grad.setAttribute('x1', String(vx + 22 * sx));
+      grad.setAttribute('y1', String(vy + 526.5 * sy));
+      grad.setAttribute('x2', String(vx + 10.5 * sx));
+      grad.setAttribute('y2', String(vy + 8.99998 * sy));
+      [
+        [0, lineColor, 1],
+        [0.76572, lineColor, 1],
+        [1, lineColor, 0],
+      ].forEach(([offset, color, opacity]) => {
+        const stop = document.createElementNS(svgNs, 'stop');
+        stop.setAttribute('offset', String(offset));
+        stop.setAttribute('stop-color', color);
+        stop.setAttribute('stop-opacity', String(opacity));
+        grad.appendChild(stop);
+      });
+      defs.appendChild(grad);
+
+      path.setAttribute('stroke', 'url(#' + gradId + ')');
+      path.style.opacity = '';
+    }
+
     function applyScreenStroke() {
       const px = parseFloat(timelineEl.getAttribute('data-squiggle-stroke-px'));
       if (!px || !path.getScreenCTM) return;
@@ -276,6 +347,7 @@
       prevDrawn = 0;
       prevScrollY = window.scrollY;
       applyScreenStroke();
+      applyStrokeTipFade();
       const dash = `${pathLength}`;
       path.style.strokeDasharray = dash;
       if (track) {

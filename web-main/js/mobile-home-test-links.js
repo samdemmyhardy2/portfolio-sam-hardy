@@ -21,6 +21,13 @@
     { top: 92.1, left: 0, width: 100, height: 7.9, href: 'mailto:samdemmyhardy@gmail.com', label: 'EMAIL ME', group: 'email' }
   ];
 
+  function resolveHref(href) {
+    if (!href || href.charAt(0) === '#' || href.indexOf('mailto:') === 0) return href;
+    if (!document.getElementById('hero-principal')) return href;
+    if (href.indexOf('projects/') === 0) return href.slice('projects/'.length);
+    return href;
+  }
+
   function buildLinkOverlay(host) {
     var nav = document.createElement('nav');
     nav.className = 'mht-nav-links';
@@ -29,7 +36,7 @@
     LINKS.forEach(function (item) {
       var a = document.createElement('a');
       a.className = 'mht-nav-hit';
-      a.href = item.href;
+      a.href = resolveHref(item.href);
       a.setAttribute('aria-label', item.label);
       a.style.top = item.top + '%';
       a.style.left = item.left + '%';

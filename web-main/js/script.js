@@ -24,7 +24,7 @@ function isHomeMobileNavActive() {
 
 function isCaseMobileNavActive() {
   return (
-    window.matchMedia('(max-width: 679px)').matches &&
+    window.matchMedia('(max-width: 700px)').matches &&
     !!document.querySelector('#hero-principal .hero-mobile-case-nav')
   );
 }

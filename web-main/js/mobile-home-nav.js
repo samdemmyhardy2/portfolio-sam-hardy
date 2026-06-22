@@ -3,6 +3,13 @@
  * (home) or #mht-nav-art (test page).
  */
 (function () {
+  function svgUrl() {
+    if (document.getElementById('case-mobile-footer-nav-art')) {
+      return '../img/mobile-home-test/mobile-home-nav.svg';
+    }
+    return 'img/mobile-home-test/mobile-home-nav.svg';
+  }
+
   function getHosts() {
     var hosts = [];
     var homeArt = document.getElementById('hero-mobile-nav-art');
@@ -12,6 +19,10 @@
     var testArt = document.getElementById('mht-nav-art');
     var testHost = document.getElementById('mht-nav-svg-host');
     if (testArt && testHost && testArt !== homeArt) hosts.push({ wrap: testArt, svgHost: testHost });
+
+    var footerArt = document.getElementById('case-mobile-footer-nav-art');
+    var footerHost = document.getElementById('case-mobile-footer-svg-host');
+    if (footerArt && footerHost) hosts.push({ wrap: footerArt, svgHost: footerHost });
 
     return hosts;
   }
@@ -30,7 +41,7 @@
     var hosts = getHosts();
     if (!hosts.length) return;
 
-    fetch('img/mobile-home-test/mobile-home-nav.svg')
+    fetch(svgUrl())
       .then(function (r) { return r.text(); })
       .then(function (svg) {
         hosts.forEach(function (h) { mountSvg(h.wrap, h.svgHost, svg); });
