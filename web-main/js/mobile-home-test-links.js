@@ -1,24 +1,22 @@
 /**
- * Hit regions for mobile-home-nav.svg (viewBox 0 0 364 202).
- * Percentages derived from path y-band gaps; case-study hrefs match index.html.
+ * Hit regions for mobile-home-nav.svg (viewBox 0 0 370 313).
+ * Percentages from glyph row bands; case-study hrefs match index.html.
  */
 (function () {
   var LINKS = [
-    { top: 35.9, left: 0, width: 34, height: 34.1, href: 'projects/nespresso-page.html', label: 'NESPRESSO', group: 'nespresso' },
-    { top: 35.9, left: 34, width: 26, height: 34.1, href: 'projects/pageone.html', label: 'CHRISTIES', group: 'christies' },
-    { top: 35.9, left: 60, width: 20, height: 34.1, href: 'projects/pageone.html', label: 'AUCTION', group: 'christies' },
-    { top: 35.9, left: 80, width: 20, height: 34.1, href: 'projects/pageone.html', label: 'HOUSE', group: 'christies' },
+    { top: 20.5, left: 0, width: 34, height: 16, href: 'projects/nespresso-page.html', label: 'NESPRESSO', group: 'nespresso' },
+    { top: 20.5, left: 34, width: 32, height: 16, href: 'projects/pageone.html', label: 'CHRISTIES', group: 'christies' },
+    { top: 20.5, left: 66, width: 34, height: 16, href: 'projects/givenchy-page.html', label: 'GIVENCHY' },
 
-    { top: 70, left: 0, width: 20, height: 11, href: 'projects/givenchy-page.html', label: 'GIVENCHY' },
-    { top: 70, left: 20, width: 20, height: 11, href: '#', label: 'FARFETCH' },
-    { top: 70, left: 40, width: 18, height: 11, href: '#', label: 'OBODO' },
-    { top: 70, left: 58, width: 24, height: 11, href: '#', label: 'NET-A-PORTER' },
-    { top: 70, left: 82, width: 18, height: 11, href: 'projects/wagamama-page.html', label: 'WAGAMAMA' },
+    { top: 38, left: 0, width: 25, height: 12.5, href: '#', label: 'FARFETCH' },
+    { top: 38, left: 25, width: 25, height: 12.5, href: '#', label: 'OBODO' },
+    { top: 38, left: 50, width: 28, height: 12.5, href: '#', label: 'NET-A-PORTER' },
+    { top: 38, left: 78, width: 22, height: 12.5, href: 'projects/wagamama-page.html', label: 'WAGAMAMA' },
 
-    { top: 81, left: 0, width: 48, height: 11.1, href: '#', label: 'DOWNLOAD MY CV', group: 'cv' },
-    { top: 81, left: 48, width: 52, height: 11.1, href: '#', label: 'READ TESTIMONIALS', group: 'testimonials' },
+    { top: 52.5, left: 0, width: 48, height: 9, href: '#', label: 'DOWNLOAD MY CV', group: 'cv' },
+    { top: 52.5, left: 48, width: 52, height: 9, href: '#', label: 'READ TESTIMONIALS', group: 'testimonials' },
 
-    { top: 92.1, left: 0, width: 100, height: 7.9, href: 'mailto:samdemmyhardy@gmail.com', label: 'EMAIL ME', group: 'email' }
+    { top: 64, left: 0, width: 100, height: 9, href: 'mailto:samdemmyhardy@gmail.com', label: 'EMAIL ME', group: 'email' }
   ];
 
   function resolveHref(href) {
