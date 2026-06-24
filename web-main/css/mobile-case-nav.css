@@ -267,6 +267,150 @@
     transform: translateX(calc(-50% + 10px));
   }
 
+  /* Nespresso — mobile figma-2/3/4 split (replaces desktop seg 2–4 in this band) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-2,
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-3,
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-4 {
+    display: none;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--nespresso-mobile {
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    bottom: auto;
+    z-index: 7;
+    overflow: visible;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-1-mobile-c {
+    top: 561px;
+    width: 37px;
+    height: 333px;
+  }
+
+  /* Nespresso — first timeline row up 160px (+ 5px image+text nudge) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item {
+    margin-top: 295px;
+  }
+
+  /* Nespresso — second row image+text up 80px (squiggle tops unchanged) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item {
+    transform: translateY(580px);
+  }
+
+  /* Nespresso — row 3+ down 1000px (image+text; everything below row 2; squiggles unchanged) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item ~ .timeline-item {
+    transform: translateY(1460px);
+  }
+
+  /* Nespresso — row 3 below squiggle section 3 up 320px (image+text) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item {
+    transform: translateY(1140px);
+  }
+
+  /* Nespresso — row 4+ (Lowfi wireframes & below) down extra 150px; squiggles unchanged */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item,
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item ~ .timeline-item {
+    transform: translateY(1610px);
+  }
+
+  /* Nespresso — row translateY offset (footer margin; do not pad timeline — moves reveal btn) */
+  body:has(#hero-principal):has(.timeline--nespresso-sandbox) {
+    --nespresso-mobile-row-offset: 1610px;
+  }
+
+  /* Squiggle 2 — below first row image + text (margin + block + gap) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle {
+    --nespresso-mobile-row-1-block: 550px;
+    --nespresso-mobile-squiggle-2-gap: 32px;
+    --nespresso-mobile-squiggle-2-a-top: calc(300px + var(--nespresso-mobile-row-1-block) + var(--nespresso-mobile-squiggle-2-gap) + 450px);
+    --nespresso-mobile-squiggle-3-a-top: calc(var(--nespresso-mobile-squiggle-2-a-top) + 906px + 420px);
+    --nespresso-mobile-squiggle-3-c-top: calc(var(--nespresso-mobile-squiggle-3-a-top) + 457px + 59px - 100px + 35px);
+    --nespresso-mobile-squiggle-4-a-top: calc(var(--nespresso-mobile-squiggle-3-c-top) + 465px - 50px + 385px);
+  }
+
+  /* Footer only — extra margin when expanded (translateY rows); collapsed timeline is 700px clipped */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--collapsed ~ .case-mobile-footer-nav {
+    margin-top: 60px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox:not(.timeline--collapsed) ~ .case-mobile-footer-nav {
+    margin-top: calc(60px + var(--nespresso-mobile-row-offset));
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-2-mobile-a {
+    top: var(--nespresso-mobile-squiggle-2-a-top);
+    width: 40px;
+    height: 511px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-2-mobile-b {
+    top: calc(var(--nespresso-mobile-squiggle-2-a-top) + 511px - 50px);
+    width: 60px;
+    height: 72px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-2-mobile-c {
+    top: calc(var(--nespresso-mobile-squiggle-2-a-top) + 511px + 72px - 100px);
+    width: 54px;
+    height: 473px;
+  }
+
+  /* Squiggle 3 — stacked below 2C (−50px joins) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-3-mobile-a {
+    top: var(--nespresso-mobile-squiggle-3-a-top);
+    width: 66px;
+    height: 457px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-3-mobile-b {
+    top: calc(var(--nespresso-mobile-squiggle-3-a-top) + 457px - 50px);
+    width: 39px;
+    height: 59px;
+    transform: translateX(calc(-50% - 4px));
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-3-mobile-c {
+    top: var(--nespresso-mobile-squiggle-3-c-top);
+    width: 78px;
+    height: 465px;
+    transform: translateX(calc(-50% + 36px));
+  }
+
+  /* Squiggle 4 — stacked below 3C (−50px joins) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-4-mobile-a {
+    top: var(--nespresso-mobile-squiggle-4-a-top);
+    width: 76px;
+    height: 313px;
+    transform: translateX(calc(-50% - 40px));
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-4-mobile-b {
+    top: calc(var(--nespresso-mobile-squiggle-4-a-top) + 313px - 50px);
+    width: 58px;
+    height: 54px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-4-mobile-c {
+    top: calc(var(--nespresso-mobile-squiggle-4-a-top) + 313px + 54px - 100px);
+    width: 85px;
+    height: 540px;
+  }
+
+  /* Temp: only squiggle sections 1–4 visible while mobile spines are wired */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-5,
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-6,
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-7,
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-8,
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-9,
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-10,
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-11 {
+    display: none !important;
+  }
+
   /*
    * Spine seg 3+ — starts below first timeline row (460px row margin + ~550px block).
    * Segs 1–2 unchanged; 4–11 chain from seg 3 with standard −50px joins.

@@ -229,6 +229,22 @@
   overflow: visible;
 }
 
+/* Nespresso mobile spine 2 A/B/C — hidden on desktop */
+.timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--nespresso-mobile {
+  display: none;
+}
+
+/* Temp: only squiggle sections 1–4 visible while mobile spines are wired */
+.timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-5,
+.timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-6,
+.timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-7,
+.timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-8,
+.timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-9,
+.timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-10,
+.timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-11 {
+  display: none !important;
+}
+
 /* Figma spine segment 3 (61×545 frame, viewBox 0 0 61 545) — ONLY --figma-3; 50px overlap with seg 2 */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-3 {
   top: 1056px;

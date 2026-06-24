@@ -272,10 +272,13 @@
       const figmaFadeH = 545;
 
       if (!wantsStrokeTipFade()) {
-        path.setAttribute('stroke', 'currentColor');
         path.style.opacity = '';
         const stale = svg.querySelector('#' + gradId);
         if (stale) stale.remove();
+        const stroke = path.getAttribute('stroke') || '';
+        if (!stroke.includes('url(#') && !path.hasAttribute('data-squiggle-stroke-gradient')) {
+          path.setAttribute('stroke', 'currentColor');
+        }
         return;
       }
 

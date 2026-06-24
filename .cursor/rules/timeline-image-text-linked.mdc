@@ -1,0 +1,27 @@
+---
+description: Timeline row moves — image and opposite text always move together
+alwaysApply: true
+---
+
+# Timeline image + text move together
+
+When Sam says **move an image** (or "first image", "second image", "top image", etc.) on a case-study timeline row, **always move the paired text on the opposite side with it** — same delta, same timing.
+
+## Do not
+
+- Apply `transform`, `margin`, or `top` only to `.timeline-content.img-block`
+- Nudge the image without the row's `.timeline-content:not(.img-block)` copy block
+
+## Do
+
+- Move the **whole `.timeline-item`** (margin-top / `translateY` on the row), or
+- Apply the **same** offset to **both** the image block and the text block on that row
+
+## Squiggles
+
+- Spine `top` values stay fixed unless Sam explicitly asks to move squiggles (see `no-layout-changes` / Sam's "squiggle tops unchanged" rule).
+- Moving timeline content does not require moving squiggle hosts.
+
+## Hero block
+
+- Same idea for dual-hero rows: moving "the image" means moving its paired copy block too (e.g. desktop image + primary info, mobile image + secondary paragraph).
