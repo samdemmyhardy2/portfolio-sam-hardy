@@ -1,0 +1,31 @@
+---
+description: Critical rule - never clip or cut off text
+alwaysApply: true
+---
+
+# Never Clip Or Cut Off Text
+
+This is a critical rule for this project.
+
+## Core rule
+
+- Never clip or cut off text.
+- Never set `overflow: hidden` on any container that holds text unless you are 100% certain the text will never be clipped.
+- Add `overflow: visible` to text containers by default.
+
+## Auto-fitting / FitLine
+
+- When using FitLine or any auto-fitting typography component, add a width safety buffer of at least `0.97` as the scale multiplier so wide characters at the end of a word are never cut off.
+- Treat words like `NESPRESSO` as a required edge case, especially wide ending characters such as `S`, `O`, `M`, and `W`.
+
+## Container sizing
+
+- Never constrain a text container to a fixed width without also checking that the text fits fully inside it.
+- If a crop, mask, transform, or fit calculation risks trimming glyphs, expand the visible area or reduce the fit target until every character clears the edge.
+
+## Required checks
+
+- Check long words.
+- Check wide characters: `S`, `O`, `M`, `W`.
+- Check words that sit at the end of a line.
+- Check both top/bottom and left/right edges before considering the work done.

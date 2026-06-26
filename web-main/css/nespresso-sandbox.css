@@ -375,6 +375,10 @@
 
 /* Desktop: pin each timeline row to the centre of its squiggle knot (spine untouched) */
 @media (min-width: 701px) {
+  .timeline--nespresso-sandbox .timeline-item--nespresso-mobile-only {
+    display: none;
+  }
+
   .timeline--nespresso-sandbox.timeline--squiggle {
     min-height: 5600px;
     padding-bottom: 48px;
@@ -395,22 +399,22 @@
     transform: translateY(-50%);
   }
 
-  /* Row 1 — tuned manually (spine untouched); +10 vs pre-mobile hosts (10 nespresso-mobile divs) */
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(23) {
+  /* Row 1 — tuned manually (spine untouched); +31 vs pre-mobile hosts (31 nespresso-mobile divs) */
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(44) {
     top: 558px;
   }
 
   /* Row N → knot centre of spine segment N (px from timeline top) */
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(24) { top: 1066px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(25) { top: 1497px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(26) { top: 1973px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(27) { top: 2449px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(28) { top: 2880px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(29) { top: 3308px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(30) { top: 3773px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(31) { top: 4257px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(32) { top: 4750px; }
-  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(33) { top: 5246px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(45) { top: 1066px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(46) { top: 1497px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(47) { top: 1973px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(48) { top: 2449px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(49) { top: 2880px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(50) { top: 3308px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(51) { top: 3773px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(52) { top: 4257px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(53) { top: 4750px; }
+  .timeline--nespresso-sandbox.timeline--squiggle > .timeline-item:nth-child(54) { top: 5246px; }
 }
 
 /* ---- Process reveal: collapsed timeline + fade-to-bg + button ---- */

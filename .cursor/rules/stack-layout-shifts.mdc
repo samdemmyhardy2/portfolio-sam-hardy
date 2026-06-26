@@ -1,0 +1,37 @@
+---
+description: Critical rule - move all sections below when one section moves
+alwaysApply: true
+---
+
+# Stack Layout Shifts
+
+This is a critical rule for this project.
+
+## Core rule
+
+- Never move just one section in isolation.
+- When a section is moved down the page, every section below it must also move down to maintain the correct order.
+- Never leave sections overlapping or out of sequence after a move.
+- Treat the page layout like a stack: if one block shifts, everything beneath it shifts too.
+
+## Applies everywhere
+
+- This applies regardless of CSS layout method:
+  - absolute positioning
+  - flexbox
+  - grid
+  - transforms
+  - margins
+  - top/left offsets
+  - any other layout mechanism
+
+## Required check
+
+- If asked to "move a section down", always inspect what is below it.
+- Move all lower sections by the same effective delta unless Sam explicitly asks for a different relationship.
+- Preserve ordering, spacing rhythm, and non-overlap after the shift.
+
+## For this portfolio
+
+- Timeline rows, hero blocks, mobile case-study sections, screenshots, and paired copy blocks must keep their sequence intact after any move.
+- Do not create a local fix that pushes one block into the next block's space.

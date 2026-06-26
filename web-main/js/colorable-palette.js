@@ -5,11 +5,11 @@
 const DEFAULT_BG = '#e5f000';
 const DEFAULT_BG_END = '#d4f0c8';
 const DEFAULT_TEXT = '#2e2e2e';
-const DEFAULT_PASTEL_BG = '#e8d4f8';
-const DEFAULT_PASTEL_BG_END = '#f8dce8';
-const DEFAULT_PASTEL_TEXT = '#2a2438';
+const DEFAULT_PASTEL_BG = '#c8f050';
+const DEFAULT_PASTEL_BG_END = '#88e8d0';
+const DEFAULT_PASTEL_TEXT = '#1a2858';
 const MIN_CONTRAST = 4.5;
-const MAX_ATTEMPTS = 64;
+const MAX_ATTEMPTS = 128;
 const STORAGE_KEY_MODE = 'portfolio-palette-mode';
 const TRANSITION_MS = 10000;
 
@@ -86,39 +86,33 @@ function randomHslComponent() {
   };
 }
 
-function randomHslEndFrom(base) {
+/** Colorable-style swatches for case-study mode: bold hues, bg stays light */
+function randomColorableBgSwatch() {
+  return {
+    h: Math.random() * 360,
+    s: Math.random() * 0.55 + 0.35,
+    l: Math.random() * 0.26 + 0.52,
+  };
+}
+
+function randomColorableTextSwatch() {
+  return {
+    h: Math.random() * 360,
+    s: Math.random() * 0.55 + 0.35,
+    l: Math.random() * 0.32 + 0.12,
+  };
+}
+
+function randomHslEndFrom(base, { bold = false } = {}) {
   const hueOffset = 40 + Math.random() * 70;
+  const satJitter = bold ? Math.random() * 0.22 - 0.08 : Math.random() * 0.2 - 0.1;
+  const lightJitter = bold ? Math.random() * 0.14 - 0.07 : Math.random() * 0.12 - 0.06;
+  const minSat = bold ? 0.28 : 0.15;
+  const minLight = bold ? 0.48 : 0.2;
   return {
     h: (base.h + hueOffset) % 360,
-    s: Math.min(1, Math.max(0.15, base.s + (Math.random() * 0.2 - 0.1))),
-    l: Math.min(0.9, Math.max(0.2, base.l + (Math.random() * 0.12 - 0.06))),
-  };
-}
-
-/** Light, muted backgrounds for pastel mode */
-function randomPastelBg() {
-  return {
-    h: Math.random() * 360,
-    s: Math.random() * 0.32 + 0.18,
-    l: Math.random() * 0.16 + 0.74,
-  };
-}
-
-function randomPastelEndFrom(base) {
-  const hueOffset = 55 + Math.random() * 75;
-  return {
-    h: (base.h + hueOffset) % 360,
-    s: Math.min(0.55, Math.max(0.18, base.s + (Math.random() * 0.14 - 0.07))),
-    l: Math.min(0.92, Math.max(0.72, base.l + (Math.random() * 0.1 - 0.05))),
-  };
-}
-
-/** Dark text that contrasts on pastel backgrounds */
-function randomPastelText() {
-  return {
-    h: Math.random() * 360,
-    s: Math.random() * 0.45 + 0.15,
-    l: Math.random() * 0.22 + 0.1,
+    s: Math.min(1, Math.max(minSat, base.s + satJitter)),
+    l: Math.min(0.9, Math.max(minLight, base.l + lightJitter)),
   };
 }
 
@@ -128,36 +122,29 @@ function pairFromBgStops(hexBg, hexEnd, hexText) {
   return { bg: hexBg, bgEnd: hexEnd, text: hexText };
 }
 
+function generatePairFromSwatches(a, b, { boldEnd = false } = {}) {
+  const hexA = hslToHex(a.h, a.s, a.l);
+  const hexB = hslToHex(b.h, b.s, b.l);
+
+  if (contrastRatio(hexA, hexB) < MIN_CONTRAST) return null;
+
+  if (relativeLuminance(hexA) >= relativeLuminance(hexB)) {
+    const end = randomHslEndFrom(a, { bold: boldEnd });
+    return pairFromBgStops(hexA, hslToHex(end.h, end.s, end.l), hexB);
+  }
+
+  const end = randomHslEndFrom(b, { bold: boldEnd });
+  return pairFromBgStops(hexB, hslToHex(end.h, end.s, end.l), hexA);
+}
+
 function generateAccessiblePair() {
   if (getPaletteMode() === 'pastel') {
     return generateAccessiblePastelPair();
   }
 
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    const a = randomHslComponent();
-    const b = randomHslComponent();
-    const hexA = hslToHex(a.h, a.s, a.l);
-    const hexB = hslToHex(b.h, b.s, b.l);
-
-    if (contrastRatio(hexA, hexB) < MIN_CONTRAST) continue;
-
-    if (relativeLuminance(hexA) >= relativeLuminance(hexB)) {
-      const end = randomHslEndFrom(a);
-      const pair = pairFromBgStops(
-        hexA,
-        hslToHex(end.h, end.s, end.l),
-        hexB
-      );
-      if (pair) return pair;
-    } else {
-      const end = randomHslEndFrom(b);
-      const pair = pairFromBgStops(
-        hexB,
-        hslToHex(end.h, end.s, end.l),
-        hexA
-      );
-      if (pair) return pair;
-    }
+    const pair = generatePairFromSwatches(randomHslComponent(), randomHslComponent());
+    if (pair) return pair;
   }
 
   return { bg: DEFAULT_BG, bgEnd: DEFAULT_BG_END, text: DEFAULT_TEXT };
@@ -165,15 +152,19 @@ function generateAccessiblePair() {
 
 function generateAccessiblePastelPair() {
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    const bg = randomPastelBg();
-    const end = randomPastelEndFrom(bg);
-    const text = randomPastelText();
-    const pair = pairFromBgStops(
-      hslToHex(bg.h, bg.s, bg.l),
-      hslToHex(end.h, end.s, end.l),
-      hslToHex(text.h, text.s, text.l)
+    const pair = generatePairFromSwatches(
+      randomColorableBgSwatch(),
+      randomColorableTextSwatch(),
+      { boldEnd: true }
     );
     if (pair) return pair;
+
+    const pairFallback = generatePairFromSwatches(
+      randomHslComponent(),
+      randomHslComponent(),
+      { boldEnd: true }
+    );
+    if (pairFallback) return pairFallback;
   }
 
   return {

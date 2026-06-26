@@ -408,7 +408,8 @@ document.addEventListener('click', (e) => {
 
   const isHeroLink =
     link.classList.contains('hero-link-big') ||
-    link.classList.contains('hero-link-small');
+    link.classList.contains('hero-link-small') ||
+    link.classList.contains('mht-nav-hit');
   if (!isHeroLink) return;
 
   // Non-navigable links (href="#") do nothing.

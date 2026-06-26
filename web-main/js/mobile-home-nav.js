@@ -4,10 +4,13 @@
  */
 (function () {
   function svgUrl() {
+    var base;
     if (document.getElementById('case-mobile-footer-nav-art')) {
-      return '../img/mobile-home-test/mobile-home-nav.svg';
+      base = '../img/mobile-home-test/mobile-home-nav.svg';
+    } else {
+      base = 'img/mobile-home-test/mobile-home-nav.svg';
     }
-    return 'img/mobile-home-test/mobile-home-nav.svg';
+    return base + '?v=11';
   }
 
   function getHosts() {
@@ -15,6 +18,12 @@
     var homeArt = document.getElementById('hero-mobile-nav-art');
     var homeHost = document.getElementById('hero-mobile-svg-host');
     if (homeArt && homeHost) hosts.push({ wrap: homeArt, svgHost: homeHost });
+
+    var caseHeaderArt = document.getElementById('case-mobile-header-nav-art');
+    var caseHeaderHost = document.getElementById('case-mobile-header-svg-host');
+    if (caseHeaderArt && caseHeaderHost) {
+      hosts.push({ wrap: caseHeaderArt, svgHost: caseHeaderHost });
+    }
 
     var testArt = document.getElementById('mht-nav-art');
     var testHost = document.getElementById('mht-nav-svg-host');

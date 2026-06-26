@@ -2,7 +2,7 @@
 
 @media (max-width: 700px) {
   #hero-principal.hero-big {
-    display: block !important;
+    display: none !important;
     width: 100%;
     max-width: 100%;
     margin-left: 0;
@@ -10,11 +10,7 @@
   }
 
   #hero-principal {
-    outline: none;
-    gap: 0;
-    width: 100%;
-    margin: 0;
-    padding: 33px 0 0;
+    display: none !important;
   }
 
   #hero-principal > .hero-row {
@@ -25,6 +21,79 @@
     display: block;
     width: 100%;
     margin: 0;
+  }
+
+  .case-mobile-header-nav {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    /* Horizontal gutter from .mainpage:has(#hero-principal) padding only */
+    padding: 33px 0 0;
+  }
+
+  .case-mobile-header-nav .mht-nav-art {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 13741 / 5900;
+    margin: 0;
+    line-height: 0;
+    color: var(--page-text);
+    overflow: hidden;
+  }
+
+  .case-mobile-header-nav .mht-nav-svg-host {
+    position: absolute;
+    inset: 0;
+  }
+
+  .case-mobile-header-nav .mht-nav-svg-host .mht-nav-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    transform: translateY(-44.5%);
+    transform-origin: top left;
+  }
+
+  .case-mobile-header-nav .mht-nav-links {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .case-mobile-header-nav .mht-nav-hit {
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    z-index: 2;
+    cursor: pointer;
+    pointer-events: auto;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--page-text) 12%, transparent);
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0;
+    color: transparent;
+    user-select: none;
+  }
+
+  .case-mobile-header-nav .mht-nav-hit:focus-visible {
+    outline: 2px solid var(--page-text);
+    outline-offset: 1px;
+  }
+
+  .case-mobile-header-nav .mht-nav-hit--lit {
+    background: color-mix(in srgb, var(--page-text) 8%, transparent);
+  }
+
+  .case-mobile-header-nav .mht-nav-hit[data-nav-label="NESPRESSO"] {
+    background: rgba(255, 0, 0, 0.18);
+    outline: 1px solid rgba(255, 0, 0, 0.7);
+  }
+
+  .js-anim .case-mobile-header-nav .mht-nav-hit {
+    opacity: 1;
   }
 
   #hero-principal .mcn-nav-art {
@@ -291,14 +360,19 @@
     height: 333px;
   }
 
-  /* Nespresso — first timeline row up 160px (+ 5px image+text nudge) */
-  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item {
-    margin-top: 295px;
+  /* Nespresso — image → copy always 30px (move rows as whole .timeline-item units) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-item {
+    gap: 30px;
   }
 
-  /* Nespresso — second row image+text up 80px (squiggle tops unchanged) */
+  /* Nespresso — first timeline row up 168px (+ 5px image+text nudge) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item {
+    margin-top: 287px;
+  }
+
+  /* Nespresso — second row image+text up 95px (squiggle tops unchanged) */
   body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item {
-    transform: translateY(580px);
+    transform: translateY(565px);
   }
 
   /* Nespresso — row 3+ down 1000px (image+text; everything below row 2; squiggles unchanged) */
@@ -306,20 +380,25 @@
     transform: translateY(1460px);
   }
 
-  /* Nespresso — row 3 below squiggle section 3 up 320px (image+text) */
+  /* Nespresso — row 3 below squiggle section 3 up 340px (image+text) */
   body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item {
-    transform: translateY(1140px);
+    transform: translateY(1120px);
   }
 
-  /* Nespresso — row 4+ (Lowfi wireframes & below) down extra 150px; squiggles unchanged */
-  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item,
-  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item ~ .timeline-item {
+  /* Nespresso — row 4 (Lowfi wireframes; image+text) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item {
+    transform: translateY(1560px);
+  }
+
+  /* Nespresso — row 5+ stack offset (unchanged; rows below row 4) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item,
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item ~ .timeline-item {
     transform: translateY(1610px);
   }
 
   /* Nespresso — row translateY offset (footer margin; do not pad timeline — moves reveal btn) */
   body:has(#hero-principal):has(.timeline--nespresso-sandbox) {
-    --nespresso-mobile-row-offset: 1610px;
+    --nespresso-mobile-row-offset: 5122px;
   }
 
   /* Squiggle 2 — below first row image + text (margin + block + gap) */
@@ -330,6 +409,13 @@
     --nespresso-mobile-squiggle-3-a-top: calc(var(--nespresso-mobile-squiggle-2-a-top) + 906px + 420px);
     --nespresso-mobile-squiggle-3-c-top: calc(var(--nespresso-mobile-squiggle-3-a-top) + 457px + 59px - 100px + 35px);
     --nespresso-mobile-squiggle-4-a-top: calc(var(--nespresso-mobile-squiggle-3-c-top) + 465px - 50px + 385px);
+    --nespresso-mobile-squiggle-5-a-top: calc(var(--nespresso-mobile-squiggle-4-a-top) + 313px + 54px + 540px - 150px + 459px);
+    --nespresso-mobile-squiggle-6-a-top: calc(var(--nespresso-mobile-squiggle-5-a-top) + 448px + 45px + 457px - 150px + 20px + 569px);
+    --nespresso-mobile-squiggle-7-a-top: calc(var(--nespresso-mobile-squiggle-6-a-top) + 446px + 63px + 431px - 150px + 410px);
+    --nespresso-mobile-squiggle-8-a-top: calc(var(--nespresso-mobile-squiggle-7-a-top) + 460px + 56px + 458px - 150px + 30px + 391px);
+    --nespresso-mobile-squiggle-9-a-top: calc(var(--nespresso-mobile-squiggle-8-a-top) + 429px + 63px + 455px - 150px + 400px);
+    --nespresso-mobile-squiggle-10-a-top: calc(var(--nespresso-mobile-squiggle-9-a-top) + 449px + 53px + 456px - 150px + 450px);
+    --nespresso-mobile-squiggle-11-a-top: calc(var(--nespresso-mobile-squiggle-10-a-top) + 434px + 61px + 427px - 150px + 500px);
   }
 
   /* Footer only — extra margin when expanded (translateY rows); collapsed timeline is 700px clipped */
@@ -400,7 +486,202 @@
     height: 540px;
   }
 
-  /* Temp: only squiggle sections 1–4 visible while mobile spines are wired */
+  /* Squiggle 5 — stacked below 4C (−50px joins) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-5-mobile-a {
+    top: var(--nespresso-mobile-squiggle-5-a-top);
+    width: 71px;
+    height: 448px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-5-mobile-b {
+    top: calc(var(--nespresso-mobile-squiggle-5-a-top) + 448px - 50px + 10px);
+    width: 59px;
+    height: 45px;
+    z-index: 30;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-5-mobile-c {
+    top: calc(var(--nespresso-mobile-squiggle-5-a-top) + 448px + 45px - 100px + 20px);
+    width: 29px;
+    height: 457px;
+  }
+
+  /* Squiggle 6 — stacked below 5C (−50px joins) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-6-mobile-a {
+    top: var(--nespresso-mobile-squiggle-6-a-top);
+    width: 59px;
+    height: 446px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-6-mobile-b {
+    top: calc(var(--nespresso-mobile-squiggle-6-a-top) + 446px - 50px);
+    width: 58px;
+    height: 63px;
+    z-index: 30;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-6-mobile-c {
+    top: calc(var(--nespresso-mobile-squiggle-6-a-top) + 446px + 63px - 100px);
+    width: 51px;
+    height: 431px;
+  }
+
+  /* Squiggle 7 — stacked below 6C (−50px joins) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-7-mobile-a {
+    top: var(--nespresso-mobile-squiggle-7-a-top);
+    width: 34px;
+    height: 460px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-7-mobile-b {
+    top: calc(var(--nespresso-mobile-squiggle-7-a-top) + 460px - 50px);
+    width: 52px;
+    height: 56px;
+    z-index: 30;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-7-mobile-c {
+    top: calc(var(--nespresso-mobile-squiggle-7-a-top) + 460px + 56px - 100px + 30px);
+    width: 49px;
+    height: 458px;
+  }
+
+  /* Squiggle 8 — stacked below 7C (−50px joins) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-8-mobile-a {
+    top: var(--nespresso-mobile-squiggle-8-a-top);
+    width: 23px;
+    height: 429px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-8-mobile-b {
+    top: calc(var(--nespresso-mobile-squiggle-8-a-top) + 429px - 50px);
+    width: 64px;
+    height: 63px;
+    z-index: 30;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-8-mobile-c {
+    top: calc(var(--nespresso-mobile-squiggle-8-a-top) + 429px + 63px - 100px);
+    width: 27px;
+    height: 455px;
+  }
+
+  /* Squiggle 9 — stacked below 8C (−50px joins) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-9-mobile-a {
+    top: var(--nespresso-mobile-squiggle-9-a-top);
+    width: 19px;
+    height: 449px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-9-mobile-b {
+    top: calc(var(--nespresso-mobile-squiggle-9-a-top) + 449px - 50px);
+    width: 53px;
+    height: 53px;
+    z-index: 30;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-9-mobile-c {
+    top: calc(var(--nespresso-mobile-squiggle-9-a-top) + 449px + 53px - 100px);
+    width: 21px;
+    height: 456px;
+  }
+
+  /* Squiggle 10 — stacked below 9C (−50px joins) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-10-mobile-a {
+    top: var(--nespresso-mobile-squiggle-10-a-top);
+    width: 19px;
+    height: 434px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-10-mobile-b {
+    top: calc(var(--nespresso-mobile-squiggle-10-a-top) + 434px - 50px);
+    width: 60px;
+    height: 61px;
+    z-index: 30;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-10-mobile-c {
+    top: calc(var(--nespresso-mobile-squiggle-10-a-top) + 434px + 61px - 100px);
+    width: 16px;
+    height: 427px;
+  }
+
+  /* Squiggle 11 — stacked below 10C (−50px joins) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-11-mobile-a {
+    top: var(--nespresso-mobile-squiggle-11-a-top);
+    width: 8px;
+    height: 421px;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-11-mobile-b {
+    top: calc(var(--nespresso-mobile-squiggle-11-a-top) + 421px - 50px);
+    width: 52px;
+    height: 50px;
+    z-index: 30;
+  }
+
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-11-mobile-c {
+    top: calc(var(--nespresso-mobile-squiggle-11-a-top) + 421px + 50px - 100px);
+    width: 6px;
+    height: 467px;
+  }
+
+  /* Nespresso — analytics deep dive row (image + text together; squiggles unchanged) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item {
+    transform: translateY(2100px);
+  }
+
+  /* Nespresso — in-person card sorting workshop (image + text together; squiggles unchanged) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item {
+    transform: translateY(2648px);
+  }
+
+  /* Nespresso — Christies 3.0 (image + text together; squiggles unchanged) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item {
+    transform: translateY(3218px);
+  }
+
+  /* Nespresso — row 8+ stack offset (unchanged; rows below Christies 3.0) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item,
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item ~ .timeline-item {
+    transform: translateY(3258px);
+  }
+
+  /* Nespresso — User Flow (image + text together; squiggles unchanged) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item {
+    transform: translateY(3722px);
+  }
+
+  /* Nespresso — row 9+ stack offset (unchanged; rows below User Flow) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item,
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item ~ .timeline-item {
+    transform: translateY(3762px);
+  }
+
+  /* Nespresso — How Might We Workshop (image + text together; squiggles unchanged) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item {
+    transform: translateY(4212px);
+  }
+
+  /* Nespresso — row 10+ stack offset (unchanged; rows below HMW Workshop) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item,
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item ~ .timeline-item {
+    transform: translateY(4272px);
+  }
+
+  /* Nespresso — next row after How Might We Workshop and everything below down a further 850px as a stack */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item,
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item ~ .timeline-item {
+    transform: translateY(4706px);
+  }
+
+  /* Nespresso — next row after Live Bidding and everything below down a further 550px as a stack */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item,
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item ~ .timeline-item {
+    transform: translateY(5256px);
+  }
+
+  /* Temp: only squiggle sections 1–10 visible while mobile spines are wired */
   body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-5,
   body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-6,
   body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-7,
@@ -505,8 +786,19 @@
   }
 
   body:has(#hero-principal) .case-mobile-footer-nav .mht-nav-hit {
+    display: block;
     position: absolute;
     box-sizing: border-box;
+    z-index: 2;
+    cursor: pointer;
+    pointer-events: auto;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--page-text) 12%, transparent);
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0;
+    color: transparent;
+    user-select: none;
   }
 
   body:has(#hero-principal) .case-mobile-footer-nav .mht-nav-hit:focus-visible {
@@ -520,15 +812,5 @@
 
   .js-anim body:has(#hero-principal) .case-mobile-footer-nav .mht-nav-hit {
     opacity: 1;
-  }
-}
-
-@media (min-width: 701px) {
-  .case-mobile-footer-nav {
-    display: none !important;
-  }
-
-  #hero-principal .hero-mobile-case-nav {
-    display: none !important;
   }
 }

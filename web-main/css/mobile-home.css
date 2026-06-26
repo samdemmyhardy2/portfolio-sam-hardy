@@ -23,8 +23,25 @@
   }
 
   .mht-nav-hit {
+    display: block;
     position: absolute;
     box-sizing: border-box;
+    z-index: 2;
+    cursor: pointer;
+    pointer-events: auto;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--page-text) 12%, transparent);
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0;
+    color: transparent;
+    user-select: none;
+  }
+
+  .js-anim #hero-home a.mht-nav-hit,
+  .js-anim .case-mobile-footer-nav a.mht-nav-hit {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .mht-nav-hit:focus-visible {
@@ -34,6 +51,11 @@
 
   .mht-nav-hit--lit {
     background: color-mix(in srgb, var(--page-text) 8%, transparent);
+  }
+
+  .mht-nav-hit[data-nav-label="NESPRESSO"] {
+    background: rgba(255, 0, 0, 0.18);
+    outline: 1px solid rgba(255, 0, 0, 0.7);
   }
 
   .js-anim #hero-home .mht-nav-hit {

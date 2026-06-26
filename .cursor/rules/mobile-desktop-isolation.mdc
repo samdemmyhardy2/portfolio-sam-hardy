@@ -1,0 +1,57 @@
+---
+description: Mobile changes must never affect desktop layout unless explicitly requested
+alwaysApply: true
+---
+
+# Mobile / desktop isolation (critical)
+
+Never let mobile work change desktop layout unless Sam explicitly asks.
+
+## Scope mobile CSS strictly
+
+- All mobile layout/style changes go inside `@media (max-width: 700px)` (this project's mobile breakpoint).
+- Do **not** put desktop fixes inside `mobile-*.css` files.
+- Do **not** edit base/shared/desktop rules when adjusting mobile.
+
+## Task boundaries
+
+- **Mobile task** → only touch mobile-scoped CSS/JS/HTML hooks; verify desktop is unchanged.
+- **Desktop task** → only touch desktop/base CSS (e.g. `style.css`, `*-sandbox.css` desktop blocks); do not change mobile media queries.
+- **Both** → only when Sam explicitly says so.
+
+## Shared HTML (mobile-only nodes in the same page)
+
+Mobile-only elements may exist in shared HTML. Desktop safety:
+
+1. **Default (base/desktop CSS):** `display: none` on mobile-only classes (e.g. `.case-mobile-header-nav`, `.hero-mobile-case-nav`).
+2. **Mobile MQ only:** show and position them inside `@media (max-width: 700px)`.
+
+Never rely on a `min-width` block inside a `mobile-*.css` file to “fix” desktop.
+
+## Before finishing any mobile change
+
+- Confirm every new/changed rule is inside the mobile media query (except allowed mobile-only default hides in base CSS).
+- Confirm no edits to desktop timeline positions, hero gutters, `nth-child` rows, squiggle tops, or `min-height` unless that was the request.
+- Confirm no unscoped rules in `mobile-case-nav.css` / `mobile-home.css` that apply at all viewport widths (except the mobile-only default hide pattern above).
+
+## Examples
+
+```css
+/* ❌ BAD — desktop rule in mobile file */
+@media (min-width: 701px) {
+  .mainpage { padding-left: 20px; }
+}
+
+/* ❌ BAD — mobile-only hide inside mobile MQ (hides on mobile, shows on desktop) */
+@media (max-width: 700px) {
+  .timeline-item--mobile-only { display: none; }
+}
+
+/* ✅ GOOD — mobile-only hidden on desktop by default */
+.case-mobile-header-nav { display: none; }
+
+/* ✅ GOOD — mobile show/layout only in mobile MQ */
+@media (max-width: 700px) {
+  .case-mobile-header-nav { display: block; }
+}
+```

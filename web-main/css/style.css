@@ -822,6 +822,49 @@ h1 {
 
 
 /* ALWAYS THE LAST THING THIS */
+
+/* Mobile-only DOM — hidden on desktop; shown only in mobile-case-nav.css */
+.case-mobile-header-nav,
+.case-mobile-footer-nav,
+#hero-principal .hero-mobile-case-nav {
+  display: none;
+}
+
+@media (min-width: 701px) {
+  /* Mobile-only surfaces must never render on desktop */
+  .case-mobile-header-nav,
+  .case-mobile-footer-nav,
+  #hero-principal .hero-mobile-case-nav {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Case-study desktop header — same 20px gutter as #hero-last / .lastpart */
+  .mainpage:has(#hero-principal) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #hero-principal.hero-big {
+    display: flex !important;
+  }
+
+  #hero-principal > .hero-row {
+    display: flex !important;
+  }
+
+  #hero-principal {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
 @media (max-width: 700px) {
 
 

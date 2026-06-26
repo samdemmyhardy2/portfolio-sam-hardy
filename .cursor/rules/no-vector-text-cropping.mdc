@@ -1,0 +1,27 @@
+---
+description: Never crop vector text in mobile or composite SVG navs
+alwaysApply: true
+---
+
+# Never Crop Vector Text
+
+Vector text in `web-main/` and `app/` navs, headers, and composite SVG crops must never be clipped at the top or bottom.
+
+## Rule
+
+- Do not ship a crop, mask, `overflow: hidden`, `translateY`, or aspect-ratio window that trims any part of a vector word.
+- Match mobile header spacing to the approved reference first, then widen/tall the crop window until all vector rows are fully visible.
+- If removing upper rows from a composite SVG, crop between rows, not through glyphs.
+
+## Required check
+
+Before finishing a crop/case-header/mobile-nav change:
+
+- Verify the first visible row is fully intact at the top edge
+- Verify the last visible row is fully intact at the bottom edge
+- If either edge clips text, increase the visible window or adjust the crop until no letters are cut off
+
+## For this portfolio
+
+- Home-page mobile header spacing is the reference for case-page mobile headers unless Sam explicitly asks otherwise.
+- "Close enough" is not acceptable for vector text crops; all glyphs must clear the crop boundary.
