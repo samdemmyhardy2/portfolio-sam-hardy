@@ -210,6 +210,8 @@
 }
 
 /* Figma spine segment 1 (70×322) — ONLY --figma-1 */
+/* DESKTOP SQUIGGLE FROZEN (commit 3987f90 baseline) — do not edit figma-1..11 tops/sizes
+   or @media (min-width:701px) row pins; mobile squiggle tuning lives in mobile-case-nav.css */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-1 {
   top: 259px;
   bottom: auto;
@@ -234,19 +236,19 @@
   display: none;
 }
 
-/* Figma spine segment 3 (61×545 frame, viewBox 0 0 61 545) — ONLY --figma-3; 50px overlap with seg 2 */
+/* Figma spine segment 3 (53×484 frame, viewBox 56×488) — ONLY --figma-3; 50px overlap with seg 2 */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-3 {
   top: 1056px;
   bottom: auto;
-  width: 61px;
-  height: 545px;
+  width: 53px;
+  height: 484px;
   z-index: 8;
   overflow: visible;
 }
 
-/* Figma spine segment 4 (52×507) — ONLY --figma-4; 50px overlap with seg 3 (1056 + 545 − 50) */
+/* Figma spine segment 4 (52×507) — ONLY --figma-4; 50px overlap with seg 3 (1056 + 484 − 50) */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-4 {
-  top: 1551px;
+  top: 1490px;
   bottom: auto;
   width: 52px;
   height: 507px;
@@ -254,9 +256,9 @@
   overflow: visible;
 }
 
-/* Figma spine segment 5 (62×526) — ONLY --figma-5; 50px overlap with seg 4 (1551 + 507 − 50) */
+/* Figma spine segment 5 (62×526) — ONLY --figma-5; 50px overlap with seg 4 (1490 + 507 − 50) */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-5 {
-  top: 2008px;
+  top: 1947px;
   bottom: auto;
   width: 62px;
   height: 526px;
@@ -266,7 +268,7 @@
 
 /* Figma spine segment 6 (43×489) — ONLY --figma-6; 50px overlap with seg 5 (1947 + 526 − 50) */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-6 {
-  top: 2474px;
+  top: 2413px;
   bottom: auto;
   width: 43px;
   height: 489px;
@@ -276,7 +278,7 @@
 
 /* Figma spine segment 7 (39×433) — ONLY --figma-7; 50px overlap with seg 6 (2413 + 489 − 50) */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-7 {
-  top: 2928px;
+  top: 2867px;
   bottom: auto;
   width: 39px;
   height: 433px;
@@ -286,7 +288,7 @@
 
 /* Figma spine segment 8 (29×461) — ONLY --figma-8 */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-8 {
-  top: 3356px;
+  top: 3295px;
   bottom: auto;
   width: 29px;
   height: 461px;
@@ -297,7 +299,7 @@
 
 /* Figma spine segment 9 (36×515) — ONLY --figma-9; 50px overlap with seg 8 (3285 + 485 − 50) */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-9 {
-  top: 3816px;
+  top: 3755px;
   bottom: auto;
   width: 36px;
   height: 515px;
@@ -308,7 +310,7 @@
 
 /* Figma spine segment 10 (36×500) — circle cap; 50px overlap with seg 9 (3755 + 515 − 50) */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-10 {
-  top: 4329px;
+  top: 4268px;
   bottom: auto;
   width: 36px;
   height: 500px;
@@ -319,13 +321,20 @@
 
 /* Figma spine segment 11 — final downward detail; 50px overlap with seg 10 (4268 + 500 − 50) */
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-11 {
-  top: 4827px;
+  top: 4766px;
   bottom: auto;
   width: 36px;
   height: 500px;
   z-index: 16;
   overflow: visible;
   transform: translateX(calc(-50% - 10px));
+}
+
+/* Desktop frozen — solid stroke; mobile sec 12 uses inline top fade on same host */
+@media (min-width: 701px) {
+  .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-11 .squiggle-paint[data-squiggle-stroke-gradient] {
+    stroke: currentColor;
+  }
 }
 
 .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma .timeline-squiggle-svg {
@@ -523,4 +532,35 @@
 
 .timeline-process-fade.is-hidden .timeline-process-reveal-btn {
   pointer-events: none;
+}
+
+/* TEMP — squiggle section numbers (Nespresso tuning guide; remove attrs + this block when done) */
+.timeline--nespresso-sandbox.timeline--squiggle [data-squiggle-section]::after {
+  content: attr(data-squiggle-section);
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'HelveticaCondensed', Arial, Helvetica, sans-serif;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: color-mix(in srgb, var(--page-text) 38%, transparent);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+@media (min-width: 701px) {
+  /* Section labels are mobile tuning aids only — never show on desktop */
+  .timeline--nespresso-sandbox.timeline--squiggle [data-squiggle-section]::after {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  /* Mobile figma-11 tail below 11C — label 12 (11ABC knot stays 11 on mobile-b) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-11[data-squiggle-section-mobile]::after {
+    content: attr(data-squiggle-section-mobile);
+  }
 }

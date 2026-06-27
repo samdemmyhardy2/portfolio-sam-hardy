@@ -1,0 +1,42 @@
+---
+description: Nespresso desktop squiggle is frozen — never change without explicit approval
+alwaysApply: true
+---
+
+# Nespresso desktop squiggle — FROZEN
+
+The Nespresso **desktop** timeline squiggle (≥701px) is approved and must not be changed unless Sam explicitly asks.
+
+## Frozen files / blocks
+
+- `web-main/css/nespresso-sandbox.css` — **figma-1 through figma-11** host blocks (tops, width, height, transform, z-index)
+- Same file — **`@media (min-width: 701px)`** desktop row `nth-child` pins and `--timeline-full-height`
+- `web-main/projects/nespresso-page.html` — desktop hosts `--figma-1` … `--figma-11` (not `-mobile-a/b/c`)
+
+## Approved desktop tops (do not alter)
+
+| Segment | top |
+|---------|-----|
+| figma-1 | 259px |
+| figma-2 | 561px |
+| figma-3 | 1056px (53×484) |
+| figma-4 | 1490px |
+| figma-5 | 1947px |
+| figma-6 | 2413px |
+| figma-7 | 2867px |
+| figma-8 | 3295px |
+| figma-9 | 3755px |
+| figma-10 | 4268px |
+| figma-11 | 4766px |
+
+## Mobile work goes elsewhere
+
+- All mobile squiggle tuning: `web-main/css/mobile-case-nav.css` (`@media (max-width: 700px)`)
+- Mobile-only HTML hosts: classes containing `-mobile-` and `--nespresso-mobile`
+- When restoring or merging mobile branches, **cherry-pick mobile only** — never overwrite the frozen desktop block above
+
+## Do not
+
+- Nudge desktop `top` values while tuning mobile
+- Copy mobile-branch desktop figma CSS onto main
+- Change desktop figma-3 back to `wagamama-spine-03-fade.svg` or 61×545 frame

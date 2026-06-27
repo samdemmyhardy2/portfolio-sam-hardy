@@ -1,0 +1,41 @@
+---
+description: Nespresso mobile timeline row CSS — no ~ stack rules that override exact N-chains
+globs: web-main/css/mobile-case-nav.css,web-main/projects/nespresso-page.html
+alwaysApply: false
+---
+
+# Nespresso mobile row cascade (no stuck chains)
+
+Mobile Nespresso timeline rows in `mobile-case-nav.css` use independent `translateY` per row. **`~ .timeline-item` stack rules override exact per-row chains** when the stack selector is longer / later and the row only has a class hook.
+
+## What broke (repeat offender)
+
+```css
+/* BAD — ~ hits rows 10–12; beats class-only row 12 */
+.header + .item × 8 + .item ~ .item { transform: translateY(3473px); }
+
+/* LOSES — class-only specificity too low */
+.timeline-item--nespresso-mobile-only { transform: translateY(12011px); }
+```
+
+Mega menu row 12 was stuck at **3473px** while edits to **12011px** appeared to do nothing.
+
+## Do
+
+- **One exact N-chain per independently tuned row** — count `.timeline-item` siblings after `.timeline-header` (row 12 = 12× `+ .timeline-item`).
+- End the chain on the row’s class when it has one, e.g. `+ .timeline-item.timeline-item--nespresso-mobile-only`.
+- If a baseline stack rule is needed, use **exact chain only** — no `~ .timeline-item` on rows that have (or will have) per-row chains below.
+- On any remaining `~` baselines, exclude mobile-only rows:  
+  `~ .timeline-item:not(.timeline-item--nespresso-mobile-only)`.
+
+## Do not
+
+- Add `~ .timeline-item { transform: … }` below row 8+ when rows 9–12 already have exact chains.
+- Move a row with **class-only** selectors when rows above use long `~` stacks.
+- Split image/text with flex `order` — move the whole `.timeline-item` (see `timeline-image-text-linked`).
+- **Revert or “restore” sections 1–10** when fixing row 12 cascade — append a 12-chain rule only; leave approved squiggle/row values untouched.
+
+## Required check after row/squiggle tuning
+
+1. Edit row `translateY` → hard refresh → row actually moves.
+2. If a row ignores CSS, grep `mobile-case-nav.css` for `~ .timeline-item` and compare selector specificity vs the row’s N-chain.
