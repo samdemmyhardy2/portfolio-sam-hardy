@@ -1,0 +1,17 @@
+/*
+ * Nespresso mobile — ROW 12 ONLY (mega menu).
+ * Edit this file for row 12 / squiggle-12 gap tuning.
+ * NEVER edit mobile-case-nav.css rows 1–11 or ~ stack rules.
+ */
+@media (max-width: 700px) {
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item.timeline-item--nespresso-mobile-only,
+  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-item.timeline-item--nespresso-mobile-only {
+    display: flex !important;
+    transform: translateY(4600px) !important;
+  }
+
+  /* Sec 12 tail — up 150px (isolated from rows 1–11) */
+  body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-11 {
+    top: calc(var(--nespresso-mobile-squiggle-12-top) - 150px) !important;
+  }
+}

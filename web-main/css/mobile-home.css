@@ -62,13 +62,27 @@
     opacity: 1;
   }
 
+  /* Figma 16px page margins — match case-study mobile shell */
+  .mainpage:has(#hero-home) {
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 0;
+    max-width: 100%;
+  }
+
+  .mainpage:has(#hero-home) > .hero {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+
   /* Production home — swap desktop vector rows for composite mobile nav */
   #hero-home {
     outline: none;
     gap: 0;
     width: 100%;
     margin: 0;
-    padding: 33px 16px 0;
+    padding: 33px 0 0;
   }
 
   #hero-home .hero-row,

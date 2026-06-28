@@ -332,8 +332,12 @@
 
 /* Desktop frozen — solid stroke; mobile sec 12 uses inline top fade on same host */
 @media (min-width: 701px) {
+  .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-11 {
+    display: block;
+  }
+
   .timeline--nespresso-sandbox.timeline--squiggle .timeline-squiggle-host--figma-11 .squiggle-paint[data-squiggle-stroke-gradient] {
-    stroke: currentColor;
+    stroke: currentColor !important;
   }
 }
 

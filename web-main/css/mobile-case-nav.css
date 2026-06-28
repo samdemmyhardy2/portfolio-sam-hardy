@@ -394,7 +394,7 @@
 
   /* Nespresso — row translateY offset (footer margin; do not pad timeline — moves reveal btn) */
   body:has(#hero-principal):has(.timeline--nespresso-sandbox) {
-    --nespresso-mobile-row-offset: 11445px;
+    --nespresso-mobile-row-offset: 5357px;
   }
 
   /* Squiggle 2 — below first row image + text (margin + block + gap) */
@@ -679,16 +679,12 @@
     transform: translateY(4841px);
   }
 
-  /* Nespresso — Pattern exploration (row 11; image + text together; +300px independent nudge) */
+  /* Nespresso — Pattern exploration (row 11; image + text together; +1100px independent nudge) */
   body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item {
-    transform: translateY(5871px);
+    transform: translateY(6273px);
   }
 
-  /* Nespresso — Mega menu (row 12; 12-chain beats ~ stack — image + text together) */
-  body:has(#hero-principal) .timeline--nespresso-sandbox.timeline--squiggle .timeline-header + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item + .timeline-item.timeline-item--nespresso-mobile-only {
-    display: flex;
-    transform: translateY(12011px);
-  }
+  /* Row 12 mega menu → nespresso-mobile-row-12.css (do not add row 12 rules here) */
 
   /* Temp: desktop figma 5–10 hidden on mobile (figma-11 tail shown in gap below 11C) */
   body:has(#hero-principal) .timeline--nespresso-sandbox .timeline-squiggle-host--figma-5,

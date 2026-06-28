@@ -1,41 +1,30 @@
 ---
-description: Nespresso mobile timeline row CSS — no ~ stack rules that override exact N-chains
-globs: web-main/css/mobile-case-nav.css,web-main/projects/nespresso-page.html
+description: Nespresso mobile rows 1–11 frozen — row 12 only in nespresso-mobile-row-12.css
+globs: web-main/css/mobile-case-nav.css,web-main/css/nespresso-mobile-row-12.css,web-main/projects/nespresso-page.html
 alwaysApply: false
 ---
 
-# Nespresso mobile row cascade (no stuck chains)
+# Nespresso mobile rows 1–11 FROZEN
 
-Mobile Nespresso timeline rows in `mobile-case-nav.css` use independent `translateY` per row. **`~ .timeline-item` stack rules override exact per-row chains** when the stack selector is longer / later and the row only has a class hook.
+Sam spent a full day tuning **sections / rows 1–11** and squiggles 1–11 in `mobile-case-nav.css`.
 
-## What broke (repeat offender)
+## Hard rule
 
-```css
-/* BAD — ~ hits rows 10–12; beats class-only row 12 */
-.header + .item × 8 + .item ~ .item { transform: translateY(3473px); }
+- **NEVER edit** `mobile-case-nav.css` for rows 1–11, squiggles 1–11, or any `~ .timeline-item` stack rule.
+- **NEVER** add `:not()` / remove / rewrite stack rules to fix row 12.
+- **NEVER** “restore” section 6 (or any 1–10) from an old git commit.
 
-/* LOSES — class-only specificity too low */
-.timeline-item--nespresso-mobile-only { transform: translateY(12011px); }
-```
+## Row 12 only
 
-Mega menu row 12 was stuck at **3473px** while edits to **12011px** appeared to do nothing.
+All mega menu / row 12 work lives in **`web-main/css/nespresso-mobile-row-12.css`** (loaded after `mobile-case-nav.css` on `nespresso-page.html`).
 
-## Do
+- Use `!important` on row 12 `transform` so `~` stacks in `mobile-case-nav.css` cannot override.
+- Move image + text together on `.timeline-item` — never flex `order` splits.
 
-- **One exact N-chain per independently tuned row** — count `.timeline-item` siblings after `.timeline-header` (row 12 = 12× `+ .timeline-item`).
-- End the chain on the row’s class when it has one, e.g. `+ .timeline-item.timeline-item--nespresso-mobile-only`.
-- If a baseline stack rule is needed, use **exact chain only** — no `~ .timeline-item` on rows that have (or will have) per-row chains below.
-- On any remaining `~` baselines, exclude mobile-only rows:  
-  `~ .timeline-item:not(.timeline-item--nespresso-mobile-only)`.
+## Squiggle 12
 
-## Do not
+Squiggle 12 tail position stays in `mobile-case-nav.css` only if Sam explicitly asks; default row 12 content tuning is `nespresso-mobile-row-12.css`.
 
-- Add `~ .timeline-item { transform: … }` below row 8+ when rows 9–12 already have exact chains.
-- Move a row with **class-only** selectors when rows above use long `~` stacks.
-- Split image/text with flex `order` — move the whole `.timeline-item` (see `timeline-image-text-linked`).
-- **Revert or “restore” sections 1–10** when fixing row 12 cascade — append a 12-chain rule only; leave approved squiggle/row values untouched.
+## Required check
 
-## Required check after row/squiggle tuning
-
-1. Edit row `translateY` → hard refresh → row actually moves.
-2. If a row ignores CSS, grep `mobile-case-nav.css` for `~ .timeline-item` and compare selector specificity vs the row’s N-chain.
+After any row 12 change: hard refresh, confirm rows 1–10 still match saved commit `6bf6e97` baseline in `mobile-case-nav.css`.

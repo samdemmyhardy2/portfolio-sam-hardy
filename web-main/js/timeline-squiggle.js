@@ -275,6 +275,10 @@
         path.style.opacity = '';
         const stale = svg.querySelector('#' + gradId);
         if (stale) stale.remove();
+        if (window.matchMedia('(min-width: 701px)').matches && path.hasAttribute('data-squiggle-stroke-gradient')) {
+          path.setAttribute('stroke', 'currentColor');
+          return;
+        }
         const stroke = path.getAttribute('stroke') || '';
         if (!stroke.includes('url(#') && !path.hasAttribute('data-squiggle-stroke-gradient')) {
           path.setAttribute('stroke', 'currentColor');
